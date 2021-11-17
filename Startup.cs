@@ -9,6 +9,8 @@
 
 namespace HMS
 {
+    using System;
+
     using HMS.Areas.Identity.Data;
 
     using Microsoft.AspNetCore.Builder;
@@ -50,29 +52,18 @@ namespace HMS
         /// </param>
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<CookiePolicyOptions>(options =>
-            //    {
-            //        options.CheckConsentNeeded = context => true;
-            //        options.MinimumSameSitePolicy = SameSiteMode.None;
-            //    });
-
             services.AddControllersWithViews();
 
             services.AddRazorPages();
 
-            //services.AddMvc()
-            //    .AddRazorPagesOptions(options =>
-            //        {
-            //            // options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-            //            options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-            //        });
-
-            //services.ConfigureApplicationCookie(options =>
-            //    {
-            //        options.LoginPath = $"/Identity/Account/Login";
-            //        options.LogoutPath = $"/Identity/Account/Logout";
-            //        options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-            //    });
+            // Adding Session
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+                {
+                    options.IdleTimeout = TimeSpan.FromDays(10);
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.IsEssential = true;
+                });
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -107,6 +98,8 @@ namespace HMS
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

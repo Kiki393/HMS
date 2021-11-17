@@ -24,9 +24,24 @@ namespace HMS.Controllers
     /// </summary>
     public class AccountController : Controller
     {
+        /// <summary>
+        /// The db.
+        /// </summary>
         private readonly ApplicationDbContext db;
+
+        /// <summary>
+        /// The user manager.
+        /// </summary>
         private readonly UserManager<ApplicationUser> userManager;
+
+        /// <summary>
+        /// The sign in manager.
+        /// </summary>
         private readonly SignInManager<ApplicationUser> signInManager;
+
+        /// <summary>
+        /// The role manager.
+        /// </summary>
         private readonly RoleManager<IdentityRole> roleManager;
 
         /// <summary>
@@ -77,51 +92,56 @@ namespace HMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVm model)
         {
-            if (this.ModelState.IsValid)
+            switch (this.ModelState.IsValid)
             {
-                var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-                if (result.Succeeded)
-                {
-                    var user = await this.userManager.FindByNameAsync(model.Email);
-                    this.HttpContext.Session.SetString("ssuserName", user.Name);
-                    var roles = await this.userManager.GetRolesAsync(user);
-                    if (roles.Contains("Admin"))
+                case true:
                     {
-                        return this.RedirectToAction("Index", "Admin");
+                        var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                        if (result.Succeeded)
+                        {
+                            var user = await this.userManager.FindByNameAsync(model.Email);
+                            this.HttpContext.Session.SetString("ssuserName", user.Name);
+                            var roles = await this.userManager.GetRolesAsync(user);
+                            if (roles.Contains("Admin"))
+                            {
+                                return this.RedirectToAction("Index", "Admin");
+                            }
+                            else if (roles.Contains("Nurse"))
+                            {
+                                return this.RedirectToAction("Index", "Nurse");
+                            }
+                            else if (roles.Contains("Doctor"))
+                            {
+                                return this.RedirectToAction("Index", "Doctor");
+                            }
+                            else if (roles.Contains("Receptionist"))
+                            {
+                                return this.RedirectToAction("Index", "Receptionist");
+                            }
+                            else if (roles.Contains("Lab Technician"))
+                            {
+                                return this.RedirectToAction("Index", "Lab");
+                            }
+                            else if (roles.Contains("Pharmacist"))
+                            {
+                                return this.RedirectToAction("Index", "Pharmacy");
+                            }
+                            else if (roles.Contains("Cashier"))
+                            {
+                                return this.RedirectToAction("Index", "Cashier");
+                            }
+                            else
+                            {
+                                return this.RedirectToAction("Index", "Home");
+                            }
+                        }
+                        else
+                        {
+                            this.ModelState.AddModelError(string.Empty, "Email or Password is incorrect.");
+                        }
+
+                        break;
                     }
-                    else if (roles.Contains("Nurse"))
-                    {
-                        return this.RedirectToAction("Index", "Nurse");
-                    }
-                    else if (roles.Contains("Doctor"))
-                    {
-                        return this.RedirectToAction("Index", "Doctor");
-                    }
-                    else if (roles.Contains("Receptionist"))
-                    {
-                        return this.RedirectToAction("Index", "Receptionist");
-                    }
-                    else if (roles.Contains("Lab Technician"))
-                    {
-                        return this.RedirectToAction("Index", "Lab");
-                    }
-                    else if (roles.Contains("Pharmacist"))
-                    {
-                        return this.RedirectToAction("Index", "Pharmacy");
-                    }
-                    else if (roles.Contains("Cashier"))
-                    {
-                        return this.RedirectToAction("Index", "Cashier");
-                    }
-                    else
-                    {
-                        return this.RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    this.ModelState.AddModelError(string.Empty, "Email or Password is incorrect.");
-                }
             }
 
             return this.View(model);
