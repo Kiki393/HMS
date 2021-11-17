@@ -27,22 +27,22 @@ namespace HMS.Controllers
         /// <summary>
         /// The db.
         /// </summary>
-        private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext _db;
 
         /// <summary>
         /// The user manager.
         /// </summary>
-        private readonly UserManager<ApplicationUser> userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         /// <summary>
         /// The sign in manager.
         /// </summary>
-        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         /// <summary>
         /// The role manager.
         /// </summary>
-        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
@@ -61,10 +61,10 @@ namespace HMS.Controllers
         /// </param>
         public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
-            this.db = db;
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.roleManager = roleManager;
+            this._db = db;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
         }
 
         /// <summary>
@@ -96,12 +96,12 @@ namespace HMS.Controllers
             {
                 case true:
                     {
-                        var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                        var result = await this._signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                         if (result.Succeeded)
                         {
-                            var user = await this.userManager.FindByNameAsync(model.Email);
+                            var user = await this._userManager.FindByNameAsync(model.Email);
                             this.HttpContext.Session.SetString("ssuserName", user.Name);
-                            var roles = await this.userManager.GetRolesAsync(user);
+                            var roles = await this._userManager.GetRolesAsync(user);
                             if (roles.Contains("Admin"))
                             {
                                 return this.RedirectToAction("Index", "Admin");
@@ -155,15 +155,15 @@ namespace HMS.Controllers
         /// </returns>
         public async Task<IActionResult> Register()
         {
-            if (!this.roleManager.RoleExistsAsync(UserRoles.Admin).GetAwaiter().GetResult())
+            if (!this._roleManager.RoleExistsAsync(UserRoles.Admin).GetAwaiter().GetResult())
             {
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Doctor));
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Nurse));
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Cashier));
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Lab));
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Pharmacy));
-                await this.roleManager.CreateAsync(new IdentityRole(UserRoles.Receptionist));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Doctor));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Nurse));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Cashier));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Lab));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Pharmacy));
+                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Receptionist));
             }
 
             return this.View();
@@ -192,13 +192,13 @@ namespace HMS.Controllers
                     Name = model.Name
                 };
 
-                var result = await this.userManager.CreateAsync(user, model.Password);
+                var result = await this._userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this.userManager.AddToRoleAsync(user, model.RoleName);
+                    await this._userManager.AddToRoleAsync(user, model.RoleName);
                     if (!this.User.IsInRole(UserRoles.Admin))
                     {
-                        await this.signInManager.SignInAsync(user, isPersistent: false);
+                        await this._signInManager.SignInAsync(user, isPersistent: false);
                     }
                     else
                     {
@@ -227,7 +227,7 @@ namespace HMS.Controllers
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
-            await this.signInManager.SignOutAsync();
+            await this._signInManager.SignOutAsync();
             return this.RedirectToAction("Login", "Account");
         }
     }
