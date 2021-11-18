@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Patients>
+
+@{
+    ViewData["Title"] = "Patients";
+    Layout = "_AdminLayout";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Patients</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Patients</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All Patients</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (Model.Any())
+            {
+                <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                Patient ID
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Date of birth
+                            </th>
+                            <th>
+                                Age
+                            </th>
+                            <th>
+                                Phone Number
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Address
+                            </th>
+                            <th>
+                                Edit
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td width="15%">@item.PatientId</td>
+                            <td width="15%">@item.Name</td>
+                            <td width="15%">@item.Dob</td>
+                            <td width="15%">@item.Age</td>
+                            <td width="15%">@item.Contact</td>
+                            <td width="15%">@item.Email</td>
+                            <td width="15%">@item.Address</td>
+                            <td width="15%">
+                                <div class="w-100 btn-group" role="group">
+                                    <a asp-controller="Patient" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-1">Edit</a>
+                                    <a asp-controller="Patient" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No patients added.</p>
+            }
+            </div>
+        </div>
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>

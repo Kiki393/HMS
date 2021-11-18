@@ -12,6 +12,7 @@ namespace HMS
     using System;
 
     using HMS.Areas.Identity.Data;
+    using HMS.Services;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -55,6 +56,10 @@ namespace HMS
             services.AddControllersWithViews();
 
             services.AddRazorPages();
+
+            services.AddTransient<IAppointmentService, AppointmentService>();
+
+            services.AddHttpContextAccessor();
 
             // Adding Session
             services.AddDistributedMemoryCache();

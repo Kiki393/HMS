@@ -1,0 +1,60 @@
+﻿@model HMS.Models.ViewModels.PatientVm
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Patients</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input hidden asp-for="Patients.Id" />
+            <div class="form-group">
+                <label asp-for="Patients.PatientId" class="control-label"></label>
+                <input asp-for="Patients.PatientId" class="form-control" />
+                <span asp-validation-for="Patients.PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patients.Name" class="control-label"></label>
+                <input asp-for="Patients.Name" class="form-control" />
+                <span asp-validation-for="Patients.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patients.Dob" class="control-label"></label>
+                <input type="date" asp-for="Patients.Dob" class="form-control" />
+                <span asp-validation-for="Patients.Dob" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patients.Age" class="control-label"></label>
+                <input asp-for="Patients.Age" class="form-control" />
+                <span asp-validation-for="Patients.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patients.Contact" class="control-label"></label>
+                <input asp-for="Patients.Contact" class="form-control" />
+                <span asp-validation-for="Patients.Contact" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patients.Address" class="control-label"></label>
+                <input asp-for="Patients.Address" class="form-control" />
+                <span asp-validation-for="Patients.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
