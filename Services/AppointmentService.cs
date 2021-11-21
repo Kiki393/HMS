@@ -19,29 +19,38 @@ namespace HMS.Services
     using HMS.Models.ViewModels;
     using HMS.Utilities;
 
+    using Microsoft.AspNetCore.Identity.UI.Services;
+
     /// <summary>
     /// The appointment service.
     /// </summary>
     public class AppointmentService : IAppointmentService
     {
         /// <summary>
-        /// The _db.
+        /// The _database.
         /// </summary>
         private readonly ApplicationDbContext db;
+
+        /// <summary>
+        /// The _email sender.
+        /// </summary>
+        private readonly IEmailSender emailSender;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentService"/> class.
         /// The appointment service.
         /// </summary>
         /// <param name="db">
-        /// The db.
+        /// The database.
         /// </param>
-        /// private readonly IEmailSender _emailSender;
-        public AppointmentService(ApplicationDbContext db /*IEmailSender emailSender*/)
+        /// <param name="emailSender">
+        /// The email Sender.
+        /// </param>
+        public AppointmentService(ApplicationDbContext db, IEmailSender emailSender)
         {
             this.db = db;
 
-            // _emailSender = emailSender;
+            this.emailSender = emailSender;
         }
 
         /// <summary>
@@ -95,11 +104,16 @@ namespace HMS.Services
                     AdminId = model.AdminId
                 };
 
-                // await _emailSender.SendEmailAsync(doctor.Email, "Appointment Created",
-                //    $"Your appointment with {patient.Name} has been created and is pending confirmation.");
-                // await _emailSender.SendEmailAsync(patient.Email, "Appointment Created",
-                //    $"Your appointment with {doctor.Name} has been created and is pending confirmation.");
-                // Add send email on delete appointment
+                // Sends and email to both doctor and patient on the status of an appointment
+                await this.emailSender.SendEmailAsync(
+                    doctor.Email,
+                    "Appointment Created",
+                    $"Your appointment with {patient.Name} has been created and is pending confirmation.");
+                await this.emailSender.SendEmailAsync(
+                    patient.Email,
+                    "Appointment Created",
+                    $"Your appointment with {doctor.Name} has been created and is pending confirmation.");
+
                 this.db.Appointments.Add(appointment);
                 await this.db.SaveChangesAsync();
 

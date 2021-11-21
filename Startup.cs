@@ -12,12 +12,14 @@ namespace HMS
     using System;
 
     using HMS.Areas.Identity.Data;
+    using HMS.Email;
     using HMS.Services;
 
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -65,10 +67,12 @@ namespace HMS
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
                 {
-                    options.IdleTimeout = TimeSpan.FromDays(10);
+                    options.IdleTimeout = TimeSpan.FromMinutes(10);
                     options.Cookie.HttpOnly = true;
                     options.Cookie.IsEssential = true;
                 });
+
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

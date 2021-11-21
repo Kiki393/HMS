@@ -2,60 +2,108 @@
 
 @{
     ViewData["Title"] = "Add New Patient";
-
+    Layout = "_AdminLayout";
 }
 
-<h1>Add a new patient.</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PatientId"></label>
-                <input asp-for="PatientId" class="form-control" />
-                <span asp-validation-for="PatientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dob"></label>
-                <input type="date" asp-for="Dob" class="form-control" />
-                <span asp-validation-for="Dob" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Age"></label>
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Contact"></label>
-                <input asp-for="Contact" class="form-control" />
-                <span asp-validation-for="Contact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<!DOCTYPE html>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add New Patient</title>
+</head>
+<body>
+    <main>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">New Patients</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index">Patients</a></li>
+                <li class="breadcrumb-item active">Add New Patient</li>
+            </ol>
+
+            <!-- Body -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Add New Patient</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <form asp-action="Create" method="post" id="patient" class="mt-4">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                
+                                <div class="form-floating mb-3">
+                                    <input asp-for="PatientId" class="form-control" placeholder="Patient ID" />
+                                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                                    <label asp-for="PatientId"></label>
+                                </div>
+
+                                @*<div class="form-group">
+                                    <label asp-for="PatientId"></label>
+                                    <input asp-for="PatientId" class="form-control" />
+                                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                                </div>*@
+
+                                <div class="form-floating mb-3">
+                                    <label asp-for="Name"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <label asp-for="Dob"></label>
+                                    <input type="date" asp-for="Dob" class="form-control" />
+                                    <span asp-validation-for="Dob" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <label asp-for="Age"></label>
+                                    <input asp-for="Age" class="form-control" />
+                                    <span asp-validation-for="Age" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <label asp-for="Contact"></label>
+                                    <input asp-for="Contact" class="form-control" />
+                                    <span asp-validation-for="Contact" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <label asp-for="Email"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <label asp-for="Address"></label>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+        </div>
+    </main>
+</body>
+</html>
 
 @section Scripts
 {

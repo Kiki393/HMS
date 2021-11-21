@@ -2,57 +2,96 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_AdminLayout";
 }
 
-<h1>Edit</h1>
+<!DOCTYPE html>
 
-<h4>Patients</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input hidden asp-for="Patients.Id" />
-            <div class="form-group">
-                <label asp-for="Patients.PatientId" class="control-label"></label>
-                <input asp-for="Patients.PatientId" class="form-control" />
-                <span asp-validation-for="Patients.PatientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Patients.Name" class="control-label"></label>
-                <input asp-for="Patients.Name" class="form-control" />
-                <span asp-validation-for="Patients.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Patients.Dob" class="control-label"></label>
-                <input type="date" asp-for="Patients.Dob" class="form-control" />
-                <span asp-validation-for="Patients.Dob" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Patients.Age" class="control-label"></label>
-                <input asp-for="Patients.Age" class="form-control" />
-                <span asp-validation-for="Patients.Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Patients.Contact" class="control-label"></label>
-                <input asp-for="Patients.Contact" class="form-control" />
-                <span asp-validation-for="Patients.Contact" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Patients.Address" class="control-label"></label>
-                <input asp-for="Patients.Address" class="form-control" />
-                <span asp-validation-for="Patients.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit Patient Details</title>
+</head>
+<body>
+    <main>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index">Patients</a></li>
+                <li class="breadcrumb-item active">Edit Patient Details</li>
+            </ol>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+            <!-- Body -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Edit Patient Details</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <form asp-action="Edit" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input hidden asp-for="Patients.Id" />
+
+                                <div class="form-group">
+                                    <label asp-for="Patients.PatientId" class="control-label"></label>
+                                    <input asp-for="Patients.PatientId" class="form-control" />
+                                    <span asp-validation-for="Patients.PatientId" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Patients.Name" class="control-label"></label>
+                                    <input asp-for="Patients.Name" class="form-control" />
+                                    <span asp-validation-for="Patients.Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Patients.Dob" class="control-label"></label>
+                                    <input type="date" asp-for="Patients.Dob" class="form-control" />
+                                    <span asp-validation-for="Patients.Dob" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Patients.Age" class="control-label"></label>
+                                    <input asp-for="Patients.Age" class="form-control" />
+                                    <span asp-validation-for="Patients.Age" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Patients.Contact" class="control-label"></label>
+                                    <input asp-for="Patients.Contact" class="form-control" />
+                                    <span asp-validation-for="Patients.Contact" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Patients.Address" class="control-label"></label>
+                                    <input asp-for="Patients.Address" class="form-control" />
+                                    <span asp-validation-for="Patients.Address" class="text-danger"></span>
+                                </div>
+
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+        </div>
+    </main>
+</body>
+</html>
 
 @section Scripts
 {

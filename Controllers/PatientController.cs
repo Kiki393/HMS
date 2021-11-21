@@ -10,7 +10,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    public class PatientController : Controller
+    public partial class PatientController : Controller
     {
         private readonly ApplicationDbContext _db;
 

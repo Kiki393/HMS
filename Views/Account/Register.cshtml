@@ -27,7 +27,7 @@
                         Back to homepage
                     </a>
                 </p>
-                <div class="row justify-content-center form-bg-image" data-background-lg="../../assets/img/illustrations/signin.svg">
+                <div class="row justify-content-center form-bg-image" data-background-lg="~/assets/img/illustrations/signin.svg">
                     <div class="col-12 d-flex align-items-center justify-content-center">
                         <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                             <div class="text-center text-md-center mb-4 mt-md-0">
@@ -75,7 +75,7 @@
                                     <div class="form-group form-floating mb-3">
                                         <div>
                                             <select asp-for="RoleName"
-                                                    asp-items="@DropDowns.GetRolesForDropDown(User.IsInRole(UserRoles.Admin))" class="form-select">
+                                                    asp-items="@DropDowns.GetRolesForDropDown(User.IsInRole(UserRoles.Admin))" class="form-select" aria-label="Select Role">
                                                 <option selected>Select Role</option>
                                             </select>
                                             <span asp-validation-for="RoleName" class="text-danger"></span>
