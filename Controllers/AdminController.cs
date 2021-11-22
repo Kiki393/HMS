@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AdminController.cs" company="">
-//
+// <copyright file="AdminController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the AdminController type.

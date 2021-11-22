@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationUser.cs" company="">
-//
+// <copyright file="ApplicationUser.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the ApplicationUser type.

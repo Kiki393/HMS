@@ -7,19 +7,16 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using NToastNotify;
-
 namespace HMS.Controllers
 {
     using System.Threading.Tasks;
-
     using HMS.Areas.Identity.Data;
     using HMS.Models.ViewModels;
     using HMS.Utilities;
-
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using NToastNotify;
 
     /// <summary>
     /// The account controller.
@@ -54,18 +51,9 @@ namespace HMS.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
-        public AccountController(IToastNotification toastNotification, ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
-        {
-            _toastNotification = toastNotification;
-            _db = db;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
-        /// </summary>
+        /// <param name="toastNotification">
+        /// The toast notification.
+        /// </param>
         /// <param name="db">
         /// The database.
         /// </param>
@@ -78,6 +66,14 @@ namespace HMS.Controllers
         /// <param name="roleManager">
         /// The role manager.
         /// </param>
+        public AccountController(IToastNotification toastNotification, ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        {
+            this._toastNotification = toastNotification;
+            this._db = db;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
+        }
 
         /// <summary>
         /// The login.
@@ -201,7 +197,7 @@ namespace HMS.Controllers
                 {
                     UserName = model.Username,
                     Email = model.Email,
-                    Name = model.Name
+                    Name = model.Name,
                 };
 
                 var result = await this._userManager.CreateAsync(user, model.Password);
@@ -217,7 +213,7 @@ namespace HMS.Controllers
                         this.TempData["newAdminSignUp"] = user.Name;
                     }
 
-                    _toastNotification.AddSuccessToastMessage("Account Created Successfully");
+                    this._toastNotification.AddSuccessToastMessage("Account Created Successfully");
                     return this.RedirectToAction("Login", "Account");
                 }
                 else

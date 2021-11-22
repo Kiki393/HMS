@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Startup.cs" company="">
-//
+// <copyright file="Startup.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the Startup type.

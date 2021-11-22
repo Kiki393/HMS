@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DoctorVM.cs" company="">
-//
+// <copyright file="DoctorVM.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   The doctor view model.

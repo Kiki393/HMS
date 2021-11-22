@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IdentityHostingStartup.cs" company="">
-//
+// <copyright file="IdentityHostingStartup.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the IdentityHostingStartup type.

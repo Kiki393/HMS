@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="CashierController.cs" company="">
-//
+// <copyright file="CashierController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the CashierController type.
@@ -9,11 +9,13 @@
 
 namespace HMS.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// The cashier controller.
     /// </summary>
+    [Authorize(Roles = "Cashier")]
     public class CashierController : Controller
     {
         /// <summary>

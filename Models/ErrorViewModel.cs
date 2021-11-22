@@ -1,5 +1,5 @@
-// <copyright file="ErrorViewModel.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="ErrorViewModel.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 
 namespace HMS.Models

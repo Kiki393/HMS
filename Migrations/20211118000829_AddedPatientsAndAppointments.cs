@@ -1,5 +1,5 @@
-﻿// <copyright file="20211118000829_AddedPatientsAndAppointments.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="20211118000829_AddedPatientsAndAppointments.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 
 namespace HMS.Migrations
@@ -25,7 +25,7 @@ namespace HMS.Migrations
                     DoctorId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDoctorApproved = table.Column<bool>(type: "bit", nullable: false),
-                    AdminId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    AdminId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {
@@ -45,7 +45,7 @@ namespace HMS.Migrations
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Diagnosis = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Diagnosis = table.Column<string>(type: "nvarchar(max)", nullable: true),
                 },
                 constraints: table =>
                 {

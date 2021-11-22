@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppointmentService.cs" company="">
-//
+// <copyright file="AppointmentService.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the AppointmentService type.
@@ -101,7 +101,7 @@ namespace HMS.Services
                     DoctorId = model.DoctorId,
                     PatientId = model.PatientId,
                     IsDoctorApproved = false,
-                    AdminId = model.AdminId
+                    AdminId = model.AdminId,
                 };
 
                 // Sends and email to both doctor and patient on the status of an appointment
@@ -182,7 +182,7 @@ namespace HMS.Services
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
-                IsDoctorApproved = c.IsDoctorApproved
+                IsDoctorApproved = c.IsDoctorApproved,
             }).ToList();
         }
 
@@ -227,7 +227,7 @@ namespace HMS.Services
                            select new DoctorVm()
                            {
                                Id = user.Id,
-                               Name = user.Name
+                               Name = user.Name,
                            }).ToList();
 
             return doctors;
@@ -246,7 +246,7 @@ namespace HMS.Services
                             select new Patients()
                             {
                                 Id = patient.Id,
-                                Name = patient.Name
+                                Name = patient.Name,
                             }).ToList();
 
             return patients;
@@ -271,7 +271,7 @@ namespace HMS.Services
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
-                IsDoctorApproved = c.IsDoctorApproved
+                IsDoctorApproved = c.IsDoctorApproved,
             }).ToList();
         }
     }

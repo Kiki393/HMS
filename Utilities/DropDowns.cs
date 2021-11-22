@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DropDowns.cs" company="">
-//
+// <copyright file="DropDowns.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the DropDowns type.
@@ -39,7 +39,7 @@ namespace HMS.Utilities
                                new SelectListItem { Value = UserRoles.Cashier, Text = UserRoles.Cashier },
                                new SelectListItem { Value = UserRoles.Lab, Text = UserRoles.Lab },
                                new SelectListItem { Value = UserRoles.Pharmacy, Text = UserRoles.Pharmacy },
-                               new SelectListItem { Value = UserRoles.Receptionist, Text = UserRoles.Receptionist }
+                               new SelectListItem { Value = UserRoles.Receptionist, Text = UserRoles.Receptionist },
                            };
             }
             else
@@ -51,7 +51,7 @@ namespace HMS.Utilities
                                new SelectListItem { Value = UserRoles.Cashier, Text = UserRoles.Cashier },
                                new SelectListItem { Value = UserRoles.Lab, Text = UserRoles.Lab },
                                new SelectListItem { Value = UserRoles.Pharmacy, Text = UserRoles.Pharmacy },
-                               new SelectListItem { Value = UserRoles.Receptionist, Text = UserRoles.Receptionist }
+                               new SelectListItem { Value = UserRoles.Receptionist, Text = UserRoles.Receptionist },
                            };
             }
         }

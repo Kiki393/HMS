@@ -1,5 +1,5 @@
-﻿// <copyright file="PatientController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="PatientController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 
 namespace HMS.Controllers
@@ -21,7 +21,9 @@ namespace HMS.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientController"/> class.
         /// </summary>
-        /// <param name="db"></param>
+        /// <param name="db">
+        /// The database.
+        /// </param>
         public PatientController(ApplicationDbContext db)
         {
             this._db = db;

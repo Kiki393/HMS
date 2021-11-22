@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="EmailSender.cs" company="">
-//
+// <copyright file="EmailSender.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the EmailSender type.
@@ -58,7 +58,7 @@ namespace HMS.Email
                                 { "To", new JArray { new JObject { { "Email", email }, } } },
                                 { "Subject", subject },
                                 { "HTMLPart", htmlMessage }
-                            }
+                            },
                     });
             var response = await client.PostAsync(request);
         }

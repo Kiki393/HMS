@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ApplicationDbContext.cs" company="">
-//
+// <copyright file="ApplicationDbContext.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the ApplicationDbContext type.

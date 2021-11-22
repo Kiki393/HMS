@@ -1,5 +1,5 @@
-// <copyright file="Program.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="Program.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 
 namespace HMS

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PharmacyController.cs" company="">
-//
+// <copyright file="PharmacyController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the PharmacyController type.
@@ -9,11 +9,13 @@
 
 namespace HMS.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// The pharmacy controller.
     /// </summary>
+    [Authorize(Roles = "Pharmacist")]
     public class PharmacyController : Controller
     {
         /// <summary>

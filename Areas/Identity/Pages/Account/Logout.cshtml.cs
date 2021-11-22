@@ -1,5 +1,5 @@
-﻿// <copyright file="Logout.cshtml.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="Logout.cshtml.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 
 namespace HMS.Areas.Identity.Pages.Account

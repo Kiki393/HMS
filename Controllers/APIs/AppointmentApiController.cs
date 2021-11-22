@@ -1,5 +1,5 @@
-﻿// <copyright file="AppointmentApiController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="AppointmentApiController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 
 namespace HMS.Controllers.APIs
