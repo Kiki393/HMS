@@ -22,7 +22,7 @@ namespace HMS.Controllers
         /// <summary>
         /// The appointment service.
         /// </summary>
-        private readonly IAppointmentService appointmentService;
+        private readonly IAppointmentService _appointmentService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentController"/> class.
@@ -32,7 +32,7 @@ namespace HMS.Controllers
         /// </param>
         public AppointmentController(IAppointmentService appointmentService)
         {
-            this.appointmentService = appointmentService;
+            this._appointmentService = appointmentService;
         }
 
         /// <summary>
@@ -43,8 +43,8 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            this.ViewBag.DocList = this.appointmentService.GetDoctorList();
-            this.ViewBag.PatientList = this.appointmentService.GetPatientList();
+            this.ViewBag.DocList = this._appointmentService.GetDoctorList();
+            this.ViewBag.PatientList = this._appointmentService.GetPatientList();
             this.ViewBag.Duration = DropDowns.GetTimeDropDown();
             return this.View();
         }

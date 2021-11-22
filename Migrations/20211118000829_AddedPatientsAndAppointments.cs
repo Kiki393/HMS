@@ -1,8 +1,12 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿// <copyright file="20211118000829_AddedPatientsAndAppointments.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace HMS.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedPatientsAndAppointments : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

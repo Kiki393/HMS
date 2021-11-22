@@ -1,4 +1,8 @@
-﻿namespace HMS.Models.ViewModels
+﻿// <copyright file="LoginVM.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HMS.Models.ViewModels
 {
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;

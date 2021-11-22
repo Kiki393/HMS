@@ -73,6 +73,8 @@ namespace HMS
                 });
 
             services.AddScoped<IEmailSender, EmailSender>();
+
+            services.AddMvc().AddNToastNotifyToastr();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,6 +111,8 @@ namespace HMS
             app.UseAuthorization();
 
             app.UseSession();
+
+            app.UseNToastNotify();
 
             app.UseEndpoints(endpoints =>
             {

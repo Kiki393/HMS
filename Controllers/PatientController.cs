@@ -1,4 +1,8 @@
-﻿namespace HMS.Controllers
+﻿// <copyright file="PatientController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HMS.Controllers
 {
     using System.Collections.Generic;
 
@@ -10,10 +14,14 @@
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
-    public partial class PatientController : Controller
+    public class PatientController : Controller
     {
         private readonly ApplicationDbContext _db;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientController"/> class.
+        /// </summary>
+        /// <param name="db"></param>
         public PatientController(ApplicationDbContext db)
         {
             this._db = db;
@@ -52,7 +60,7 @@
                 return this.View();
             }
 
-            return View(patients);
+            return this.View(patients);
         }
 
         // GET: PatientController/Edit/5
@@ -60,7 +68,7 @@
         {
             var patientVm = new PatientVm()
             {
-                Patients = new Patients()
+                Patients = new Patients(),
             };
 
             if (id is null or 0)
@@ -74,7 +82,7 @@
                 return this.NotFound();
             }
 
-            return View(patientVm);
+            return this.View(patientVm);
         }
 
         // POST: PatientController/Edit/5
@@ -91,7 +99,7 @@
                     return this.RedirectToAction("Index");
                 }
 
-                return View(obj);
+                return this.View(obj);
             }
             catch
             {
@@ -113,7 +121,7 @@
                 return this.NotFound();
             }
 
-            return View(obj);
+            return this.View(obj);
         }
 
         // POST: PatientController/Delete/5

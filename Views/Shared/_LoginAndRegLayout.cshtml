@@ -11,7 +11,7 @@
     <link type="text/css" href="~/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
     <!-- Notyf -->
-    <link type="text/css" href="~/vendor/notyf/notyf.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
 
     <!-- Volt CSS -->
     <link type="text/css" href="~/css/volt.css" rel="stylesheet">
@@ -39,6 +39,10 @@
 
     <!-- Volt JS -->
     <script src="~/assets/js/volt.js"></script>
+
+    <!-- Notyf -->
+    <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("NToastNotify")
 </body>
 </html>

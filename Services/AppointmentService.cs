@@ -29,12 +29,12 @@ namespace HMS.Services
         /// <summary>
         /// The _database.
         /// </summary>
-        private readonly ApplicationDbContext db;
+        private readonly ApplicationDbContext _db;
 
         /// <summary>
         /// The _email sender.
         /// </summary>
-        private readonly IEmailSender emailSender;
+        private readonly IEmailSender _emailSender;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentService"/> class.
@@ -48,9 +48,9 @@ namespace HMS.Services
         /// </param>
         public AppointmentService(ApplicationDbContext db, IEmailSender emailSender)
         {
-            this.db = db;
+            this._db = db;
 
-            this.emailSender = emailSender;
+            this._emailSender = emailSender;
         }
 
         /// <summary>
@@ -67,13 +67,13 @@ namespace HMS.Services
             var startDate = DateTime.Parse(model.StartDate);
             var endDate = DateTime.Parse(model.StartDate).AddMinutes(Convert.ToDouble(model.Duration));
 
-            var patient = this.db.Users.FirstOrDefault(u => u.Id == model.PatientId);
-            var doctor = this.db.Users.FirstOrDefault(u => u.Id == model.DoctorId);
+            var patient = this._db.Users.FirstOrDefault(u => u.Id == model.PatientId);
+            var doctor = this._db.Users.FirstOrDefault(u => u.Id == model.DoctorId);
 
             if (model != null && model.Id > 0)
             {
                 // update
-                var appointment = this.db.Appointments.FirstOrDefault(x => x.Id == model.Id);
+                var appointment = this._db.Appointments.FirstOrDefault(x => x.Id == model.Id);
                 appointment.Title = model.Title;
                 appointment.Description = model.Description;
                 appointment.StartDate = startDate;
@@ -84,7 +84,7 @@ namespace HMS.Services
                 appointment.IsDoctorApproved = false;
                 appointment.AdminId = model.AdminId;
 
-                await this.db.SaveChangesAsync();
+                await this._db.SaveChangesAsync();
 
                 return 1;
             }
@@ -105,17 +105,17 @@ namespace HMS.Services
                 };
 
                 // Sends and email to both doctor and patient on the status of an appointment
-                await this.emailSender.SendEmailAsync(
+                await this._emailSender.SendEmailAsync(
                     doctor.Email,
                     "Appointment Created",
                     $"Your appointment with {patient.Name} has been created and is pending confirmation.");
-                await this.emailSender.SendEmailAsync(
+                await this._emailSender.SendEmailAsync(
                     patient.Email,
                     "Appointment Created",
                     $"Your appointment with {doctor.Name} has been created and is pending confirmation.");
 
-                this.db.Appointments.Add(appointment);
-                await this.db.SaveChangesAsync();
+                this._db.Appointments.Add(appointment);
+                await this._db.SaveChangesAsync();
 
                 return 2;
             }
@@ -132,11 +132,11 @@ namespace HMS.Services
         /// </returns>
         public async Task<int> ConfirmEvent(int id)
         {
-            var appointment = this.db.Appointments.FirstOrDefault(x => x.Id == id);
+            var appointment = this._db.Appointments.FirstOrDefault(x => x.Id == id);
             if (appointment != null)
             {
                 appointment.IsDoctorApproved = true;
-                return await this.db.SaveChangesAsync();
+                return await this._db.SaveChangesAsync();
             }
 
             return 0;
@@ -153,11 +153,11 @@ namespace HMS.Services
         /// </returns>
         public async Task<int> Delete(int id)
         {
-            var appointment = this.db.Appointments.FirstOrDefault(x => x.Id == id);
+            var appointment = this._db.Appointments.FirstOrDefault(x => x.Id == id);
             if (appointment != null)
             {
-                this.db.Appointments.Remove(appointment);
-                return await this.db.SaveChangesAsync();
+                this._db.Appointments.Remove(appointment);
+                return await this._db.SaveChangesAsync();
             }
 
             return 0;
@@ -174,7 +174,7 @@ namespace HMS.Services
         /// </returns>
         public List<AppointmentVm> DoctorsEventsById(string doctorId)
         {
-            return this.db.Appointments.Where(x => x.DoctorId == doctorId).ToList().Select(c => new AppointmentVm()
+            return this._db.Appointments.Where(x => x.DoctorId == doctorId).ToList().Select(c => new AppointmentVm()
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -197,7 +197,7 @@ namespace HMS.Services
         /// </returns>
         public AppointmentVm GetById(int id)
         {
-            return this.db.Appointments.Where(x => x.Id == id).ToList().Select(c => new AppointmentVm()
+            return this._db.Appointments.Where(x => x.Id == id).ToList().Select(c => new AppointmentVm()
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -208,8 +208,8 @@ namespace HMS.Services
                 IsDoctorApproved = c.IsDoctorApproved,
                 PatientId = c.PatientId,
                 DoctorId = c.DoctorId,
-                PatientName = this.db.Users.Where(x => x.Id == c.PatientId).Select(x => x.Name).FirstOrDefault(),
-                DoctorName = this.db.Users.Where(x => x.Id == c.DoctorId).Select(x => x.Name).FirstOrDefault(),
+                PatientName = this._db.Users.Where(x => x.Id == c.PatientId).Select(x => x.Name).FirstOrDefault(),
+                DoctorName = this._db.Users.Where(x => x.Id == c.DoctorId).Select(x => x.Name).FirstOrDefault(),
             }).SingleOrDefault();
         }
 
@@ -221,9 +221,9 @@ namespace HMS.Services
         /// </returns>
         public List<DoctorVm> GetDoctorList()
         {
-            var doctors = (from user in this.db.Users
-                           join userRoles in this.db.UserRoles on user.Id equals userRoles.UserId
-                           join roles in this.db.Roles.Where(x => x.Name == UserRoles.Doctor) on userRoles.RoleId equals roles.Id
+            var doctors = (from user in this._db.Users
+                           join userRoles in this._db.UserRoles on user.Id equals userRoles.UserId
+                           join roles in this._db.Roles.Where(x => x.Name == UserRoles.Doctor) on userRoles.RoleId equals roles.Id
                            select new DoctorVm()
                            {
                                Id = user.Id,
@@ -241,7 +241,7 @@ namespace HMS.Services
         /// </returns>
         public List<Patients> GetPatientList()
         {
-            var patients = (from patient in this.db.Patients
+            var patients = (from patient in this._db.Patients
                             orderby patient.Name
                             select new Patients()
                             {
@@ -263,7 +263,7 @@ namespace HMS.Services
         /// </returns>
         public List<AppointmentVm> PatientsEventsById(string patientId)
         {
-            return this.db.Appointments.Where(x => x.PatientId == patientId).ToList().Select(c => new AppointmentVm()
+            return this._db.Appointments.Where(x => x.PatientId == patientId).ToList().Select(c => new AppointmentVm()
             {
                 Id = c.Id,
                 Description = c.Description,

@@ -6,7 +6,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="stylecop.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <AdditionalFiles Include="stylecop.json" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="bootstrap" Version="5.1.2" />
+		<PackageReference Include="jQuery" Version="3.6.0" />
 		<PackageReference Include="Mailjet.Api" Version="2.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
@@ -17,6 +26,12 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="NToastNotify" Version="7.0.0" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>

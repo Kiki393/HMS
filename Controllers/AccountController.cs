@@ -1,11 +1,13 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AccountController.cs" company="">
-//
+// <copyright file="AccountController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the AccountController type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
+
+using NToastNotify;
 
 namespace HMS.Controllers
 {
@@ -24,6 +26,11 @@ namespace HMS.Controllers
     /// </summary>
     public class AccountController : Controller
     {
+        /// <summary>
+        /// The toast notification.
+        /// </summary>
+        private readonly IToastNotification _toastNotification;
+
         /// <summary>
         /// The db.
         /// </summary>
@@ -47,6 +54,18 @@ namespace HMS.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
+        public AccountController(IToastNotification toastNotification, ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        {
+            _toastNotification = toastNotification;
+            _db = db;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
         /// <param name="db">
         /// The database.
         /// </param>
@@ -59,13 +78,6 @@ namespace HMS.Controllers
         /// <param name="roleManager">
         /// The role manager.
         /// </param>
-        public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
-        {
-            this._db = db;
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._roleManager = roleManager;
-        }
 
         /// <summary>
         /// The login.
@@ -204,7 +216,9 @@ namespace HMS.Controllers
                     {
                         this.TempData["newAdminSignUp"] = user.Name;
                     }
-                    return this.RedirectToAction("Index", "Home");
+
+                    _toastNotification.AddSuccessToastMessage("Account Created Successfully");
+                    return this.RedirectToAction("Login", "Account");
                 }
                 else
                 {
@@ -214,6 +228,7 @@ namespace HMS.Controllers
                     }
                 }
             }
+
             return this.View(model);
         }
 

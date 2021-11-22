@@ -1,4 +1,8 @@
-﻿namespace HMS.Controllers.APIs
+﻿// <copyright file="AppointmentApiController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HMS.Controllers.APIs
 {
     using System;
     using System.Collections.Generic;
@@ -21,6 +25,11 @@
         private readonly string _loggedInUserId;
         private readonly string _role;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppointmentApiController"/> class.
+        /// </summary>
+        /// <param name="appointmentService"></param>
+        /// <param name="httpContextAccessor"></param>
         public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor)
         {
             this._appointmentService = appointmentService;
@@ -49,7 +58,7 @@
                 commonResponse.Message = e.Message;
                 commonResponse.Status = NotificationMessages.failureCode;
             }
-            return Ok(commonResponse);
+            return this.Ok(commonResponse);
         }
 
         [HttpGet]
@@ -78,7 +87,7 @@
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return Ok(commonResponse);
+            return this.Ok(commonResponse);
         }
 
         [HttpGet]
@@ -97,9 +106,14 @@
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return Ok(commonResponse);
+            return this.Ok(commonResponse);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
         [Route("DeleteAppointment/{id}")]
         public async Task<IActionResult> DeleteAppointment(int id)
@@ -118,7 +132,7 @@
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return Ok(commonResponse);
+            return this.Ok(commonResponse);
         }
 
         [HttpGet]
@@ -146,7 +160,7 @@
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return Ok(commonResponse);
+            return this.Ok(commonResponse);
         }
     }
 }
