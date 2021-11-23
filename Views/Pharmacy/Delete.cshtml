@@ -1,0 +1,83 @@
+﻿@model Medicine
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_PharmLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete Medicine</title>
+</head>
+<body>
+    <main>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index">Patients</a></li>
+                <li class="breadcrumb-item active">Delete Medicine</li>
+            </ol>
+
+            <!-- Body -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Delete Medicine</h6>
+                </div>
+                <div class="card-body">
+                    <h3>Are you sure you want to delete this medicine from the database?</h3>
+
+                    <div>
+                        <hr />
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Description)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Description)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Cost)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Cost)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Quantity)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Quantity)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.NHIS)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.NHIS)
+                            </dd>
+                        </dl>
+
+                        <form asp-action="DeleteMedicine">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete" class="btn btn-danger" /> |
+                            <a asp-action="Index">Back to List</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+        </div>
+    </main>
+</body>
+</html>
