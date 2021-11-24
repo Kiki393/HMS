@@ -5,7 +5,7 @@
         <div class="modal-content">
             <form id="appointmentForm" autocomplete="off" novalidate="novalidate">
                 <div class="modal-header">
-                    @if (User.IsInRole(UserRoles.Admin))
+                    @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Receptionist))
                     {
                         <h4 class="modal-title">Add/Edit Appointment</h4>
                     }
@@ -23,7 +23,7 @@
                         <label for="description">Description</label>
                         <textarea type="text" maxlength="100" class="form-control" id="description"></textarea>
                     </div>
-                    @if (User.IsInRole(UserRoles.Admin))
+                    @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Receptionist))
                     {
                         <div class="form-group">
                             <label for="title">Select Patient</label>
@@ -45,7 +45,7 @@
                                 <label class="form-control" disabled id="lblStatus"></label>
                             </div>
                         }
-                        @if (User.IsInRole(UserRoles.Receptionist))
+                        @if (User.IsInRole(UserRoles.Receptionist) || User.IsInRole(UserRoles.Admin))
                         {
                             <div class="form-group">
                                 <label for="lblDoctorName">Doctor Name</label>
@@ -69,7 +69,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="onCloseModal();">Close</button> &nbsp;
 
-                        @if (User.IsInRole(UserRoles.Admin))
+                        @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Receptionist))
                         {
                             <button type="button" id="btnSubmit" class="btn btn-success" onclick="onSubmitForm();">Submit</button>
                             <button type="button" id="btnDelete" class="btn btn-danger" onclick="onDeleteAppointment();">Delete</button>

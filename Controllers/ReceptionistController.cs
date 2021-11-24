@@ -9,8 +9,14 @@
 
 namespace HMS.Controllers
 {
+    using System.Collections.Generic;
+
+    using HMS.Areas.Identity.Data;
+    using HMS.Models;
+    using HMS.Models.ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.CodeAnalysis.CSharp.Syntax;
 
     /// <summary>
     /// The receptionist controller.
@@ -18,6 +24,18 @@ namespace HMS.Controllers
     [Authorize(Roles = "Receptionist")]
     public class ReceptionistController : Controller
     {
+        private readonly ApplicationDbContext _db;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReceptionistController"/> class.
+        /// </summary>
+        /// <param name="db">
+        /// </param>
+        public ReceptionistController(ApplicationDbContext db)
+        {
+            this._db = db;
+        }
+
         /// <summary>
         /// The index.
         /// </summary>
@@ -26,7 +44,8 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            return this.View();
+            IEnumerable<Patients> obj = this._db.Patients;
+            return this.View(obj);
         }
     }
 }

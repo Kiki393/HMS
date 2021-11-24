@@ -40,5 +40,13 @@ namespace HMS.Models
 
         [DataType(DataType.MultilineText)]
         public string Diagnosis { get; set; }
+
+        public double Temperature { get; set; }
+
+        [DisplayName("Weight (Kg)")]
+        public double weight { get; set; }
+
+        [DisplayName("Blood Pressure")]
+        public string Bp { get; set; }
     }
 }
