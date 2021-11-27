@@ -4,6 +4,8 @@
 
 namespace HMS.Models
 {
+    using System;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public class Medicine
@@ -17,13 +19,14 @@ namespace HMS.Models
         public string Description { get; set; }
 
         [Required]
+        [Range(1.0, double.MaxValue, ErrorMessage = "Value must be more than 0.")]
         public double Cost { get; set; }
 
         [Required]
         public int Quantity { get; set; }
 
         [Required]
-        [Display(Name = "NHIS (Yes or No)")]
+        [DisplayName("NHIS (Yes or No)")]
         public bool NHIS { get; set; }
     }
 }

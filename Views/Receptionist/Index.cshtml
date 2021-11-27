@@ -10,7 +10,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Receptionist" asp-action="Index">Dashboard</a></li>
         <li class="breadcrumb-item active">Patients</li>
     </ol>
 
@@ -20,18 +20,6 @@
             <h6 class="m-0 font-weight-bold text-primary">All Patients</h6>
         </div>
         <div class="card-body">
-
-            <div class="d-flex">
-                <div class="dropdown me-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false">
-                        Add New
-                    </button>
-                    <ul class="dropdown-menu py-0" aria-labelledby="dropdownMenuOffset">
-                        <li><a class="dropdown-item rounded-top" asp-controller="Patient" asp-action="Create">Patient</a></li>
-                    </ul>
-                </div>
-            </div>
-            <br />
             <div class="table-responsive">
                 @if (Model.Any())
                 {
@@ -77,9 +65,7 @@
                                     <td width="15%">@item.Address</td>
                                     <td width="15%">
                                         <div class="w-100 btn-group" role="group">
-                                            <a class="btn btn-primary mx-1" data-toggle="modal" data-target="#patientModal">Select</a>
-                                            <a asp-controller="Patient" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-1">Edit</a>
-                                            <a asp-controller="Patient" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1">Delete</a>
+                                            <button class="btn btn-primary mx-1">Select</button>
                                         </div>
                                     </td>
                                 </tr>
@@ -92,56 +78,11 @@
                     <p>No patients added.</p>
                 }
             </div>
-            <script>
-                $(function () {
-                    // ON SELECTING ROW
-                    $(".btn").click(function () {
-                        //FINDING ELEMENTS OF ROWS AND STORING THEM IN VARIABLES
-                        var a = $(this).parents("tr").find(".gfgusername").text();
-                        var c = $(this).parents("tr").find(".gfgpp").text();
-                        var d = $(this).parents("tr").find(".gfgscores").text();
-                        var e = $(this).parents("tr").find(".gfgarticles").text();
-                        var p = "";
-                        // CREATING DATA TO SHOW ON MODEL
-                        p += "<p id='a' name='GFGusername' >GFG UserHandle: " + a + " </p>";
-
-                        p += "<p id='c' name='GFGpp'>Practice Problems: " + c + "</p>";
-
-                        p += "<p id='d' name='GFGscores' >Coding Score: " + d + " </p>";
-
-                        p += "<p id='e' name='GFGcoding' >GFG Article: " + e + " </p>";
-                        //CLEARING THE PREFILLED DATA
-                        $("#divGFG").empty();
-                        //WRITING THE DATA ON MODEL
-                        $("#divGFG").append(p);
-                    });
-                });
-            </script>
-            <div class="modal fade" id="patientModal" tabindex="-1" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <!-- MODEL TITLE -->
-                            <h2 class="modal-title" id="gfgmodallabel">Selected row</h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <!-- MODEL BODY -->
-                        <div class="modal-body">
-                            <div class="GFGclass" id="divGFG"></div>
-                            <div class="modal-footer">
-                                <!-- The close button in the bottom of the modal -->
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
-
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 </div>
+
+<partial name="_PatientModal" />

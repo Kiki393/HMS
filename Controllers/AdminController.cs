@@ -20,7 +20,7 @@ namespace HMS.Controllers
     /// <summary>
     /// The admin controller.
     /// </summary>
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         /// <summary>
