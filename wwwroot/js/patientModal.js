@@ -20,3 +20,6 @@ function onCloseModal() {
     window.$("#phone").val('');
     window.$('#patientModal').modal('hide');
 }
+
+function onBtnSend() {
+}
