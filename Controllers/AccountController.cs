@@ -10,13 +10,13 @@
 namespace HMS.Controllers
 {
     using System.Threading.Tasks;
+    using AspNetCoreHero.ToastNotification.Abstractions;
     using HMS.Areas.Identity.Data;
     using HMS.Models.ViewModels;
     using HMS.Utilities;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using NToastNotify;
 
     /// <summary>
     /// The account controller.
@@ -25,11 +25,6 @@ namespace HMS.Controllers
     {
         /// <summary>
         /// The toast notification.
-        /// </summary>
-        private readonly IToastNotification _toastNotification;
-
-        /// <summary>
-        /// The db.
         /// </summary>
         private readonly ApplicationDbContext _db;
 
@@ -48,12 +43,11 @@ namespace HMS.Controllers
         /// </summary>
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        private readonly INotyfService _notyf;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
-        /// <param name="toastNotification">
-        /// The toast notification.
-        /// </param>
         /// <param name="db">
         /// The database.
         /// </param>
@@ -66,13 +60,13 @@ namespace HMS.Controllers
         /// <param name="roleManager">
         /// The role manager.
         /// </param>
-        public AccountController(IToastNotification toastNotification, ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, INotyfService notyf)
         {
-            this._toastNotification = toastNotification;
             this._db = db;
             this._userManager = userManager;
             this._signInManager = signInManager;
             this._roleManager = roleManager;
+            this._notyf = notyf;
         }
 
         /// <summary>
@@ -107,6 +101,7 @@ namespace HMS.Controllers
                         var result = await this._signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                         if (result.Succeeded)
                         {
+                            this._notyf.Success("Log in Successful.", 10);
                             var user = await this._userManager.FindByNameAsync(model.Email);
                             this.HttpContext.Session.SetString("ssuserName", user.Name);
                             var roles = await this._userManager.GetRolesAsync(user);
@@ -206,6 +201,7 @@ namespace HMS.Controllers
                     await this._userManager.AddToRoleAsync(user, model.RoleName);
                     if (!this.User.IsInRole(UserRoles.Admin))
                     {
+                        this._notyf.Success("Account Created.", 10);
                         await this._signInManager.SignInAsync(user, isPersistent: false);
                     }
                     else
@@ -213,7 +209,8 @@ namespace HMS.Controllers
                         this.TempData["newAdminSignUp"] = user.Name;
                     }
 
-                    this._toastNotification.AddSuccessToastMessage("Account Created Successfully");
+                    this._notyf.Success("Account Created.", 10);
+
                     return this.RedirectToAction("Login", "Account");
                 }
                 else

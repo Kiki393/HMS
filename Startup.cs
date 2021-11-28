@@ -10,7 +10,7 @@
 namespace HMS
 {
     using System;
-
+    using AspNetCoreHero.ToastNotification;
     using HMS.Areas.Identity.Data;
     using HMS.Email;
     using HMS.Services;
@@ -74,7 +74,12 @@ namespace HMS
 
             services.AddScoped<IEmailSender, EmailSender>();
 
-            services.AddMvc().AddNToastNotifyToastr();
+            services.AddNotyf(config =>
+            {
+                config.DurationInSeconds = 10;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.TopCenter;
+            });
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,8 +116,6 @@ namespace HMS
             app.UseAuthorization();
 
             app.UseSession();
-
-            app.UseNToastNotify();
 
             app.UseEndpoints(endpoints =>
             {

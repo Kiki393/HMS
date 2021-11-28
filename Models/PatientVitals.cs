@@ -1,4 +1,8 @@
-﻿namespace HMS.Models
+﻿// <copyright file="PatientVitals.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
+// </copyright>
+
+namespace HMS.Models
 {
     using System;
     using System.ComponentModel;

@@ -5,7 +5,7 @@
 namespace HMS.Controllers
 {
     using System.Collections.Generic;
-
+    using AspNetCoreHero.ToastNotification.Abstractions;
     using HMS.Areas.Identity.Data;
     using HMS.Models;
     using HMS.Models.ViewModels;
@@ -17,6 +17,7 @@ namespace HMS.Controllers
     public class PatientController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly INotyfService _notyf;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientController"/> class.
@@ -24,9 +25,10 @@ namespace HMS.Controllers
         /// <param name="db">
         /// The database.
         /// </param>
-        public PatientController(ApplicationDbContext db)
+        public PatientController(ApplicationDbContext db, INotyfService notyf)
         {
             this._db = db;
+            this._notyf = notyf;
         }
 
         // GET: PatientController
@@ -52,6 +54,7 @@ namespace HMS.Controllers
             {
                 if (this.ModelState.IsValid)
                 {
+                    this._notyf.Success("Added Successfully.", 10);
                     this._db.Patients.Add(patients);
                     this._db.SaveChanges();
                     return this.RedirectToAction("Index");
@@ -59,7 +62,7 @@ namespace HMS.Controllers
             }
             catch
             {
-                return this.View();
+                return this.View("Error");
             }
 
             return this.View(patients);
@@ -96,6 +99,7 @@ namespace HMS.Controllers
             {
                 if (this.ModelState.IsValid)
                 {
+                    this._notyf.Success("Edited Successfully.", 10);
                     this._db.Patients.Update(obj.Patients);
                     this._db.SaveChanges();
                     return this.RedirectToAction("Index");
@@ -105,7 +109,7 @@ namespace HMS.Controllers
             }
             catch
             {
-                return this.View();
+                return this.View("Error");
             }
         }
 
@@ -137,6 +141,7 @@ namespace HMS.Controllers
                 return this.NotFound();
             }
 
+            this._notyf.Success("Deleted Successfully.", 10);
             this._db.Patients.Remove(obj);
             this._db.SaveChanges();
             return this.RedirectToAction("Index");

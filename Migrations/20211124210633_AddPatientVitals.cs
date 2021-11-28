@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿// <copyright file="20211124210633_AddPatientVitals.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
+// </copyright>
+
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HMS.Migrations
 {

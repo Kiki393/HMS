@@ -52,12 +52,12 @@ namespace HMS.Email
                                     "From",
                                     new JObject
                                         {
-                                            { "Email", "ventus2@protonmail.com" }, { "Name", "Appointment Scheduler" }
+                                            { "Email", "ventus2@protonmail.com" }, { "Name", "Appointment Scheduler" },
                                         }
                                 },
                                 { "To", new JArray { new JObject { { "Email", email }, } } },
                                 { "Subject", subject },
-                                { "HTMLPart", htmlMessage }
+                                { "HTMLPart", htmlMessage },
                             },
                     });
             var response = await client.PostAsync(request);

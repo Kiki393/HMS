@@ -1,4 +1,8 @@
-﻿using System;
+﻿// <copyright file="20211125105341_RemovedForeignKey.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
+// </copyright>
+
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HMS.Migrations
@@ -41,7 +45,7 @@ namespace HMS.Migrations
                     Bp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Temperature = table.Column<double>(type: "float", nullable: false),
-                    Weight = table.Column<double>(type: "float", nullable: false)
+                    Weight = table.Column<double>(type: "float", nullable: false),
                 },
                 constraints: table =>
                 {

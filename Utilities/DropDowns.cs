@@ -73,6 +73,7 @@ namespace HMS.Utilities
                 duration.Add(new SelectListItem { Value = minute.ToString(), Text = i + " Hr 30 min" });
                 minute += 30;
             }
+
             return duration;
         }
     }

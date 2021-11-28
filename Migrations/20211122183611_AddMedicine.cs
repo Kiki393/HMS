@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿// <copyright file="20211122183611_AddMedicine.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
+// </copyright>
+
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HMS.Migrations
 {
@@ -16,7 +20,7 @@ namespace HMS.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cost = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    NHIS = table.Column<bool>(type: "bit", nullable: false)
+                    NHIS = table.Column<bool>(type: "bit", nullable: false),
                 },
                 constraints: table =>
                 {

@@ -123,6 +123,7 @@ namespace HMS.Areas.Identity.Pages.Account
                         return this.LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     this.ModelState.AddModelError(string.Empty, error.Description);

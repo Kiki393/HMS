@@ -58,6 +58,7 @@ namespace HMS.Controllers.APIs
                 commonResponse.Message = e.Message;
                 commonResponse.Status = NotificationMessages.failureCode;
             }
+
             return this.Ok(commonResponse);
         }
 
