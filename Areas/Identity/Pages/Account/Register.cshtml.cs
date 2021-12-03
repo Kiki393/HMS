@@ -2,25 +2,24 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+using HMS.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Logging;
+
 namespace HMS.Areas.Identity.Pages.Account
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text;
-    using System.Text.Encodings.Web;
-    using System.Threading.Tasks;
-    using HMS.Areas.Identity.Data;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.AspNetCore.WebUtilities;
-    using Microsoft.Extensions.Logging;
-
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
@@ -42,10 +41,10 @@ namespace HMS.Areas.Identity.Pages.Account
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._logger = logger;
-            this._emailSender = emailSender;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -81,8 +80,8 @@ namespace HMS.Areas.Identity.Pages.Account
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
-            this.ReturnUrl = returnUrl;
-            this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ReturnUrl = returnUrl;
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         /// <summary>
@@ -92,46 +91,44 @@ namespace HMS.Areas.Identity.Pages.Account
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= this.Url.Content("~/");
-            this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (this.ModelState.IsValid)
+            returnUrl ??= Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
-                var result = await this._userManager.CreateAsync(user, this.Input.Password);
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    this._logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("User created a new account with password.");
 
-                    var code = await this._userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    var callbackUrl = this.Url.Page(
+                    var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
-                        protocol: this.Request.Scheme);
+                        values: new { area = "Identity", userId = user.Id, code, returnUrl },
+                        protocol: Request.Scheme);
 
-                    await this._emailSender.SendEmailAsync(this.Input.Email, "Confirm your email",
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                    if (this._userManager.Options.SignIn.RequireConfirmedAccount)
+                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return this.RedirectToPage("RegisterConfirmation", new { email = this.Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl });
                     }
-                    else
-                    {
-                        await this._signInManager.SignInAsync(user, isPersistent: false);
-                        return this.LocalRedirect(returnUrl);
-                    }
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return LocalRedirect(returnUrl);
                 }
 
                 foreach (var error in result.Errors)
                 {
-                    this.ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return this.Page();
+            return Page();
         }
     }
 }

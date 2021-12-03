@@ -2,18 +2,19 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace HMS.Models
 {
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     public class Patients
     {
         public int Id { get; init; }
 
-        [Required]
+        public string ApplicationUserId { get; set; }
+
         [DisplayName("Patient ID")]
         public string PatientId { get; init; }
 

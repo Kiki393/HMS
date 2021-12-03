@@ -48,5 +48,10 @@ namespace HMS.Utilities
         /// The cashier.
         /// </summary>
         public const string Cashier = "Cashier";
+
+        /// <summary>
+        /// The patient.
+        /// </summary>
+        public const string Patient = "Patient";
     }
 }

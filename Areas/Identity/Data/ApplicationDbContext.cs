@@ -7,20 +7,12 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using HMS.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
 namespace HMS.Areas.Identity.Data
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using HMS.Areas.Identity.Data;
-    using HMS.Models;
-
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore;
-
     /// <summary>
     /// The application database context.
     /// </summary>

@@ -7,17 +7,18 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using HMS.Areas.Identity.Data;
+using HMS.Models;
+using HMS.Models.ViewModels;
+using HMS.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers
 {
-    using System.Threading.Tasks;
-    using AspNetCoreHero.ToastNotification.Abstractions;
-    using HMS.Areas.Identity.Data;
-    using HMS.Models.ViewModels;
-    using HMS.Utilities;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-
     /// <summary>
     /// The account controller.
     /// </summary>
@@ -60,13 +61,16 @@ namespace HMS.Controllers
         /// <param name="roleManager">
         /// The role manager.
         /// </param>
+        /// <param name="notyf">
+        /// Toast Notification.
+        /// </param>
         public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, INotyfService notyf)
         {
-            this._db = db;
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._roleManager = roleManager;
-            this._notyf = notyf;
+            _db = db;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _notyf = notyf;
         }
 
         /// <summary>
@@ -77,7 +81,7 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Login()
         {
-            return this.View();
+            return View();
         }
 
         /// Post - Login
@@ -94,60 +98,67 @@ namespace HMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVm model)
         {
-            switch (this.ModelState.IsValid)
+            switch (ModelState.IsValid)
             {
                 case true:
                     {
-                        var result = await this._signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                         if (result.Succeeded)
                         {
-                            this._notyf.Success("Log in Successful.", 10);
-                            var user = await this._userManager.FindByNameAsync(model.Email);
-                            this.HttpContext.Session.SetString("ssuserName", user.Name);
-                            var roles = await this._userManager.GetRolesAsync(user);
+                            _notyf.Success("Log in Successful.", 10);
+                            var user = await _userManager.FindByNameAsync(model.Email);
+                            HttpContext.Session.SetString("ssuserName", user.Name);
+                            var roles = await _userManager.GetRolesAsync(user);
                             if (roles.Contains("Admin"))
                             {
-                                return this.RedirectToAction("Index", "Admin");
+                                return RedirectToAction("Index", "Admin");
                             }
-                            else if (roles.Contains("Nurse"))
+
+                            if (roles.Contains("Nurse"))
                             {
-                                return this.RedirectToAction("Index", "Nurse");
+                                return RedirectToAction("Index", "Nurse");
                             }
-                            else if (roles.Contains("Doctor"))
+
+                            if (roles.Contains("Doctor"))
                             {
-                                return this.RedirectToAction("Index", "Doctor");
+                                return RedirectToAction("Index", "Doctor");
                             }
-                            else if (roles.Contains("Receptionist"))
+
+                            if (roles.Contains("Receptionist"))
                             {
-                                return this.RedirectToAction("Index", "Receptionist");
+                                return RedirectToAction("Index", "Receptionist");
                             }
-                            else if (roles.Contains("Lab Technician"))
+
+                            if (roles.Contains("Lab Technician"))
                             {
-                                return this.RedirectToAction("Index", "Lab");
+                                return RedirectToAction("Index", "Lab");
                             }
-                            else if (roles.Contains("Pharmacist"))
+
+                            if (roles.Contains("Pharmacist"))
                             {
-                                return this.RedirectToAction("Index", "Pharmacy");
+                                return RedirectToAction("Index", "Pharmacy");
                             }
-                            else if (roles.Contains("Cashier"))
+
+                            if (roles.Contains("Cashier"))
                             {
-                                return this.RedirectToAction("Index", "Cashier");
+                                return RedirectToAction("Index", "Cashier");
                             }
-                            else
+
+                            if (roles.Contains("Patient"))
                             {
-                                return this.RedirectToAction("Index", "Home");
+                                return RedirectToAction("Index", "Patient");
                             }
+
+                            return RedirectToAction("Index", "Home");
                         }
-                        else
-                        {
-                            this.ModelState.AddModelError(string.Empty, "Email or Password is incorrect.");
-                        }
+
+                        ModelState.AddModelError(string.Empty, "Email or Password is incorrect.");
 
                         break;
                     }
             }
 
-            return this.View(model);
+            return View(model);
         }
 
         /// <summary>
@@ -158,18 +169,19 @@ namespace HMS.Controllers
         /// </returns>
         public async Task<IActionResult> Register()
         {
-            if (!this._roleManager.RoleExistsAsync(UserRoles.Admin).GetAwaiter().GetResult())
+            if (!_roleManager.RoleExistsAsync(UserRoles.Admin).GetAwaiter().GetResult())
             {
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Doctor));
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Nurse));
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Cashier));
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Lab));
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Pharmacy));
-                await this._roleManager.CreateAsync(new IdentityRole(UserRoles.Receptionist));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Doctor));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Nurse));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Cashier));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Lab));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Pharmacy));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Receptionist));
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Patient));
             }
 
-            return this.View();
+            return View();
         }
 
         /// Post - Register
@@ -186,43 +198,42 @@ namespace HMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterVm model)
         {
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                var user = new ApplicationUser()
+                var user = new ApplicationUser
                 {
                     UserName = model.Username,
                     Email = model.Email,
                     Name = model.Name,
                 };
 
-                var result = await this._userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await this._userManager.AddToRoleAsync(user, model.RoleName);
-                    if (!this.User.IsInRole(UserRoles.Admin))
+                    await _userManager.AddToRoleAsync(user, model.RoleName);
+                    _notyf.Success("Account Created.", 10);
+                    if (!User.IsInRole(UserRoles.Admin))
                     {
-                        this._notyf.Success("Account Created.", 10);
-                        await this._signInManager.SignInAsync(user, isPersistent: false);
+                        var patient = new Patients { ApplicationUserId = user.Id, Name = model.Name, Email = model.Email };
+                        _db.Add(patient);
+                        await _db.SaveChangesAsync();
+                        await _signInManager.SignInAsync(user, isPersistent: false);
                     }
                     else
                     {
-                        this.TempData["newAdminSignUp"] = user.Name;
+                        TempData["newAdminSignUp"] = user.Name;
                     }
 
-                    this._notyf.Success("Account Created.", 10);
-
-                    return this.RedirectToAction("Login", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
-                else
+
+                foreach (var error in result.Errors)
                 {
-                    foreach (var error in result.Errors)
-                    {
-                        this.ModelState.AddModelError(string.Empty, error.Description);
-                    }
+                    ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            return this.View(model);
+            return View(model);
         }
 
         /// POST - Log out
@@ -235,8 +246,8 @@ namespace HMS.Controllers
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
-            await this._signInManager.SignOutAsync();
-            return this.RedirectToAction("Login", "Account");
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }

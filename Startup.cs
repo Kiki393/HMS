@@ -7,24 +7,19 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using AspNetCoreHero.ToastNotification;
+using HMS.Email;
+using HMS.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace HMS
 {
-    using System;
-    using AspNetCoreHero.ToastNotification;
-    using HMS.Areas.Identity.Data;
-    using HMS.Email;
-    using HMS.Services;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     /// <summary>
     /// The startup.
     /// </summary>
@@ -38,7 +33,7 @@ namespace HMS
         /// </param>
         public Startup(IConfiguration configuration)
         {
-            this.Configuration = configuration;
+            Configuration = configuration;
         }
 
         /// <summary>

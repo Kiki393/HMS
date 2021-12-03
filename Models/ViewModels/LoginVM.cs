@@ -2,11 +2,11 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 namespace HMS.Models.ViewModels
 {
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
     public class LoginVm
     {
         [Required]

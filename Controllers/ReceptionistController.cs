@@ -7,17 +7,14 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using HMS.Areas.Identity.Data;
+using HMS.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers
 {
-    using System.Collections.Generic;
-
-    using HMS.Areas.Identity.Data;
-    using HMS.Models;
-    using HMS.Models.ViewModels;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.CodeAnalysis.CSharp.Syntax;
-
     /// <summary>
     /// The receptionist controller.
     /// </summary>
@@ -33,7 +30,7 @@ namespace HMS.Controllers
         /// </param>
         public ReceptionistController(ApplicationDbContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         /// <summary>
@@ -44,8 +41,8 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            IEnumerable<Patients> obj = this._db.Patients;
-            return this.View(obj);
+            IEnumerable<Patients> obj = _db.Patients;
+            return View(obj);
         }
     }
 }

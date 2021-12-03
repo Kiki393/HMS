@@ -7,11 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 namespace HMS.Models.ViewModels
 {
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
     /// <summary>
     /// The register view model.
     /// </summary>

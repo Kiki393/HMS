@@ -2,13 +2,12 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace HMS.Models
 {
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-
     public class PatientVitals
     {
         public int Id { get; set; }

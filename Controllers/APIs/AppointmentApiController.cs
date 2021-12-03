@@ -2,20 +2,18 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using HMS.Models.ViewModels;
+using HMS.Services;
+using HMS.Utilities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers.APIs
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
-
-    using HMS.Models.ViewModels;
-    using HMS.Services;
-    using HMS.Utilities;
-
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-
     [Route("api/Appointment")]
     [ApiController]
     public class AppointmentApiController : Controller
@@ -32,10 +30,10 @@ namespace HMS.Controllers.APIs
         /// <param name="httpContextAccessor"></param>
         public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor)
         {
-            this._appointmentService = appointmentService;
-            this._httpContextAccessor = httpContextAccessor;
-            this._loggedInUserId = this._httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            this._role = this._httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            _appointmentService = appointmentService;
+            _httpContextAccessor = httpContextAccessor;
+            _loggedInUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            _role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
         }
 
         [HttpPost]
@@ -45,7 +43,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.Status = this._appointmentService.AddUpdate(data).Result;
+                commonResponse.Status = _appointmentService.AddUpdate(data).Result;
                 commonResponse.Message = commonResponse.Status switch
                 {
                     1 => NotificationMessages.appointmentUpdated,
@@ -59,7 +57,7 @@ namespace HMS.Controllers.APIs
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return this.Ok(commonResponse);
+            return Ok(commonResponse);
         }
 
         [HttpGet]
@@ -69,15 +67,20 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<List<AppointmentVm>>();
             try
             {
-                switch (this._role)
+                switch (_role)
                 {
+                    case UserRoles.Patient:
+                        commonResponse.Dataenum = _appointmentService.PatientsEventsById(_loggedInUserId);
+                        commonResponse.Status = NotificationMessages.successCode;
+                        break;
+
                     case UserRoles.Doctor:
-                        commonResponse.Dataenum = this._appointmentService.DoctorsEventsById(this._loggedInUserId);
+                        commonResponse.Dataenum = _appointmentService.DoctorsEventsById(_loggedInUserId);
                         commonResponse.Status = NotificationMessages.successCode;
                         break;
 
                     default:
-                        commonResponse.Dataenum = this._appointmentService.DoctorsEventsById(doctorId);
+                        commonResponse.Dataenum = _appointmentService.DoctorsEventsById(doctorId);
                         commonResponse.Status = NotificationMessages.successCode;
                         break;
                 }
@@ -88,7 +91,7 @@ namespace HMS.Controllers.APIs
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return this.Ok(commonResponse);
+            return Ok(commonResponse);
         }
 
         [HttpGet]
@@ -98,7 +101,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<AppointmentVm>();
             try
             {
-                commonResponse.Dataenum = this._appointmentService.GetById(id);
+                commonResponse.Dataenum = _appointmentService.GetById(id);
                 commonResponse.Status = NotificationMessages.successCode;
             }
             catch (Exception e)
@@ -107,7 +110,7 @@ namespace HMS.Controllers.APIs
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return this.Ok(commonResponse);
+            return Ok(commonResponse);
         }
 
         /// <summary>
@@ -122,7 +125,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.Status = await this._appointmentService.Delete(id);
+                commonResponse.Status = await _appointmentService.Delete(id);
                 commonResponse.Message = commonResponse.Status == 1
                     ? NotificationMessages.appointmentDeleted
                     : NotificationMessages.somethingWentWrong;
@@ -133,7 +136,7 @@ namespace HMS.Controllers.APIs
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return this.Ok(commonResponse);
+            return Ok(commonResponse);
         }
 
         [HttpGet]
@@ -143,7 +146,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<int>();
             try
             {
-                var result = this._appointmentService.ConfirmEvent(id).Result;
+                var result = _appointmentService.ConfirmEvent(id).Result;
                 if (result > 0)
                 {
                     commonResponse.Status = NotificationMessages.successCode;
@@ -161,7 +164,7 @@ namespace HMS.Controllers.APIs
                 commonResponse.Status = NotificationMessages.failureCode;
             }
 
-            return this.Ok(commonResponse);
+            return Ok(commonResponse);
         }
     }
 }

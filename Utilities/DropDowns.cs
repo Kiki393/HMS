@@ -7,12 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace HMS.Utilities
 {
-    using System.Collections.Generic;
-
-    using Microsoft.AspNetCore.Mvc.Rendering;
-
     /// <summary>
     /// The drop downs.
     /// </summary>
@@ -40,20 +39,14 @@ namespace HMS.Utilities
                                new SelectListItem { Value = UserRoles.Lab, Text = UserRoles.Lab },
                                new SelectListItem { Value = UserRoles.Pharmacy, Text = UserRoles.Pharmacy },
                                new SelectListItem { Value = UserRoles.Receptionist, Text = UserRoles.Receptionist },
+                               new SelectListItem { Value = UserRoles.Patient, Text = UserRoles.Patient },
                            };
             }
-            else
+
+            return new List<SelectListItem>
             {
-                return new List<SelectListItem>
-                           {
-                               new SelectListItem { Value = UserRoles.Doctor, Text = UserRoles.Doctor },
-                               new SelectListItem { Value = UserRoles.Nurse, Text = UserRoles.Nurse },
-                               new SelectListItem { Value = UserRoles.Cashier, Text = UserRoles.Cashier },
-                               new SelectListItem { Value = UserRoles.Lab, Text = UserRoles.Lab },
-                               new SelectListItem { Value = UserRoles.Pharmacy, Text = UserRoles.Pharmacy },
-                               new SelectListItem { Value = UserRoles.Receptionist, Text = UserRoles.Receptionist },
-                           };
-            }
+                new SelectListItem { Value = UserRoles.Patient, Text = UserRoles.Patient },
+            };
         }
 
         /// <summary>

@@ -2,23 +2,20 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using HMS.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
+
 namespace HMS.Areas.Identity.Pages.Account
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.Linq;
-    using System.Text.Encodings.Web;
-    using System.Threading.Tasks;
-    using HMS.Areas.Identity.Data;
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.UI.Services;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.RazorPages;
-    using Microsoft.Extensions.Logging;
-
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
@@ -36,9 +33,9 @@ namespace HMS.Areas.Identity.Pages.Account
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._logger = logger;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _logger = logger;
         }
 
         [BindProperty]
@@ -72,19 +69,19 @@ namespace HMS.Areas.Identity.Pages.Account
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!string.IsNullOrEmpty(this.ErrorMessage))
+            if (!string.IsNullOrEmpty(ErrorMessage))
             {
-                this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
+                ModelState.AddModelError(string.Empty, ErrorMessage);
             }
 
-            returnUrl ??= this.Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
-            await this.HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            this.ReturnUrl = returnUrl;
+            ReturnUrl = returnUrl;
         }
 
         /// <summary>
@@ -94,40 +91,38 @@ namespace HMS.Areas.Identity.Pages.Account
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= this.Url.Content("~/");
+            returnUrl ??= Url.Content("~/");
 
-            this.ExternalLogins = (await this._signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await this._signInManager.PasswordSignInAsync(this.Input.Email, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    this._logger.LogInformation("User logged in.");
-                    return this.LocalRedirect(returnUrl);
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect(returnUrl);
                 }
 
                 if (result.RequiresTwoFactor)
                 {
-                    return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = this.Input.RememberMe });
+                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
                 }
 
                 if (result.IsLockedOut)
                 {
-                    this._logger.LogWarning("User account locked out.");
-                    return this.RedirectToPage("./Lockout");
+                    _logger.LogWarning("User account locked out.");
+                    return RedirectToPage("./Lockout");
                 }
-                else
-                {
-                    this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return this.Page();
-                }
+
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
             }
 
             // If we got this far, something failed, redisplay form
-            return this.Page();
+            return Page();
         }
     }
 }

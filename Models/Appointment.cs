@@ -7,10 +7,10 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace HMS.Models
 {
-    using System;
-
     /// <summary>
     /// The appointment.
     /// </summary>

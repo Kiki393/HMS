@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using HMS.Services;
+using HMS.Utilities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers
 {
-    using HMS.Services;
-    using HMS.Utilities;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     /// <summary>
     /// The appointment controller.
     /// </summary>
@@ -36,7 +35,7 @@ namespace HMS.Controllers
         /// </param>
         public AppointmentController(IAppointmentService appointmentService)
         {
-            this._appointmentService = appointmentService;
+            _appointmentService = appointmentService;
         }
 
         /// <summary>
@@ -47,10 +46,10 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            this.ViewBag.DocList = this._appointmentService.GetDoctorList();
-            this.ViewBag.PatientList = this._appointmentService.GetPatientList();
-            this.ViewBag.Duration = DropDowns.GetTimeDropDown();
-            return this.View();
+            ViewBag.DocList = _appointmentService.GetDoctorList();
+            ViewBag.PatientList = _appointmentService.GetPatientList();
+            ViewBag.Duration = DropDowns.GetTimeDropDown();
+            return View();
         }
     }
 }

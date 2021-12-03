@@ -2,12 +2,11 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 namespace HMS.Models
 {
-    using System;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
     public class Medicine
     {
         public int Id { get; set; }

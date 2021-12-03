@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211125105341_RemovedForeignKey")]
-    partial class RemovedForeignKey
+    [Migration("20211129181214_AddAppIdToPatientTable")]
+    partial class AddAppIdToPatientTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,6 +170,9 @@ namespace HMS.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Contact")
                         .HasColumnType("nvarchar(max)");
 
@@ -188,7 +191,6 @@ namespace HMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

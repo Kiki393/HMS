@@ -7,16 +7,15 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
+using HMS.Areas.Identity;
 using HMS.Areas.Identity.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(HMS.Areas.Identity.IdentityHostingStartup))]
+[assembly: HostingStartup(typeof(IdentityHostingStartup))]
 
 namespace HMS.Areas.Identity
 {

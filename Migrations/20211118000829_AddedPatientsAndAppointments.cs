@@ -2,11 +2,11 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
 namespace HMS.Migrations
 {
-    using System;
-    using Microsoft.EntityFrameworkCore.Migrations;
-
     public partial class AddedPatientsAndAppointments : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

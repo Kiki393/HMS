@@ -7,14 +7,13 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using HMS.Models;
+using HMS.Models.ViewModels;
+
 namespace HMS.Services
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
-    using HMS.Models;
-    using HMS.Models.ViewModels;
-
     /// <summary>
     /// The AppointmentService interface.
     /// </summary>

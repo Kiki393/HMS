@@ -7,18 +7,16 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using HMS.Areas.Identity.Data;
+using HMS.Models;
+using HMS.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-
-    using HMS.Areas.Identity.Data;
-    using HMS.Models;
-    using HMS.Models.ViewModels;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     /// <summary>
     /// The pharmacy controller.
     /// </summary>
@@ -35,7 +33,7 @@ namespace HMS.Controllers
         /// </param>
         public PharmacyController(ApplicationDbContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         /// GET: PharmacyController/
@@ -47,8 +45,8 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            IEnumerable<Medicine> medicines = this._db.Medicines;
-            return this.View(medicines);
+            IEnumerable<Medicine> medicines = _db.Medicines;
+            return View(medicines);
         }
 
         /// GET: PharmacyController/Create
@@ -60,7 +58,7 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult AddMedicine()
         {
-            return this.View();
+            return View();
         }
 
         /// POST: PharmacyController/Create
@@ -79,19 +77,19 @@ namespace HMS.Controllers
         {
             try
             {
-                if (this.ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    this._db.Medicines.Add(medicine);
-                    this._db.SaveChanges();
-                    return this.RedirectToAction("Index");
+                    _db.Medicines.Add(medicine);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
             {
-                return this.View();
+                return View();
             }
 
-            return this.View();
+            return View();
         }
 
         /// GET: PharmacyController/Edit
@@ -104,20 +102,20 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult EditMedicine(int? id)
         {
-            var medicineVm = new MedicineVm() { Medicine = new Medicine(), };
+            var medicineVm = new MedicineVm { Medicine = new Medicine(), };
 
             if (id is null or 0)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            medicineVm.Medicine = this._db.Medicines.Find(id);
+            medicineVm.Medicine = _db.Medicines.Find(id);
             if (medicineVm.Medicine is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.View(medicineVm);
+            return View(medicineVm);
         }
 
         /// POST: PharmacyController/Edit
@@ -132,18 +130,18 @@ namespace HMS.Controllers
         {
             try
             {
-                if (this.ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    this._db.Medicines.Update(obj.Medicine);
-                    this._db.SaveChanges();
-                    return this.RedirectToAction("Index");
+                    _db.Medicines.Update(obj.Medicine);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
 
-                return this.View();
+                return View();
             }
             catch (Exception e)
             {
-                return this.View();
+                return View();
             }
         }
 
@@ -157,16 +155,16 @@ namespace HMS.Controllers
         {
             if (id is null or 0)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            var obj = this._db.Medicines.Find(id);
+            var obj = _db.Medicines.Find(id);
             if (obj is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.View();
+            return View();
         }
 
         /// GET: PharmacyController/Delete
@@ -177,25 +175,25 @@ namespace HMS.Controllers
         /// <returns></returns>
         public IActionResult DeleteMedicine(int? id)
         {
-            var obj = this._db.Medicines.Find(id);
+            var obj = _db.Medicines.Find(id);
             if (obj is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            this._db.Medicines.Remove(obj);
-            this._db.SaveChanges();
+            _db.Medicines.Remove(obj);
+            _db.SaveChanges();
 
-            return this.RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public IActionResult Administer()
-        {
-            return this.View();
-        }
+        //public IActionResult Administer()
+        //{
+        //    return this.View();
+        //}
     }
 }

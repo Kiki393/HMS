@@ -9,8 +9,6 @@
 
 namespace HMS.Models.ViewModels
 {
-    using HMS.Models;
-
     /// <summary>
     /// The patient view model.
     /// </summary>

@@ -7,11 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     /// <summary>
     /// The doctor controller.
     /// </summary>
@@ -26,7 +26,7 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            return this.View();
+            return View();
         }
     }
 }

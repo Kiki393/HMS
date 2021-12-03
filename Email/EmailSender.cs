@@ -7,14 +7,14 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Threading.Tasks;
+using Mailjet.Client;
+using Mailjet.Client.Resources;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Newtonsoft.Json.Linq;
+
 namespace HMS.Email
 {
-    using System.Threading.Tasks;
-    using Mailjet.Client;
-    using Mailjet.Client.Resources;
-    using Microsoft.AspNetCore.Identity.UI.Services;
-    using Newtonsoft.Json.Linq;
-
     /// <summary>
     /// The email sender.
     /// </summary>
@@ -39,9 +39,7 @@ namespace HMS.Email
         {
             var client = new MailjetClient(
                              "c3920a9841a8b1ba68f4011b650577aa",
-                             "fd0670bd943aa39e0a54551f084d3a0a")
-            {
-            };
+                             "fd0670bd943aa39e0a54551f084d3a0a");
             var request = new MailjetRequest { Resource = Send.Resource, }.Property(
                 Send.Messages,
                 new JArray

@@ -2,17 +2,16 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
+using System.Collections.Generic;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using HMS.Areas.Identity.Data;
+using HMS.Models;
+using HMS.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
 namespace HMS.Controllers
 {
-    using System.Collections.Generic;
-    using AspNetCoreHero.ToastNotification.Abstractions;
-    using HMS.Areas.Identity.Data;
-    using HMS.Models;
-    using HMS.Models.ViewModels;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     [Authorize]
     public class PatientController : Controller
     {
@@ -27,22 +26,22 @@ namespace HMS.Controllers
         /// </param>
         public PatientController(ApplicationDbContext db, INotyfService notyf)
         {
-            this._db = db;
-            this._notyf = notyf;
+            _db = db;
+            _notyf = notyf;
         }
 
         // GET: PatientController
         public IActionResult Index()
         {
-            IEnumerable<Patients> objLisItems = this._db.Patients;
+            IEnumerable<Patients> objLisItems = _db.Patients;
 
-            return this.View(objLisItems);
+            return View(objLisItems);
         }
 
         // GET: PatientController/Create
         public IActionResult Create()
         {
-            return this.View();
+            return View();
         }
 
         // POST: PatientController/Create
@@ -52,42 +51,42 @@ namespace HMS.Controllers
         {
             try
             {
-                if (this.ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    this._notyf.Success("Added Successfully.", 10);
-                    this._db.Patients.Add(patients);
-                    this._db.SaveChanges();
-                    return this.RedirectToAction("Index");
+                    _notyf.Success("Added Successfully.", 10);
+                    _db.Patients.Add(patients);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
             }
             catch
             {
-                return this.View("Error");
+                return View("Error");
             }
 
-            return this.View(patients);
+            return View(patients);
         }
 
         // GET: PatientController/Edit/5
         public IActionResult Edit(int? id)
         {
-            var patientVm = new PatientVm()
+            var patientVm = new PatientVm
             {
                 Patients = new Patients(),
             };
 
             if (id is null or 0)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            patientVm.Patients = this._db.Patients.Find(id);
+            patientVm.Patients = _db.Patients.Find(id);
             if (patientVm.Patients is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.View(patientVm);
+            return View(patientVm);
         }
 
         // POST: PatientController/Edit/5
@@ -97,19 +96,19 @@ namespace HMS.Controllers
         {
             try
             {
-                if (this.ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    this._notyf.Success("Edited Successfully.", 10);
-                    this._db.Patients.Update(obj.Patients);
-                    this._db.SaveChanges();
-                    return this.RedirectToAction("Index");
+                    _notyf.Success("Edited Successfully.", 10);
+                    _db.Patients.Update(obj.Patients);
+                    _db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
 
-                return this.View(obj);
+                return View(obj);
             }
             catch
             {
-                return this.View("Error");
+                return View("Error");
             }
         }
 
@@ -118,16 +117,16 @@ namespace HMS.Controllers
         {
             if (id is null or 0)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            var obj = this._db.Patients.Find(id);
+            var obj = _db.Patients.Find(id);
             if (obj == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.View(obj);
+            return View(obj);
         }
 
         // POST: PatientController/Delete/5
@@ -135,16 +134,16 @@ namespace HMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = this._db.Patients.Find(id);
+            var obj = _db.Patients.Find(id);
             if (obj is null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            this._notyf.Success("Deleted Successfully.", 10);
-            this._db.Patients.Remove(obj);
-            this._db.SaveChanges();
-            return this.RedirectToAction("Index");
+            _notyf.Success("Deleted Successfully.", 10);
+            _db.Patients.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
