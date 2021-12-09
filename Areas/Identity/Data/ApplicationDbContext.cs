@@ -44,6 +44,8 @@ namespace HMS.Areas.Identity.Data
         /// </summary>
         public DbSet<Medicine> Medicines { get; set; }
 
+        public DbSet<Test> Tests { get; set; }
+
         /// <summary>
         /// The on model creating.
         /// </summary>

@@ -7,7 +7,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using HMS.Areas.Identity.Data;
 using HMS.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -23,14 +25,18 @@ namespace HMS.Controllers
     {
         private readonly ApplicationDbContext _db;
 
+        private readonly INotyfService _notifyService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ReceptionistController"/> class.
         /// </summary>
         /// <param name="db">
         /// </param>
-        public ReceptionistController(ApplicationDbContext db)
+        /// <param name="notifyService"></param>
+        public ReceptionistController(ApplicationDbContext db, INotyfService notifyService)
         {
             _db = db;
+            _notifyService = notifyService;
         }
 
         /// <summary>
@@ -43,6 +49,26 @@ namespace HMS.Controllers
         {
             IEnumerable<Patients> obj = _db.Patients;
             return View(obj);
+        }
+
+        [HttpPost]
+        public IActionResult SendResult([FromBody] Test patientData)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.Tests.Add(patientData);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return Json(patientData);
         }
     }
 }

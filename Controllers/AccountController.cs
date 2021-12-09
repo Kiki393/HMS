@@ -105,7 +105,7 @@ namespace HMS.Controllers
                         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                         if (result.Succeeded)
                         {
-                            _notyf.Success("Log in Successful.", 10);
+                            _notyf.Success("Log in Successful.");
                             var user = await _userManager.FindByNameAsync(model.Email);
                             HttpContext.Session.SetString("ssuserName", user.Name);
                             var roles = await _userManager.GetRolesAsync(user);
@@ -211,7 +211,7 @@ namespace HMS.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
-                    _notyf.Success("Account Created.", 10);
+                    _notyf.Success("Account Created.");
                     if (!User.IsInRole(UserRoles.Admin))
                     {
                         var patient = new Patients { ApplicationUserId = user.Id, Name = model.Name, Email = model.Email };

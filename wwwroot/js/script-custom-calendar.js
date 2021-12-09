@@ -16,7 +16,7 @@ function InitializeCalendar() {
     try {
         var calendarEl = document.getElementById("calendar");
         if (calendarEl != null) {
-             calendar = new window.FullCalendar.Calendar(calendarEl, {
+            calendar = new window.FullCalendar.Calendar(calendarEl, {
                 initialView: "dayGridMonth",
                 headerToolbar: {
                     left: "prev,next,today",
@@ -29,7 +29,7 @@ function InitializeCalendar() {
                     onShowModal(event, null);
                 },
                 eventDisplay: "block",
-                events: function(fetchInfo, successCallback, failureCallback) {
+                events: function (fetchInfo, successCallback, failureCallback) {
                     window.$.ajax({
                         url: routeURL + "/api/Appointment/GetCalendarData?doctorId=" + window.$("#doctorId").val(),
                         type: "GET",
@@ -37,18 +37,18 @@ function InitializeCalendar() {
                         success: function (response) {
                             var events = [];
                             if (response.status === 1) {
-                                window.$.each(response.dataenum, function(i, data) {
-                                        events.push({
-                                            title: data.title,
-                                            description: data.description,
-                                            start: data.startDate,
-                                            end: data.endDate,
-                                            backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
-                                            borderColor: "#162466",
-                                            textColor: "white",
-                                            id: data.id
-                                        });
+                                window.$.each(response.dataenum, function (i, data) {
+                                    events.push({
+                                        title: data.title,
+                                        description: data.description,
+                                        start: data.startDate,
+                                        end: data.endDate,
+                                        backgroundColor: data.isDoctorApproved ? "#28a745" : "#dc3545",
+                                        borderColor: "#162466",
+                                        textColor: "white",
+                                        id: data.id
                                     });
+                                });
                             }
                             successCallback(events);
                         },
@@ -57,16 +57,15 @@ function InitializeCalendar() {
                         }
                     });
                 },
-                eventClick: function(info) {
+                eventClick: function (info) {
                     getEventDetailsByEventId(info.event);
                 }
             });
             calendar.render();
         }
-        
     } catch (e) {
         alert(e);
-    } 
+    }
 }
 
 function onShowModal(obj, isEventDetail) {
@@ -121,14 +120,14 @@ function onSubmitForm() {
             DoctorId: window.$("#doctorId").val(),
             Duration: window.$("#duration").val(),
             PatientId: window.$("#patientId").val()
-        }
+        };
 
         window.$.ajax({
             url: routeURL + "/api/Appointment/SaveCalendarData",
             type: "POST",
             data: JSON.stringify(requestData),
             contentType: "application/json",
-            success: function(response) {
+            success: function (response) {
                 if (response.status === 1 || response.status === 2) {
                     calendar.refetchEvents();
                     window.$.notify(response.message, "success");
@@ -137,14 +136,13 @@ function onSubmitForm() {
                     window.$.notify(response.message, "error");
                 }
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 window.$.notify("Error", "error");
             }
         });
     } else {
-       
-            window.$.notify("One or more fields is empty.", "error");
-        }
+        window.$.notify("One or more fields is empty.", "error");
+    }
 }
 
 function checkValidation() {

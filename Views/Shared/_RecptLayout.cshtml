@@ -280,6 +280,7 @@
         <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/js/patientModal.js"></script>
 
+        @await Component.InvokeAsync("Notyf")
         @await RenderSectionAsync("scripts", required: false)
     </div>
 </body>

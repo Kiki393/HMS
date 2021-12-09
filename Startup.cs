@@ -9,6 +9,7 @@
 
 using System;
 using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using HMS.Email;
 using HMS.Services;
 using Microsoft.AspNetCore.Builder;
@@ -71,7 +72,7 @@ namespace HMS
 
             services.AddNotyf(config =>
             {
-                config.DurationInSeconds = 10;
+                config.DurationInSeconds = 5;
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.TopCenter;
             });
@@ -111,6 +112,8 @@ namespace HMS
             app.UseAuthorization();
 
             app.UseSession();
+
+            app.UseNotyf();
 
             app.UseEndpoints(endpoints =>
             {
