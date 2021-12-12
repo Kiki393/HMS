@@ -22,8 +22,7 @@ function onCloseModal() {
 
 function onBtnSend() {
     var patientData = {
-        PatientId: window.$("#pId").val(),
-        Name: window.$("#name").val()
+        PatientId: window.$("#pId").val()
     };
 
     if (patientData != null) {
@@ -35,7 +34,7 @@ function onBtnSend() {
             dataType: "json",
             success: function (response) {
                 if (response != null) {
-                    window.toastNotifySuccess("Success");
+                    window.toastNotifySuccess("Sent");
                     onCloseModal();
                 }
                 else {

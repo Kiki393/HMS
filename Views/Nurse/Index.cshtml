@@ -1,14 +1,84 @@
-﻿@{
+﻿@model IEnumerable<PatientVitals>
+
+@{
+    ViewData["Title"] = "Nurse";
     Layout = "_NurseLayout";
 }
 
 <!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-</body>
-</html>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Patients Waiting</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">
+                                    ID
+                                </th>
+                                <th>
+                                    Patient ID
+                                </th>
+                                <th>
+                                    Temperature
+                                </th>
+                                <th>
+                                    Blood Pressure
+                                </th>
+                                <th>
+                                    Weight
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th>
+                                    Select
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="display:none;" width="15%">@item.Id</td>
+                                    <td width="15%">@item.PatientId</td>
+                                    <td width="15%">@item.Temperature</td>
+                                    <td width="15%">@item.Bp</td>
+                                    <td width="15%">@item.Weight</td>
+                                    <td width="15%">@item.Date</td>
+                                    <td width="15%">
+                                        <div class="w-100 btn-group" role="group">
+                                            <button class="btn btn-primary mx-1">Select</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No patients added.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+
+<partial name="_VitalsModal" />

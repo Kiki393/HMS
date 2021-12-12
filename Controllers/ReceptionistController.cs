@@ -52,20 +52,19 @@ namespace HMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult SendResult([FromBody] Test patientData)
+        public IActionResult SendResult([FromBody] PatientVitals patientData)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _db.Tests.Add(patientData);
+                    _db.Vitals.Add(patientData);
                     _db.SaveChanges();
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                _notifyService.Error(e.ToString());
             }
 
             return Json(patientData);

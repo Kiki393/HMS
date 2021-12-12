@@ -1,0 +1,41 @@
+﻿<div class="modal fade" id="vitalsModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="patientVitals" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                    <h2 class="modal-title">Add Patient Vitals</h2>
+                    <button type="button" class="close" onclick="onCloseModal()" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="patientId">Patient ID</label>
+                        <input type="text" maxlength="100" class="form-control" disabled id="patientId" />
+                    </div>
+                    <div class="form-group">
+                        <label for="temp">Temperature</label>
+                        <input type="number" maxlength="100" class="form-control" id="temp" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bp">Blood Pressure</label>
+                        <input type="text" maxlength="100" class="form-control" id="bp" />
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight (Kg)</label>
+                        <input type="number" maxlength="100" class="form-control" id="weight" />
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Reporting Date</label>
+                        <input class="form-control" id="date" />
+                    </div>
+                    <input type="hidden" id="id" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="onCloseModal()">Close</button> &nbsp;
+                        <button type="button" id="btnSave" class="btn btn-primary" onclick="onBtnSave()">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

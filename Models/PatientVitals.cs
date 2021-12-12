@@ -12,8 +12,7 @@ namespace HMS.Models
     {
         public int Id { get; set; }
 
-        [ForeignKey("PatientId")]
-        public virtual Patients Patients { get; set; }
+        public string PatientId { get; set; }
 
         public double Temperature { get; set; }
 
@@ -23,6 +22,6 @@ namespace HMS.Models
         [DisplayName("Blood Pressure")]
         public string Bp { get; set; }
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

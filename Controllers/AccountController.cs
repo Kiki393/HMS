@@ -222,6 +222,7 @@ namespace HMS.Controllers
                     else
                     {
                         TempData["newAdminSignUp"] = user.Name;
+                        return RedirectToAction("Index", "Admin");
                     }
 
                     return RedirectToAction("Login", "Account");

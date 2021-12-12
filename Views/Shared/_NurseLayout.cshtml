@@ -60,30 +60,6 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                   aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Modules</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Available Modules:</h6>
-                        <a class="collapse-item" asp-controller="Patient" asp-action="Index">Patients</a>
-                        <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Appointments</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -356,15 +332,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/fullcalendar@5/main.min.js"></script>
         <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
         <script type="text/javascript" src="~/js/notify.min.js"></script>
-        <script src="~/js/script-custom-calendar.js"></script>
         <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-        <script src="js/datatables-demo.js"></script>
+        <script src="~/js/datatables-demo.js"></script>
         <script src="~/vendor/popperjs/core/dist/umd/popper.min.js"></script>
         <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/js/vitalsModal.js"></script>
 
         @await Component.InvokeAsync("Notyf")
         @await RenderSectionAsync("scripts", required: false)
