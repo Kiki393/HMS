@@ -59,16 +59,17 @@
                     </a>
                 </li>
             }
-            else
+            @if (User.IsInRole(UserRoles.Receptionist))
             {
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" asp-controller="Patient" asp-action="Index">
+                    <a class="nav-link" asp-controller="Receptionist" asp-action="Index">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
             }
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -78,7 +79,7 @@
                 Interface
             </div>
 
-            @if (User.IsInRole(UserRoles.Admin))
+            @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Receptionist))
             {
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">

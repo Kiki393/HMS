@@ -111,7 +111,7 @@ namespace HMS.Controllers
                             await _emailSender.SendEmailAsync(
                                 patients.Email,
                                 "Account Created",
-                                $"Your account has been created on the HMS system. Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. \nThis link would expire in 3 hours");
+                                $"Your account has been created on the HMS system. Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. \nThis link would expire in 3 hours. \nYour default password is " + password);
                         }
                         catch (Exception e)
                         {
