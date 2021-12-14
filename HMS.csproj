@@ -15,7 +15,6 @@
 
 	<ItemGroup>
 		<PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
-		<PackageReference Include="bootstrap" Version="5.1.2" />
 		<PackageReference Include="jQuery" Version="3.6.0" />
 		<PackageReference Include="Mailjet.Api" Version="2.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.12" />

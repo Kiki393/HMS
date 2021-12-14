@@ -21,5 +21,10 @@ namespace HMS.Areas.Identity.Data
         /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the role.
+        /// </summary>
+        public string Role { get; set; }
     }
 }

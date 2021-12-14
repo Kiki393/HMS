@@ -14,6 +14,7 @@ using HMS.Email;
 using HMS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -76,6 +77,9 @@ namespace HMS
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.TopCenter;
             });
+
+            services.Configure<DataProtectionTokenProviderOptions>(o =>
+                o.TokenLifespan = TimeSpan.FromHours(3));
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

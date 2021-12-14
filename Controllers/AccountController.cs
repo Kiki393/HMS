@@ -7,15 +7,21 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using HMS.Areas.Identity.Data;
 using HMS.Models;
 using HMS.Models.ViewModels;
 using HMS.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace HMS.Controllers
 {
@@ -46,6 +52,8 @@ namespace HMS.Controllers
 
         private readonly INotyfService _notyf;
 
+        private readonly IEmailSender _emailSender;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
@@ -64,13 +72,14 @@ namespace HMS.Controllers
         /// <param name="notyf">
         /// Toast Notification.
         /// </param>
-        public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, INotyfService notyf)
+        public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, INotyfService notyf, IEmailSender emailSender)
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _notyf = notyf;
+            _emailSender = emailSender;
         }
 
         /// <summary>
@@ -205,6 +214,7 @@ namespace HMS.Controllers
                     UserName = model.Username,
                     Email = model.Email,
                     Name = model.Name,
+                    Role = model.RoleName,
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -212,14 +222,7 @@ namespace HMS.Controllers
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
                     _notyf.Success("Account Created.");
-                    if (!User.IsInRole(UserRoles.Admin))
-                    {
-                        var patient = new Patients { ApplicationUserId = user.Id, Name = model.Name, Email = model.Email };
-                        _db.Add(patient);
-                        await _db.SaveChangesAsync();
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                    }
-                    else
+                    if (User.IsInRole(UserRoles.Admin))
                     {
                         TempData["newAdminSignUp"] = user.Name;
                         return RedirectToAction("Index", "Admin");
@@ -249,6 +252,112 @@ namespace HMS.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        // GET: /Account/ForgotPassword
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                //code = HttpUtility.UrlEncode(code);
+                if (user != null)
+                {
+                    var callbackUrl = Url.Action(
+                        "ResetPassword",
+                        "Account",
+                        new { code },
+                        Request.Scheme);
+
+                    await _emailSender.SendEmailAsync(
+                        model.Email,
+                        "Forgot Password",
+                        $"You requested to reset your password. If you initiated this request, ignore this email. \nPlease reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. \nThis link would expire in 3 hours");
+                }
+
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        // GET: /Account/ForgotPasswordConfirmation
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        // GET: /Account/ResetPassword
+        public IActionResult ResetPassword(string code)
+        {
+            if (code != null)
+            {
+                var resetPass = new ResetPasswordVm
+                {
+                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
+                    //Code = HttpUtility.UrlDecode(code),
+                };
+
+                return View(resetPass);
+            }
+            else
+            {
+                return BadRequest("A code must be supplied for password reset.");
+            }
+        }
+
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVm model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return RedirectToAction("ResetPasswordConfirmation");
+                }
+
+                var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        }
+
+        // GET: /Account/ResetPasswordConfirmation
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
         }
     }
 }

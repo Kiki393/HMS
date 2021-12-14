@@ -21,15 +21,13 @@
                 <h6 class="m-0 font-weight-bold text-primary">All Patients</h6>
             </div>
             <div class="card-body">
-                <div class="d-flex">
-                    <div class="dropdown me-1">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false">
-                            Add New
-                        </button>
-                        <ul class="dropdown-menu py-0" aria-labelledby="dropdownMenuOffset">
-                            <li><a class="dropdown-item rounded-top" asp-controller="Patient" asp-action="Create">Patient</a></li>
-                        </ul>
-                    </div>
+                <div class="dropdown position-absolute top-10 start-50 ">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-bs-toggle="dropdown" aria-expanded="false">
+                        Add New
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                        <li><a class="dropdown-item rounded-top" asp-controller="Patient" asp-action="Create">Patient</a></li>
+                    </ul>
                 </div>
                 <br />
                 <div class="table-responsive">
@@ -59,9 +57,8 @@
                                     <th>
                                         Address
                                     </th>
-                                    <th>
-                                        Edit
-                                    </th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,9 +73,13 @@
                                         <td width="15%">@item.Email</td>
                                         <td width="15%">@item.Address</td>
                                         <td width="15%">
-                                            <div class="w-100 btn-group" role="group">
-                                                <a asp-controller="Patient" asp-action="Edit" asp-route-Id="@item.Id" class="btn btn-primary mx-1">Edit</a>
-                                                <a asp-controller="Patient" asp-action="Delete" asp-route-Id="@item.Id" class="btn btn-danger mx-1">Delete</a>
+                                            <div>
+                                                <a asp-controller="Patient" asp-action="Edit" asp-route-Id="@item.Id"><i class="far fa-edit"></i></a>
+                                            </div>
+                                        </td>
+                                        <td width="15%">
+                                            <div>
+                                                <a asp-controller="Patient" asp-action="Delete" asp-route-Id="@item.Id"><i class="far fa-trash-alt" style="color: red"></i></a>
                                             </div>
                                         </td>
                                     </tr>

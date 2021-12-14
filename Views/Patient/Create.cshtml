@@ -35,56 +35,50 @@
                             <form asp-action="Create" method="post" id="patient" class="mt-4">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                <div class="form-floating mb-3">
-                                    <input asp-for="PatientId" class="form-control" placeholder="Patient ID" id="patientId" />
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="PatientId" class="form-control" placeholder="Patient Id" />
                                     <span asp-validation-for="PatientId" class="text-danger"></span>
                                     <label asp-for="PatientId"></label>
                                 </div>
 
-                                @*<div class="form-group">
-                                    <label asp-for="PatientId"></label>
-                                    <input asp-for="PatientId" class="form-control" />
-                                    <span asp-validation-for="PatientId" class="text-danger"></span>
-                                    </div>*@
+                                <div class="form-group form-floating mb-3">
+                                <input asp-for="Name" class="form-control" placeholder="Full NAme" />
+                                <label asp-for="Name"></label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
 
-                                <div class="form-floating mb-3">
-                                    <label asp-for="Name"></label>
-                                    <input asp-for="Name" class="form-control" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <label asp-for="Dob"></label>
+                                <div class="form-group form-floating mb-3">
                                     <input type="date" asp-for="Dob" class="form-control" />
+                                    <label asp-for="Dob"></label>
                                     <span asp-validation-for="Dob" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-floating mb-3">
+                                    <input asp-for="Age" class="form-control" placeholder="Age" />
                                     <label asp-for="Age"></label>
-                                    <input asp-for="Age" class="form-control" />
                                     <span asp-validation-for="Age" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-floating mb-3">
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="Contact" class="form-control" placeholder="Contact" />
                                     <label asp-for="Contact"></label>
-                                    <input asp-for="Contact" class="form-control" />
                                     <span asp-validation-for="Contact" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-floating mb-3">
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="Email" class="form-control" placeholder="Email" />
                                     <label asp-for="Email"></label>
-                                    <input asp-for="Email" class="form-control" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-floating mb-3">
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="Address" class="form-control" placeholder="Address" />
                                     <label asp-for="Address"></label>
-                                    <input asp-for="Address" class="form-control" />
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                    <input type="submit" value="Add" class="btn btn-primary" />
                                 </div>
                             </form>
                         </div>
@@ -106,5 +100,5 @@
 
 @section Scripts
 {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

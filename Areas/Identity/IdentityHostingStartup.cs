@@ -39,7 +39,8 @@ namespace HMS.Areas.Identity
                     context.Configuration.GetConnectionString("DefaultConnection")));
 
                 services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-                    .AddEntityFrameworkStores<ApplicationDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
             });
         }
     }
