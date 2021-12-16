@@ -13,8 +13,6 @@ namespace HMS.Models
     {
         public int Id { get; init; }
 
-        public string ApplicationUserId { get; set; }
-
         [DisplayName("Patient ID")]
         public string PatientId { get; init; }
 
@@ -38,8 +36,5 @@ namespace HMS.Models
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; init; }
-
-        [DataType(DataType.MultilineText)]
-        public string Diagnosis { get; set; }
     }
 }

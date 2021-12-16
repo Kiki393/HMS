@@ -7,6 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using AspNetCoreHero.ToastNotification.Abstractions;
 using HMS.Areas.Identity.Data;
 using HMS.Models;
 using HMS.Models.ViewModels;
+using HMS.Password_Generator;
 using HMS.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -217,11 +219,34 @@ namespace HMS.Controllers
                     Role = model.RoleName,
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var password = Password.Generate(12, 1);
+                var result = await _userManager.CreateAsync(user, password);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, model.RoleName);
                     _notyf.Success("Account Created.");
+
+                    try
+                    {
+                        // Emailing reset password link
+                        var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                        var callbackUrl = Url.Action(
+                            "ResetPassword",
+                            "Account",
+                            new { code },
+                            Request.Scheme);
+
+                        await _emailSender.SendEmailAsync(
+                            model.Email,
+                            "Account Created",
+                            $"Your account has been created on the HMS system. Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a> if you wish. <br>This link would expire in 3 hours. <br> Your username is: " + model.Username + " and your default password is: " + password);
+                    }
+                    catch (Exception e)
+                    {
+                        _notyf.Error(e.ToString());
+                    }
+
                     if (User.IsInRole(UserRoles.Admin))
                     {
                         TempData["newAdminSignUp"] = user.Name;

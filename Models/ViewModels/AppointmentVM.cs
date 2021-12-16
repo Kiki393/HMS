@@ -73,15 +73,5 @@ namespace HMS.Models.ViewModels
         /// Gets or sets the patient name.
         /// </summary>
         public string PatientName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the admin name.
-        /// </summary>
-        public string AdminName { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether is for client.
-        /// </summary>
-        public bool IsForClient { get; set; }
     }
 }

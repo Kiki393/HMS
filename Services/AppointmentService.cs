@@ -105,14 +105,14 @@ namespace HMS.Services
                 };
 
                 // Sends and email to both doctor and patient on the status of an appointment
-                // await this._emailSender.SendEmailAsync(
-                //    doctor.Email,
-                //    "Appointment Created",
-                //    $"Your appointment with {patient.Name} has been created and is pending confirmation.");
-                // await this._emailSender.SendEmailAsync(
-                //    patient.Email,
-                //    "Appointment Created",
-                //    $"Your appointment with {doctor.Name} has been created and is pending confirmation.");
+                await this._emailSender.SendEmailAsync(
+                   doctor?.Email,
+                   "Appointment Created",
+                   $"Your appointment with {patient?.Name} has been created and is pending confirmation.");
+                await this._emailSender.SendEmailAsync(
+                   patient?.Email,
+                   "Appointment Created",
+                   $"Your appointment with {doctor?.Name} has been created and is pending confirmation.");
 
                 _db.Appointments.Add(appointment);
                 await _db.SaveChangesAsync();

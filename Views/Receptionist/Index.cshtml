@@ -25,6 +25,9 @@
                     <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
                         <thead>
                             <tr>
+                                <th style="display: none;">
+                                    ID
+                                </th>
                                 <th>
                                     Patient ID
                                 </th>
@@ -55,6 +58,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td style="display:none;" width="15%">@item.Id</td>
                                     <td width="15%">@item.PatientId</td>
                                     <td width="15%">@item.Name</td>
                                     <td width="15%">@item.Dob</td>

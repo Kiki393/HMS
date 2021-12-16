@@ -17,6 +17,7 @@ function onCloseModal() {
     window.$("#name").val("");
     window.$("#age").val("");
     window.$("#phone").val("");
+    window.$("#id").val("");
     window.$("#patientModal").modal("hide");
 }
 

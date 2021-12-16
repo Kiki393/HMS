@@ -88,7 +88,7 @@ namespace HMS.Controllers
                             Role = "Patient",
                         };
 
-                        var password = Password.Generate(6, 1);
+                        var password = Password.Generate(12, 1);
                         var result = await _userManager.CreateAsync(user, password);
                         if (result.Succeeded)
                         {
@@ -111,7 +111,7 @@ namespace HMS.Controllers
                             await _emailSender.SendEmailAsync(
                                 patients.Email,
                                 "Account Created",
-                                $"Your account has been created on the HMS system. Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. \nThis link would expire in 3 hours. \nYour default password is " + password);
+                                $"Your account has been created on the HMS system. Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a> if you wish. <br>This link would expire in 3 hours. <br> Your username is: " + patients.PatientId + " and your default password is " + password);
                         }
                         catch (Exception e)
                         {

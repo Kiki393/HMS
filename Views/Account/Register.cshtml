@@ -52,20 +52,20 @@
                                         <label class="col-md-2" asp-for="Email"></label>
                                     </div>
                                     <!-- End of Form -->
-                                    <!-- Form -->
-                                    <div class="form-group form-floating mb-3">
+                                    @*<!-- Form -->
+                                        <div class="form-group form-floating mb-3">
                                         <input asp-for="Password" class="form-control" placeholder="Password" />
                                         <span asp-validation-for="Password" class="text-danger"></span>
                                         <label class="col-md-2" asp-for="Password"></label>
-                                    </div>
-                                    <!-- End of Form -->
-                                    <!-- Form -->
-                                    <div class="form-group form-floating mb-3">
+                                        </div>
+                                        <!-- End of Form -->
+                                        <!-- Form -->
+                                        <div class="form-group form-floating mb-3">
                                         <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" />
                                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                         <label asp-for="ConfirmPassword"></label>
-                                    </div>
-                                    <!-- End of Form -->
+                                        </div>
+                                        <!-- End of Form -->*@
                                     <!-- Form -->
                                     <div class="form-group form-floating mb-3">
                                         <div>
@@ -109,5 +109,5 @@
 
 @section Scripts
 {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
