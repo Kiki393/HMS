@@ -1,12 +1,42 @@
-﻿using System;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Password.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
+// </copyright>
+// <summary>
+//   The password.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+using System;
 using System.Security.Cryptography;
 
 namespace HMS.Password_Generator
 {
-    public class Password
+    /// <summary>
+    /// The password.
+    /// </summary>
+    public static class Password
     {
+        /// <summary>
+        /// The punctuations.
+        /// </summary>
         private static readonly char[] Punctuations = "!@#$%^&*()_-+=[{]};:>|./?".ToCharArray();
 
+        /// <summary>
+        /// The generate.
+        /// </summary>
+        /// <param name="length">
+        /// The length.
+        /// </param>
+        /// <param name="numberOfNonAlphanumericCharacters">
+        /// The number of non alphanumeric characters.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// The Exception.
+        /// </exception>
         public static string Generate(int length, int numberOfNonAlphanumericCharacters)
         {
             if (length < 1 || length > 128)

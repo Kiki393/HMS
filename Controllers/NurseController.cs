@@ -23,15 +23,25 @@ namespace HMS.Controllers
     [Authorize(Roles = "Nurse")]
     public class NurseController : Controller
     {
+        /// <summary>
+        /// The _db.
+        /// </summary>
         private readonly ApplicationDbContext _db;
 
+        /// <summary>
+        /// The _notify service.
+        /// </summary>
         private readonly INotyfService _notifyService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NurseController"/> class.
         /// </summary>
-        /// <param name="db"></param>
-        /// <param name="notifyService"></param>
+        /// <param name="db">
+        /// The database.
+        /// </param>
+        /// <param name="notifyService">
+        /// The notification service.
+        /// </param>
         public NurseController(ApplicationDbContext db, INotyfService notifyService)
         {
             _db = db;
@@ -53,6 +63,9 @@ namespace HMS.Controllers
         /// <summary>
         /// Save vitals.
         /// </summary>
+        /// <param name="vitals">
+        /// The vitals.
+        /// </param>
         /// <returns>
         /// The <see cref="IActionResult"/>.
         /// </returns>

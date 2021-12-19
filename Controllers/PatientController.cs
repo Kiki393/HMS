@@ -17,10 +17,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using HMS.Random_Number_Generator;
 
 namespace HMS.Controllers
 {
-    /// <inheritdoc />
     [Authorize]
     public class PatientController : Controller
     {
@@ -77,12 +77,22 @@ namespace HMS.Controllers
                 {
                     try
                     {
-                        _db.Patients.Add(patients);
+                        var patient = new Patients
+                        {
+                            PatientId = "PID" + RandomNumber.RandomNum(1000, 9000),
+                            Name = patients.Name,
+                            Age = patients.Age,
+                            Address = patients.Address,
+                            Contact = patients.Contact,
+                            Dob = patients.Dob,
+                            Email = patients.Email
+                        };
+                        _db.Patients.Add(patient);
                         await _db.SaveChangesAsync();
 
                         var user = new ApplicationUser
                         {
-                            UserName = patients.PatientId,
+                            UserName = patient.PatientId,
                             Email = patients.Email,
                             Name = patients.Name,
                             Role = "Patient",

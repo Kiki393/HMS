@@ -23,16 +23,25 @@ namespace HMS.Controllers
     [Authorize(Roles = "Receptionist")]
     public class ReceptionistController : Controller
     {
+        /// <summary>
+        /// The _db.
+        /// </summary>
         private readonly ApplicationDbContext _db;
 
+        /// <summary>
+        /// The _notify service.
+        /// </summary>
         private readonly INotyfService _notifyService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReceptionistController"/> class.
         /// </summary>
         /// <param name="db">
+        /// The database.
         /// </param>
-        /// <param name="notifyService"></param>
+        /// <param name="notifyService">
+        /// The notification service.
+        /// </param>
         public ReceptionistController(ApplicationDbContext db, INotyfService notifyService)
         {
             _db = db;
@@ -51,6 +60,15 @@ namespace HMS.Controllers
             return View(obj);
         }
 
+        /// <summary>
+        /// The send result.
+        /// </summary>
+        /// <param name="patientData">
+        /// The patient data.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         [HttpPost]
         public IActionResult SendResult([FromBody] PatientVitals patientData)
         {

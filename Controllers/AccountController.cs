@@ -27,6 +27,8 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace HMS.Controllers
 {
+    using HMS.Random_Number_Generator;
+
     /// <summary>
     /// The account controller.
     /// </summary>
@@ -52,8 +54,14 @@ namespace HMS.Controllers
         /// </summary>
         private readonly RoleManager<IdentityRole> _roleManager;
 
+        /// <summary>
+        /// The notification.
+        /// </summary>
         private readonly INotyfService _notyf;
 
+        /// <summary>
+        /// The _email sender.
+        /// </summary>
         private readonly IEmailSender _emailSender;
 
         /// <summary>
@@ -73,6 +81,9 @@ namespace HMS.Controllers
         /// </param>
         /// <param name="notyf">
         /// Toast Notification.
+        /// </param>
+        /// <param name="emailSender">
+        /// The email Sender.
         /// </param>
         public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, INotyfService notyf, IEmailSender emailSender)
         {
@@ -217,6 +228,7 @@ namespace HMS.Controllers
                     Email = model.Email,
                     Name = model.Name,
                     Role = model.RoleName,
+                    StaffId = "STFID" + RandomNumber.RandomNum(1000, 9000),
                 };
 
                 var password = Password.Generate(12, 1);
@@ -279,13 +291,28 @@ namespace HMS.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        // GET: /Account/ForgotPassword
+        /// GET: /Account/ForgotPassword
+        /// <summary>
+        /// The forgot password.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         public IActionResult ForgotPassword()
         {
             return View();
         }
 
-        // POST: /Account/ForgotPassword
+        /// POST: /Account/ForgotPassword
+        /// <summary>
+        /// The forgot password.
+        /// </summary>
+        /// <param name="model">
+        /// The model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -302,8 +329,9 @@ namespace HMS.Controllers
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                //code = HttpUtility.UrlEncode(code);
-                if (user != null)
+
+                // code = HttpUtility.UrlEncode(code);
+                try
                 {
                     var callbackUrl = Url.Action(
                         "ResetPassword",
@@ -316,6 +344,10 @@ namespace HMS.Controllers
                         "Forgot Password",
                         $"You requested to reset your password. If you initiated this request, ignore this email. \nPlease reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>. \nThis link would expire in 3 hours");
                 }
+                catch (Exception e)
+                {
+                    _notyf.Error(e.ToString());
+                }
 
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -324,13 +356,28 @@ namespace HMS.Controllers
             return View(model);
         }
 
-        // GET: /Account/ForgotPasswordConfirmation
+        /// GET: /Account/ForgotPasswordConfirmation
+        /// <summary>
+        /// The forgot password confirmation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         public IActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
 
-        // GET: /Account/ResetPassword
+        /// GET: /Account/ResetPassword
+        /// <summary>
+        /// The reset password.
+        /// </summary>
+        /// <param name="code">
+        /// The code.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         public IActionResult ResetPassword(string code)
         {
             if (code != null)
@@ -338,7 +385,8 @@ namespace HMS.Controllers
                 var resetPass = new ResetPasswordVm
                 {
                     Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
-                    //Code = HttpUtility.UrlDecode(code),
+
+                    // Code = HttpUtility.UrlDecode(code),
                 };
 
                 return View(resetPass);
@@ -349,7 +397,16 @@ namespace HMS.Controllers
             }
         }
 
-        // POST: /Account/ResetPassword
+        /// POST: /Account/ResetPassword
+        /// <summary>
+        /// The reset password.
+        /// </summary>
+        /// <param name="model">
+        /// The model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Task"/>.
+        /// </returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -379,7 +436,13 @@ namespace HMS.Controllers
             return View(model);
         }
 
-        // GET: /Account/ResetPasswordConfirmation
+        /// GET: /Account/ResetPasswordConfirmation
+        /// <summary>
+        /// The reset password confirmation.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         public IActionResult ResetPasswordConfirmation()
         {
             return View();

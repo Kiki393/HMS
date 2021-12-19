@@ -23,9 +23,7 @@ namespace HMS.Controllers
         /// <summary>
         /// The appointment service.
         /// </summary>
-#pragma warning disable SA1309 // Field names should not begin with underscore
         private readonly IAppointmentService _appointmentService;
-#pragma warning restore SA1309 // Field names should not begin with underscore
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentController"/> class.

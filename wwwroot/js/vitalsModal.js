@@ -8,23 +8,25 @@
 
 var date = new Date();
 
-$(".btn").click(function () {
-    const currentTds = window.$(this).closest("tr").find("td"); // find all td of selected row
-    const cell0 = window.$(currentTds).eq(0).text(); // eq= cell , text = inner text
-    const cell1 = window.$(currentTds).eq(1).text(); // eq= cell , text = inner text
-    const cell2 = window.$(currentTds).eq(2).text();
-    const cell3 = window.$(currentTds).eq(3).text();
-    const cell4 = window.$(currentTds).eq(4).text();
-    const cell5 = window.$(currentTds).eq(5).text();
+function getData() {
+    window.$(".select").click(function () {
+        const currentTds = window.$(this).closest("tr").find("td"); // find all td of selected row
+        const cell0 = window.$(currentTds).eq(0).text(); // eq= cell , text = inner text
+        const cell1 = window.$(currentTds).eq(1).text(); // eq= cell , text = inner text
+        const cell2 = window.$(currentTds).eq(2).text();
+        const cell3 = window.$(currentTds).eq(3).text();
+        const cell4 = window.$(currentTds).eq(4).text();
+        const cell5 = window.$(currentTds).eq(5).text();
 
-    window.$("#id").val(cell0);
-    window.$("#patientId").val(cell1);
-    window.$("#temp").val(cell2);
-    window.$("#bp").val(cell3);
-    window.$("#weight").val(cell4);
-    window.$("#date").val(cell5);
-    window.$("#vitalsModal").modal("show");
-});
+        window.$("#id").val(cell0);
+        window.$("#patientId").val(cell1);
+        window.$("#temp").val(cell2);
+        window.$("#bp").val(cell3);
+        window.$("#weight").val(cell4);
+        window.$("#date").val(cell5);
+        window.$("#vitalsModal").modal("show");
+    });
+}
 
 function onCloseModal() {
     window.$("#vitalsModal")[0].reset;
@@ -47,7 +49,7 @@ function onBtnSave() {
         Date: date.toLocaleString()
     };
 
-    if (vitals != null) {
+    try {
         window.$.ajax({
             type: "POST",
             url: "/Nurse/SaveVitals",
@@ -57,8 +59,8 @@ function onBtnSave() {
             success: function (response) {
                 if (response != null) {
                     window.toastNotifySuccess("Saved");
-                    onCloseModal();
-                    window.location.reload();
+                    sendVitalsModal();
+                    /*window.location.reload();*/
                 }
                 else {
                     window.toastNotifyError("Something went wrong");
@@ -71,5 +73,12 @@ function onBtnSave() {
                 window.toastNotifyError(response.responseText);
             }
         });
+    } catch (e) {
+        window.toastNotifyError(e);
     }
+}
+
+function sendVitalsModal() {
+    window.$("#vitalsModal").modal("hide");
+    window.$("#confirmSendVitals").modal("show");
 }

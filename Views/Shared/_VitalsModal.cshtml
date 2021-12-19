@@ -32,10 +32,29 @@
                     <input type="hidden" id="id" />
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" onclick="onCloseModal()">Close</button> &nbsp;
-                        <button type="button" id="btnSave" class="btn btn-primary" onclick="onBtnSave()">Save</button>
+                        <button type="button" class="btn btn-primary" onclick="onBtnSave()">Save</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+<!-- Confirm -->
+<div class="modal fade" id="confirmSendVitals" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Send Vitals</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Would you like to assign this patient a doctor?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
         </div>
     </div>
 </div>

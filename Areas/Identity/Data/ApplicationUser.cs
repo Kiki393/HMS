@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HMS.Areas.Identity.Data
 {
+    using System.ComponentModel;
+
     /// Add profile data for application users by adding properties to the ApplicationUser class
     /// <summary>
     /// The application user.
@@ -26,5 +28,11 @@ namespace HMS.Areas.Identity.Data
         /// Gets or sets the role.
         /// </summary>
         public string Role { get; set; }
+
+        /// <summary>
+        /// Gets or sets the staff id.
+        /// </summary>
+        [DisplayName("Staff Id")]
+        public string StaffId { get; set; }
     }
 }
