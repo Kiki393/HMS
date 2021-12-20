@@ -76,9 +76,51 @@ function onBtnSave() {
     } catch (e) {
         window.toastNotifyError(e);
     }
+    return window.v = vitals;
 }
 
 function sendVitalsModal() {
     window.$("#vitalsModal").modal("hide");
     window.$("#confirmSendVitals").modal("show");
+}
+
+function assignDocModal() {
+    window.$("#confirmSendVitals").modal("hide");
+    window.$("#assignDocModal").modal("show");
+}
+
+function assignDoc() {
+    var select = document.getElementById("doclist");
+    var option = select.options[select.selectedIndex].value;
+    var data = {
+        DocId: option,
+        PId: v.PatientId
+    };
+
+    try {
+        window.$.ajax({
+            type: "POST",
+            url: "/Nurse/AssignDoc",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response != null) {
+                    window.location.reload();
+                    window.toastNotifySuccess("Assigned");
+                }
+                else {
+                    window.toastNotifyError("Something went wrong");
+                }
+            },
+            failure: function (response) {
+                window.toastNotifyError(response.responseText);
+            },
+            error: function (response) {
+                window.toastNotifyError(response.responseText);
+            }
+        });
+    } catch (e) {
+        window.toastNotifyError(e);
+    }
 }

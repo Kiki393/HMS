@@ -4,9 +4,7 @@
             <form id="patientVitals" autocomplete="off" novalidate="novalidate">
                 <div class="modal-header">
                     <h2 class="modal-title">Add Patient Vitals</h2>
-                    <button type="button" class="close" onclick="onCloseModal()" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -52,9 +50,36 @@
                 Would you like to assign this patient a doctor?
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary">Yes</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button class="btn btn-primary" onclick="assignDocModal()">Yes</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Assign Patient -->
+<div class="modal fade" id="assignDocModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title">Assign Patient To Doctor</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-floating mb-3">
+                    <div>
+                        <select id="doclist" asp-items="@(new SelectList(ViewBag.DocList, "Id", "Name"))" class="form-select" aria-label="Select Doctor">
+                            <option selected>Select Doctor</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> &nbsp;
+                    <button type="button" id="btnSend" class="btn btn-primary" onclick="assignDoc()">Send</button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

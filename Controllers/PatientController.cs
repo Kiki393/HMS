@@ -12,12 +12,12 @@ using HMS.Areas.Identity.Data;
 using HMS.Models;
 using HMS.Models.ViewModels;
 using HMS.Password_Generator;
+using HMS.Random_Number_Generator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using HMS.Random_Number_Generator;
 
 namespace HMS.Controllers
 {

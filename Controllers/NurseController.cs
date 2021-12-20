@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using HMS.Services;
+
     /// <summary>
     /// The nurse controller.
     /// </summary>
@@ -27,6 +29,11 @@ namespace HMS.Controllers
         /// The _db.
         /// </summary>
         private readonly ApplicationDbContext _db;
+
+        /// <summary>
+        /// The appointment service.
+        /// </summary>
+        private readonly IAppointmentService _appointmentService;
 
         /// <summary>
         /// The _notify service.
@@ -42,10 +49,14 @@ namespace HMS.Controllers
         /// <param name="notifyService">
         /// The notification service.
         /// </param>
-        public NurseController(ApplicationDbContext db, INotyfService notifyService)
+        /// <param name="appointmentService">
+        /// The appointment Service.
+        /// </param>
+        public NurseController(ApplicationDbContext db, INotyfService notifyService, IAppointmentService appointmentService)
         {
             _db = db;
             _notifyService = notifyService;
+            this._appointmentService = appointmentService;
         }
 
         /// <summary>
@@ -56,6 +67,7 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
+            ViewBag.DocList = _appointmentService.GetDoctorList();
             IEnumerable<PatientVitals> vitals = _db.Vitals;
             return View(vitals);
         }
@@ -86,6 +98,34 @@ namespace HMS.Controllers
             }
 
             return Json(vitals);
+        }
+
+        /// <summary>
+        /// The assign doctor.
+        /// </summary>
+        /// <param name="doctor">
+        ///     The doctor.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        public IActionResult AssignDoc([FromBody] AssignDoctor doctor)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    this._db.AssignDoctors.Add(doctor);
+                    this._db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                _notifyService.Error(e.ToString());
+            }
+
+            return Json(doctor);
         }
     }
 }

@@ -7,14 +7,32 @@ using Microsoft.Extensions.Hosting;
 
 namespace HMS
 {
-    public class Program
+    /// <summary>
+    /// The program.
+    /// </summary>
+    public static class Program
     {
+        /// <summary>
+        /// The main.
+        /// </summary>
+        /// <param name="args">
+        /// The args.
+        /// </param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        /// <summary>
+        /// The create host builder.
+        /// </summary>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHostBuilder"/>.
+        /// </returns>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

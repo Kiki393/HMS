@@ -50,6 +50,11 @@ namespace HMS.Areas.Identity.Data
         public DbSet<PatientVitals> Vitals { get; set; }
 
         /// <summary>
+        /// Gets or sets the assign doctors.
+        /// </summary>
+        public DbSet<AssignDoctor> AssignDoctors { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">
@@ -62,6 +67,8 @@ namespace HMS.Areas.Identity.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<Patients>()
+                .HasAlternateKey(p => p.PatientId);
         }
     }
 }
