@@ -1,5 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using HMS.Utilities
+@using Microsoft.AspNetCore.Identity
+@using HMS.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
 @inject IHttpContextAccessor _httpContextAccessor
 
 <!DOCTYPE html>
@@ -69,7 +73,7 @@
                     </a>
                 </li>
             }
-            
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -133,6 +137,21 @@
                     </div>
                 </li>
             }
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings"
+                   aria-expanded="true" aria-controls="collapseSettings">
+                    <i class="fas fa-cogs"></i>
+                    <span>Settings</span>
+                </a>
+                <div id="collapseSettings" class="collapse" aria-labelledby="headingUtilities"
+                     data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Settings:</h6>
+                        <a class="collapse-item" asp-controller="Manage" asp-action="Index">Change Password</a>
+                    </div>
+                </div>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -329,19 +348,21 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">@_httpContextAccessor.HttpContext.Session.GetString("ssuserName")</span>
-                                <img class="img-profile rounded-circle"
-                                     src="~/img/undraw_profile.svg">
+                                @if (_signInManager.IsSignedIn(User))
+                                {
+                                    @if (_userManager.GetUserAsync(User).Result.ProfilePicture != null)
+                                    {
+                                        <img class="img-profile rounded-circle"
+                                     src="data:image/*;base64,@(Convert.ToBase64String(_userManager.GetUserAsync(User).Result.ProfilePicture))">
+                                    }
+                                }
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" asp-controller="Profile" asp-action="Index">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -406,9 +427,9 @@
         </div>
 
         <!-- Scripts for all pages-->
-    <script src="~/vendor/jquery/jquery.min.js"></script>
-       <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="~/js/sb-admin-2.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
