@@ -328,15 +328,13 @@ namespace HMS.Controllers
                 }
 
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-                // code = HttpUtility.UrlEncode(code);
                 try
                 {
                     var callbackUrl = Url.Action(
                         "ResetPassword",
                         "Account",
-                        new { code },
+                        new { email = model.Email, code },
                         Request.Scheme);
 
                     await _emailSender.SendEmailAsync(
@@ -375,26 +373,20 @@ namespace HMS.Controllers
         /// <param name="code">
         /// The code.
         /// </param>
+        /// <param name="email">
+        /// The email.
+        /// </param>
         /// <returns>
         /// The <see cref="IActionResult"/>.
         /// </returns>
-        public IActionResult ResetPassword(string code)
+        public IActionResult ResetPassword(string code, string email)
         {
-            if (code != null)
+            if (code == null || email == null)
             {
-                var resetPass = new ResetPasswordVm
-                {
-                    Code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code)),
-
-                    // Code = HttpUtility.UrlDecode(code),
-                };
-
-                return View(resetPass);
+                ModelState.AddModelError(string.Empty, "Invalid token or email.");
             }
-            else
-            {
-                return BadRequest("A code must be supplied for password reset.");
-            }
+
+            return this.View();
         }
 
         /// POST: /Account/ResetPassword

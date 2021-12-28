@@ -73,6 +73,66 @@
                     </a>
                 </li>
             }
+            @if (User.IsInRole(UserRoles.Patient))
+            {
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Patient" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
+            @if (User.IsInRole(UserRoles.Lab))
+            {
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Lab" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
+            @if (User.IsInRole(UserRoles.Cashier))
+            {
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Cashier" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
+            @if (User.IsInRole(UserRoles.Doctor))
+            {
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Doctor" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
+            @if (User.IsInRole(UserRoles.Pharmacy))
+            {
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Pharmacy" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
+            @if (User.IsInRole(UserRoles.Nurse))
+            {
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item active">
+                    <a class="nav-link" asp-controller="Nurse" asp-action="Index">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            }
 
 
             <!-- Divider -->
@@ -133,6 +193,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Tasks:</h6>
                             <a class="collapse-item" asp-controller="Account" asp-action="Register">Create New Account</a>
+                            <a class="collapse-item" asp-controller="Manage" asp-action="Users">All Application Users</a>
                         </div>
                     </div>
                 </li>
@@ -148,7 +209,7 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings:</h6>
-                        <a class="collapse-item" asp-controller="Manage" asp-action="Index">Change Password</a>
+                        <a class="collapse-item" asp-controller="Manage" asp-action="">Change Password</a>
                     </div>
                 </div>
             </li>
@@ -440,9 +501,10 @@
         <script src="~/js/script-custom-calendar.js"></script>
         <script src="~/vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="~/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-        <script src="js/datatables-demo.js"></script>
+        <script src="~/js/datatables-demo.js"></script>
         <script src="~/vendor/popperjs/core/dist/umd/popper.min.js"></script>
         <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="~/js/DeleteUser.js"></script>
 
         @await Component.InvokeAsync("Notyf")
         @await RenderSectionAsync("scripts", required: false)

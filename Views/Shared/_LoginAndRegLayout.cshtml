@@ -15,15 +15,26 @@
 
     <!-- Volt CSS -->
     <link type="text/css" href="~/css/volt.css" rel="stylesheet">
+    
+    <style>
+        body
+        {
+            background-image:url('/assets/img/illustrations/signin.svg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center; 
+            background-size: 60% 60%
+        }
+    </style>
 </head>
 <body>
     <header>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+   
+        <main >
             @RenderBody()
         </main>
-    </div>
+   
     <!-- Core -->
     <script src="~/vendor/popperjs/core/dist/umd/popper.min.js"></script>
     <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>

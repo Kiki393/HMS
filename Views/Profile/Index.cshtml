@@ -29,59 +29,56 @@
                 <div class="card-body">
                     <div class="form-group ">
                         <form asp-action="Index" method="post" id="profile" class="mt-4 row g-2" enctype="multipart/form-data">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                            <div class="col-md-3">
-                                <div class="form-group form-floating mb-3">
-                                    <input asp-for="Username" class="form-control" placeholder="Username" disabled="disabled" />
-                                    <label asp-for="Username"></label>
-                                    <span asp-validation-for="Username" class="text-danger"></span>
+                                    <div class="form-group form-floating mb-3">
+                                        <input asp-for="Username" class="form-control" placeholder="Username" disabled="disabled" />
+                                        <label asp-for="Username"></label>
+                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group form-floating mb-3">
+                                        <input asp-for="Name" class="form-control" placeholder="Full Name" />
+                                        <label asp-for="Name"></label>
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group form-floating mb-3">
+                                        <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+                                        <label asp-for="PhoneNumber"></label>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <input type="submit" value="Save" class="btn btn-primary" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-6">
-                                <div class="form-group form-floating mb-3">
-                                    <input asp-for="Name" class="form-control" placeholder="Full Name" />
-                                    <label asp-for="Name"></label>
-                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                <div class="col-md-6">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="ProfilePicture" style="width: 100%;"></label>
+                                        @if (Model.ProfilePicture == null)
+                                        {
+                                            <img id="profilePicture" style="width: 350px; height: 350px; object-fit: cover" src="">
+                                        }
+                                        else
+                                        {
+                                            <img id="profilePicture" style="width: 350px; height: 350px; object-fit: cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+                                        }
+                                        <input type="file"
+                                               accept=".png,.jpg,.jpeg,.gif,.tif"
+                                               asp-for="ProfilePicture"
+                                               class="form-control"
+                                               style="border: 0px !important; padding: 0px; padding-top: 10px; padding-bottom: 30px;"
+                                               onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                                        <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="col-md-4">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="ProfilePicture" style="width: 100%;"></label>
-                                    @if (Model.ProfilePicture == null)
-                                    {
-                                        <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="">
-                                    }
-                                    else
-                                    {
-                                        <img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
-                                    }
-                                    <input type="file"
-                                           accept=".png,.jpg,.jpeg,.gif,.tif"
-                                           asp-for="ProfilePicture"
-                                           class="form-control"
-                                           style="border:0px!important;padding: 0px;padding-top: 10px;padding-bottom: 30px;"
-                                           onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
-                                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5">
-                                <div class="form-group form-floating mb-3">
-                                    <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
-                                    <label asp-for="PhoneNumber"></label>
-                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end col-md-9">
-                                <input type="submit" value="Save" class="btn btn-primary" />
                             </div>
                         </form>
-
                     </div>
                 </div>
             </div>

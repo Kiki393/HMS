@@ -1,0 +1,91 @@
+﻿@model IEnumerable<HMS.Areas.Identity.Data.ApplicationUser>
+@{
+    ViewData["Title"] = "Users";
+    Layout = "_AdminLayout";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Application Users</li>
+    </ol>
+
+    <!-- DataTale -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All Application Users</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Staff ID
+                                </th>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Username
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Role
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.StaffId</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Role</td>
+                                    <td>
+                                        @*<div>
+                                            <a asp-controller="Manage" asp-action="DeleteUser" asp-route-Id="@item.Id"><i class="far fa-trash-alt" style="color: red"></i></a>
+                                            </div>*@
+                                        <form method="post" asp-action="DeleteUser" asp-route-id="@item.Id">
+                                            <span style="display: none" id="confirmDeleteSpan_@item.Id">
+                                                <span>Delete?</span>
+                                                <button type="button" class="btn" onclick="confirmDelete('@item.Id', false)">
+                                                    <i class="fas fa-ban" style="color: dodgerblue"></i>
+                                                </button>
+                                                <button type="submit" class="btn"><i class="far fa-trash-alt" style="color: red"></i></button>
+                                            </span>
+                                            <span id="deleteSpan_@item.Id">
+                                                <button type="button" class="btn" onclick="confirmDelete('@item.Id', true)"><i class="far fa-trash-alt" style="color: red"></i></button>
+                                            </span>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No users added.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
