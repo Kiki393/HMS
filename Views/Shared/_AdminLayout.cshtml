@@ -43,19 +43,85 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Admin" asp-action="Index">
-                <div class="sidebar-brand-icon">
-                    <i class="fas fa-hospital-symbol"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">VVU - HMS</div>
-            </a>
+            @if (User.IsInRole(UserRoles.Admin))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Admin" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
+
+            @if (User.IsInRole(UserRoles.Receptionist))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Receptionist" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
+            @if (User.IsInRole(UserRoles.Nurse))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Nurse" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
+            @if (User.IsInRole(UserRoles.Doctor))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Doctor" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
+            @if (User.IsInRole(UserRoles.Patient))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Patient" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
+            @if (User.IsInRole(UserRoles.Cashier))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Cashier" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
+            @if (User.IsInRole(UserRoles.Lab))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Lab" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }@if (User.IsInRole(UserRoles.Pharmacy))
+            {
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Pharmacy" asp-action="Index">
+                    <div class="sidebar-brand-icon">
+                        <i class="fas fa-hospital-symbol"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">VVU - HMS</div>
+                </a>
+            }
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+            <!-- Nav Item - Dashboard -->
             @if (User.IsInRole(UserRoles.Admin))
             {
-                <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
                     <a class="nav-link" asp-controller="Admin" asp-action="Index">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -63,6 +129,7 @@
                     </a>
                 </li>
             }
+
             @if (User.IsInRole(UserRoles.Receptionist))
             {
                 <!-- Nav Item - Dashboard -->
@@ -161,7 +228,7 @@
                     </div>
                 </li>
             }
-            else
+            @if (User.IsInRole(UserRoles.Doctor))
             {
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
@@ -199,6 +266,28 @@
                 </li>
             }
 
+            @if (User.IsInRole(UserRoles.Pharmacy))
+            {
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-pills"></i>
+                        <span>Medicines</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Tasks:</h6>
+                            <a class="collapse-item" asp-controller="Pharmacy" asp-action="AddMedicine">Add Medicine</a>
+                        </div>
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Tasks:</h6>
+                            <a class="collapse-item" asp-controller="Pharmacy" asp-action="Medicines">All Medicines</a>
+                        </div>
+                    </div>
+                </li>
+            }
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSettings"
                    aria-expanded="true" aria-controls="collapseSettings">
@@ -209,7 +298,7 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Settings:</h6>
-                        <a class="collapse-item" asp-controller="Manage" asp-action="">Change Password</a>
+                        <a class="collapse-item" asp-controller="Manage" asp-action="ChangePassword">Change Password</a>
                     </div>
                 </div>
             </li>
@@ -425,10 +514,13 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
+                                @if (User.IsInRole(UserRoles.Admin))
+                                {
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Activity Log
+                                    </a>
+                                }
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -451,7 +543,7 @@
                 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2021</span>
+                            <span>Copyright &copy; VVU - HMS 2021</span>
                         </div>
                     </div>
                 </footer>
@@ -505,6 +597,8 @@
         <script src="~/vendor/popperjs/core/dist/umd/popper.min.js"></script>
         <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="~/js/DeleteUser.js"></script>
+        <script src="~/js/patientModal.js"></script>
+        <script src="~/js/vitalsModal.js"></script>
 
         @await Component.InvokeAsync("Notyf")
         @await RenderSectionAsync("scripts", required: false)

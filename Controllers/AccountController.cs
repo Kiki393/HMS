@@ -101,6 +101,7 @@ namespace HMS.Controllers
         /// <returns>
         /// The <see cref="IActionResult"/>.
         /// </returns>
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -117,6 +118,7 @@ namespace HMS.Controllers
         /// The <see cref="Task"/>.
         /// </returns>
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVm model)
         {
@@ -242,7 +244,6 @@ namespace HMS.Controllers
                     {
                         // Emailing reset password link
                         var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                        code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                         var callbackUrl = Url.Action(
                             "ResetPassword",
                             "Account",

@@ -36,5 +36,8 @@ namespace HMS.Models
         [EmailAddress]
         [DataType(DataType.EmailAddress)]
         public string Email { get; init; }
+
+        [DisplayName("NHIS ID")]
+        public string NHIS { get; set; }
     }
 }

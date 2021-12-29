@@ -37,13 +37,19 @@
                                 <input hidden asp-for="Patients.Id" />
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Patients.PatientId" class="form-control" placeholder="Patient Id"/>
+                                    <input asp-for="Patients.PatientId" class="form-control" placeholder="Patient Id" />
                                     <label asp-for="Patients.PatientId"></label>
                                     <span asp-validation-for="Patients.PatientId" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Patients.Name" class="form-control" placeholder="Name"/>
+                                    <input asp-for="Patients.NHIS" class="form-control" placeholder="NHIS Id" />
+                                    <label asp-for="Patients.NHIS"></label>
+                                    <span asp-validation-for="Patients.NHIS" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="Patients.Name" class="form-control" placeholder="Name" />
                                     <label asp-for="Patients.Name"></label>
                                     <span asp-validation-for="Patients.Name" class="text-danger"></span>
                                 </div>
@@ -55,19 +61,19 @@
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Patients.Age" class="form-control" placeholder="Age"/>
+                                    <input asp-for="Patients.Age" class="form-control" placeholder="Age" />
                                     <label asp-for="Patients.Age"></label>
                                     <span asp-validation-for="Patients.Age" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Patients.Contact" class="form-control" placeholder="Contact"/>
+                                    <input asp-for="Patients.Contact" class="form-control" placeholder="Contact" />
                                     <label asp-for="Patients.Contact"></label>
                                     <span asp-validation-for="Patients.Contact" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Patients.Address" class="form-control" placeholder="Address"/>
+                                    <input asp-for="Patients.Address" class="form-control" placeholder="Address" />
                                     <label asp-for="Patients.Address"></label>
                                     <span asp-validation-for="Patients.Address" class="text-danger"></span>
                                 </div>
@@ -95,5 +101,5 @@
 
 @section Scripts
 {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }

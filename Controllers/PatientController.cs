@@ -85,7 +85,8 @@ namespace HMS.Controllers
                             Address = patients.Address,
                             Contact = patients.Contact,
                             Dob = patients.Dob,
-                            Email = patients.Email
+                            Email = patients.Email,
+                            NHIS = patients.NHIS
                         };
                         _db.Patients.Add(patient);
                         await _db.SaveChangesAsync();
@@ -111,11 +112,10 @@ namespace HMS.Controllers
                         {
                             // Emailing reset password link
                             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                             var callbackUrl = Url.Action(
                                 "ResetPassword",
                                 "Account",
-                                new { code },
+                                new { email = patients.Email, code },
                                 Request.Scheme);
 
                             await _emailSender.SendEmailAsync(

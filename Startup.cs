@@ -22,6 +22,9 @@ using Microsoft.Extensions.Hosting;
 
 namespace HMS
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc.Authorization;
+
     /// <summary>
     /// The startup.
     /// </summary>
@@ -80,6 +83,13 @@ namespace HMS
 
             services.Configure<DataProtectionTokenProviderOptions>(o =>
                 o.TokenLifespan = TimeSpan.FromHours(3));
+
+            services.AddMvc(
+                options =>
+                    {
+                        var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                        options.Filters.Add(new AuthorizeFilter(policy));
+                    }).AddXmlSerializerFormatters();
         }
 
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

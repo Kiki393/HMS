@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using AspNetCoreHero.ToastNotification.Abstractions;
+
     /// <summary>
     /// The pharmacy controller.
     /// </summary>
@@ -25,15 +27,21 @@ namespace HMS.Controllers
     {
         private readonly ApplicationDbContext _db;
 
+        private readonly INotyfService _notyf;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PharmacyController"/> class.
         /// </summary>
         /// <param name="db">
         /// The database.
         /// </param>
-        public PharmacyController(ApplicationDbContext db)
+        /// <param name="notyf">
+        /// The notification service.
+        /// </param>
+        public PharmacyController(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
+            this._notyf = notyf;
         }
 
         /// GET: PharmacyController/
@@ -45,8 +53,20 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
+            return View();
+        }
+
+        /// GET: PharmacyController/
+        /// <summary>
+        /// The medicines.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult Medicines()
+        {
             IEnumerable<Medicine> medicines = _db.Medicines;
-            return View(medicines);
+            return this.View(medicines);
         }
 
         /// GET: PharmacyController/Create
@@ -81,11 +101,13 @@ namespace HMS.Controllers
                 {
                     _db.Medicines.Add(medicine);
                     _db.SaveChanges();
+                    this._notyf.Success("Medicine Added");
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
             {
+                this._notyf.Error(e.ToString());
                 return View();
             }
 
@@ -94,11 +116,13 @@ namespace HMS.Controllers
 
         /// GET: PharmacyController/Edit
         /// <summary>
-        ///
+        /// Edit Medicine.
         /// </summary>
         /// <param name="id">
+        /// The medicine id.
         /// </param>
         /// <returns>
+        /// The <see cref="IActionResult"/>.
         /// </returns>
         public IActionResult EditMedicine(int? id)
         {
@@ -120,10 +144,14 @@ namespace HMS.Controllers
 
         /// POST: PharmacyController/Edit
         /// <summary>
-        ///
+        /// Edit Medicine.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">
+        /// The medicine view model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditMedicine(MedicineVm obj)
@@ -134,6 +162,7 @@ namespace HMS.Controllers
                 {
                     _db.Medicines.Update(obj.Medicine);
                     _db.SaveChanges();
+                    this._notyf.Success("Medicine Updated");
                     return RedirectToAction("Index");
                 }
 
@@ -141,16 +170,21 @@ namespace HMS.Controllers
             }
             catch (Exception e)
             {
+                this._notyf.Error(e.ToString());
                 return View();
             }
         }
 
         /// GET: PharmacyController/Delete
         /// <summary>
-        ///
+        /// Delete medicine.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">
+        /// The medicine id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
         public IActionResult Delete(int? id)
         {
             if (id is null or 0)
@@ -167,12 +201,18 @@ namespace HMS.Controllers
             return View();
         }
 
-        /// GET: PharmacyController/Delete
+        /// POST: PharmacyController/Delete
         /// <summary>
-        ///
+        /// Delete medicine.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">
+        /// The medicine id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteMedicine(int? id)
         {
             var obj = _db.Medicines.Find(id);
@@ -183,17 +223,9 @@ namespace HMS.Controllers
 
             _db.Medicines.Remove(obj);
             _db.SaveChanges();
+            this._notyf.Success("Medicine Deleted");
 
             return RedirectToAction("Index");
         }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        //public IActionResult Administer()
-        //{
-        //    return this.View();
-        //}
     }
 }

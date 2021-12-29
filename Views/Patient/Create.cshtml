@@ -36,10 +36,16 @@
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="form-group form-floating mb-3">
-                                <input asp-for="Name" class="form-control" placeholder="Full NAme" />
-                                <label asp-for="Name"></label>
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
+                                    <input asp-for="NHIS" class="form-control" placeholder="NHIS Id" />
+                                    <label asp-for="NHIS"></label>
+                                    <span asp-validation-for="NHIS" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="Name" class="form-control" placeholder="Full Name" />
+                                    <label asp-for="Name"></label>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
 
                                 <div class="form-group form-floating mb-3">
                                     <input type="date" asp-for="Dob" class="form-control" />
@@ -94,5 +100,5 @@
 
 @section Scripts
 {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
