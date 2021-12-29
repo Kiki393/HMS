@@ -174,7 +174,13 @@ namespace HMS.Services
         /// </returns>
         public List<AppointmentVm> DoctorsEventsById(string doctorId)
         {
-            return _db.Appointments.Where(x => x.DoctorId == doctorId).ToList().Select(c => new AppointmentVm
+            var list = new List<Appointment>();
+            foreach (var appointment in this._db.Appointments.Where(x => x.DoctorId == doctorId))
+            {
+                list.Add(appointment);
+            }
+
+            return list.Select(c => new AppointmentVm
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -197,7 +203,13 @@ namespace HMS.Services
         /// </returns>
         public AppointmentVm GetById(int id)
         {
-            return _db.Appointments.Where(x => x.Id == id).ToList().Select(c => new AppointmentVm
+            var list = new List<Appointment>();
+            foreach (var appointment in this._db.Appointments.Where(x => x.Id == id))
+            {
+                list.Add(appointment);
+            }
+
+            return list.Select(c => new AppointmentVm
             {
                 Id = c.Id,
                 Description = c.Description,
@@ -263,7 +275,13 @@ namespace HMS.Services
         /// </returns>
         public List<AppointmentVm> PatientsEventsById(string patientId)
         {
-            return _db.Appointments.Where(x => x.PatientId == patientId).ToList().Select(c => new AppointmentVm
+            var list = new List<Appointment>();
+            foreach (var appointment in this._db.Appointments.Where(x => x.PatientId == patientId))
+            {
+                list.Add(appointment);
+            }
+
+            return list.Select(c => new AppointmentVm
             {
                 Id = c.Id,
                 Description = c.Description,
