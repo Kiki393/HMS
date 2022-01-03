@@ -105,11 +105,11 @@ namespace HMS.Services
                 };
 
                 // Sends and email to both doctor and patient on the status of an appointment
-                await this._emailSender.SendEmailAsync(
+                await _emailSender.SendEmailAsync(
                    doctor?.Email,
                    "Appointment Created",
                    $"Your appointment with {patient?.Name} has been created and is pending confirmation.");
-                await this._emailSender.SendEmailAsync(
+                await _emailSender.SendEmailAsync(
                    patient?.Email,
                    "Appointment Created",
                    $"Your appointment with {doctor?.Name} has been created and is pending confirmation.");
@@ -175,7 +175,7 @@ namespace HMS.Services
         public List<AppointmentVm> DoctorsEventsById(string doctorId)
         {
             var list = new List<Appointment>();
-            foreach (var appointment in this._db.Appointments.Where(x => x.DoctorId == doctorId))
+            foreach (var appointment in _db.Appointments.Where(x => x.DoctorId == doctorId))
             {
                 list.Add(appointment);
             }
@@ -204,7 +204,7 @@ namespace HMS.Services
         public AppointmentVm GetById(int id)
         {
             var list = new List<Appointment>();
-            foreach (var appointment in this._db.Appointments.Where(x => x.Id == id))
+            foreach (var appointment in _db.Appointments.Where(x => x.Id == id))
             {
                 list.Add(appointment);
             }
@@ -276,7 +276,7 @@ namespace HMS.Services
         public List<AppointmentVm> PatientsEventsById(string patientId)
         {
             var list = new List<Appointment>();
-            foreach (var appointment in this._db.Appointments.Where(x => x.PatientId == patientId))
+            foreach (var appointment in _db.Appointments.Where(x => x.PatientId == patientId))
             {
                 list.Add(appointment);
             }

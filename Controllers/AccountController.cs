@@ -387,7 +387,7 @@ namespace HMS.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid token or email.");
             }
 
-            return this.View();
+            return View();
         }
 
         /// POST: /Account/ResetPassword

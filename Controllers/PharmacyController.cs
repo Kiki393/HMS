@@ -41,7 +41,7 @@ namespace HMS.Controllers
         public PharmacyController(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
-            this._notyf = notyf;
+            _notyf = notyf;
         }
 
         /// GET: PharmacyController/
@@ -66,7 +66,7 @@ namespace HMS.Controllers
         public IActionResult Medicines()
         {
             IEnumerable<Medicine> medicines = _db.Medicines;
-            return this.View(medicines);
+            return View(medicines);
         }
 
         /// GET: PharmacyController/Create
@@ -101,13 +101,13 @@ namespace HMS.Controllers
                 {
                     _db.Medicines.Add(medicine);
                     _db.SaveChanges();
-                    this._notyf.Success("Medicine Added");
+                    _notyf.Success("Medicine Added");
                     return RedirectToAction("Index");
                 }
             }
             catch (Exception e)
             {
-                this._notyf.Error(e.ToString());
+                _notyf.Error(e.ToString());
                 return View();
             }
 
@@ -162,7 +162,7 @@ namespace HMS.Controllers
                 {
                     _db.Medicines.Update(obj.Medicine);
                     _db.SaveChanges();
-                    this._notyf.Success("Medicine Updated");
+                    _notyf.Success("Medicine Updated");
                     return RedirectToAction("Index");
                 }
 
@@ -170,7 +170,7 @@ namespace HMS.Controllers
             }
             catch (Exception e)
             {
-                this._notyf.Error(e.ToString());
+                _notyf.Error(e.ToString());
                 return View();
             }
         }
@@ -223,7 +223,7 @@ namespace HMS.Controllers
 
             _db.Medicines.Remove(obj);
             _db.SaveChanges();
-            this._notyf.Success("Medicine Deleted");
+            _notyf.Success("Medicine Deleted");
 
             return RedirectToAction("Index");
         }

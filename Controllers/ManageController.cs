@@ -66,10 +66,10 @@ namespace HMS.Controllers
         /// </param>
         public ManageController(UserManager<ApplicationUser> userManager, ApplicationDbContext db, INotyfService notyf, SignInManager<ApplicationUser> signInManager)
         {
-            this._userManager = userManager;
-            this._db = db;
-            this._notyf = notyf;
-            this._signInManager = signInManager;
+            _userManager = userManager;
+            _db = db;
+            _notyf = notyf;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Users()
         {
-            IEnumerable<ApplicationUser> application = this._db.Users;
+            IEnumerable<ApplicationUser> application = _db.Users;
 
             return View(application);
         }
@@ -98,20 +98,20 @@ namespace HMS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await this._userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
 
             if (user == null)
             {
-                this._notyf.Error($"User with Id = {id} cannot be found.");
+                _notyf.Error($"User with Id = {id} cannot be found.");
                 return View("Error");
             }
             else
             {
-                var result = await this._userManager.DeleteAsync(user);
+                var result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)
                 {
-                    this._notyf.Success("User Deleted");
-                    return this.RedirectToAction("Users");
+                    _notyf.Success("User Deleted");
+                    return RedirectToAction("Users");
                 }
 
                 foreach (var error in result.Errors)
@@ -120,7 +120,7 @@ namespace HMS.Controllers
                 }
             }
 
-            return this.View("Users");
+            return View("Users");
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult ChangePassword()
         {
-            return this.View();
+            return View();
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace HMS.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 if (user == null)
                 {
-                    return this.RedirectToAction("Login", "Account");
+                    return RedirectToAction("Login", "Account");
                 }
 
                 // ChangePasswordAsync changes the user password
@@ -171,7 +171,7 @@ namespace HMS.Controllers
                 }
 
                 // Upon successfully changing the password refresh sign-in cookie
-                this._notyf.Success("Password Updated");
+                _notyf.Success("Password Updated");
                 await _signInManager.RefreshSignInAsync(user);
                 return View();
             }

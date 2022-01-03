@@ -14,28 +14,38 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers.APIs
 {
+    /// <inheritdoc />
     [Route("api/Appointment")]
     [ApiController]
     public class AppointmentApiController : Controller
     {
-        private readonly IAppointmentService _appointmentService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly string _loggedInUserId;
-        private readonly string _role;
+        private readonly IAppointmentService appointmentService;
+        private readonly string loggedInUserId;
+        private readonly string role;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppointmentApiController"/> class.
         /// </summary>
-        /// <param name="appointmentService"></param>
-        /// <param name="httpContextAccessor"></param>
+        /// <param name="appointmentService">
+        /// The appointment service.
+        /// </param>
+        /// <param name="httpContextAccessor">
+        /// The http context accessor.
+        /// </param>
         public AppointmentApiController(IAppointmentService appointmentService, IHttpContextAccessor httpContextAccessor)
         {
-            _appointmentService = appointmentService;
-            _httpContextAccessor = httpContextAccessor;
-            _loggedInUserId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            _role = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
+            this.appointmentService = appointmentService;
+            loggedInUserId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            role = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
         }
 
+        /// <summary>
+        /// Save calendar data.
+        /// </summary>
+        /// <param name="data">
+        /// The appointment view model.
+        /// </param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpPost]
         [Route("SaveCalendarData")]
         public IActionResult SaveCalendarData(AppointmentVm data)
@@ -43,7 +53,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.Status = _appointmentService.AddUpdate(data).Result;
+                commonResponse.Status = appointmentService.AddUpdate(data).Result;
                 commonResponse.Message = commonResponse.Status switch
                 {
                     1 => NotificationMessages.appointmentUpdated,
@@ -60,6 +70,13 @@ namespace HMS.Controllers.APIs
             return Ok(commonResponse);
         }
 
+        /// <summary>
+        /// Get calendar data by doctor id.
+        /// </summary>
+        /// <param name="doctorId">
+        /// The doctor id.
+        /// </param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
         [Route("GetCalendarData")]
         public IActionResult GetCalendarData(string doctorId)
@@ -67,20 +84,20 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<List<AppointmentVm>>();
             try
             {
-                switch (_role)
+                switch (role)
                 {
                     case UserRoles.Patient:
-                        commonResponse.Dataenum = _appointmentService.PatientsEventsById(_loggedInUserId);
+                        commonResponse.Dataenum = appointmentService.PatientsEventsById(loggedInUserId);
                         commonResponse.Status = NotificationMessages.successCode;
                         break;
 
                     case UserRoles.Doctor:
-                        commonResponse.Dataenum = _appointmentService.DoctorsEventsById(_loggedInUserId);
+                        commonResponse.Dataenum = appointmentService.DoctorsEventsById(loggedInUserId);
                         commonResponse.Status = NotificationMessages.successCode;
                         break;
 
                     default:
-                        commonResponse.Dataenum = _appointmentService.DoctorsEventsById(doctorId);
+                        commonResponse.Dataenum = appointmentService.DoctorsEventsById(doctorId);
                         commonResponse.Status = NotificationMessages.successCode;
                         break;
                 }
@@ -94,6 +111,13 @@ namespace HMS.Controllers.APIs
             return Ok(commonResponse);
         }
 
+        /// <summary>
+        /// Get calendar data by id.
+        /// </summary>
+        /// <param name="id">
+        /// The appointment id.
+        /// </param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
         [Route("GetCalendarDataById/{id}")]
         public IActionResult GetCalendarDataById(int id)
@@ -101,7 +125,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<AppointmentVm>();
             try
             {
-                commonResponse.Dataenum = _appointmentService.GetById(id);
+                commonResponse.Dataenum = appointmentService.GetById(id);
                 commonResponse.Status = NotificationMessages.successCode;
             }
             catch (Exception e)
@@ -114,9 +138,11 @@ namespace HMS.Controllers.APIs
         }
 
         /// <summary>
-        ///
+        /// Delete appointment.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">
+        /// The appointment id.
+        /// </param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
         [Route("DeleteAppointment/{id}")]
@@ -125,7 +151,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.Status = await _appointmentService.Delete(id);
+                commonResponse.Status = await appointmentService.Delete(id);
                 commonResponse.Message = commonResponse.Status == 1
                     ? NotificationMessages.appointmentDeleted
                     : NotificationMessages.somethingWentWrong;
@@ -139,6 +165,13 @@ namespace HMS.Controllers.APIs
             return Ok(commonResponse);
         }
 
+        /// <summary>
+        /// Confirm appointment.
+        /// </summary>
+        /// <param name="id">
+        /// The appointment id.
+        /// </param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         [HttpGet]
         [Route("ConfirmEvent/{id}")]
         public IActionResult ConfirmEvent(int id)
@@ -146,7 +179,7 @@ namespace HMS.Controllers.APIs
             var commonResponse = new CommonResponse<int>();
             try
             {
-                var result = _appointmentService.ConfirmEvent(id).Result;
+                var result = appointmentService.ConfirmEvent(id).Result;
                 if (result > 0)
                 {
                     commonResponse.Status = NotificationMessages.successCode;

@@ -21,13 +21,16 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace HMS.Controllers
 {
+    /// <summary>
+    /// The patient controller.
+    /// </summary>
     [Authorize]
     public class PatientController : Controller
     {
-        private readonly ApplicationDbContext _db;
-        private readonly INotyfService _notyf;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext db;
+        private readonly INotyfService notyf;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEmailSender emailSender;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PatientController"/> class.
@@ -46,27 +49,48 @@ namespace HMS.Controllers
         /// </param>
         public PatientController(ApplicationDbContext db, INotyfService notyf, UserManager<ApplicationUser> userManager, IEmailSender emailSender)
         {
-            _db = db;
-            _notyf = notyf;
-            _userManager = userManager;
-            _emailSender = emailSender;
+            this.db = db;
+            this.notyf = notyf;
+            this.userManager = userManager;
+            this.emailSender = emailSender;
         }
 
-        // GET: PatientController
+        /// GET: PatientController
+        /// <summary>
+        /// The index.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public IActionResult Index()
         {
-            IEnumerable<Patients> objLisItems = _db.Patients;
+            IEnumerable<Patients> objLisItems = db.Patients;
 
             return View(objLisItems);
         }
 
-        // GET: PatientController/Create
+        /// GET: PatientController/Create
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PatientController/Create
+        /// POST: PatientController/Create
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <param name="patients">
+        /// THe patients model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Patients patients)
@@ -88,8 +112,8 @@ namespace HMS.Controllers
                             Email = patients.Email,
                             NHIS = patients.NHIS
                         };
-                        _db.Patients.Add(patient);
-                        await _db.SaveChangesAsync();
+                        db.Patients.Add(patient);
+                        await db.SaveChangesAsync();
 
                         var user = new ApplicationUser
                         {
@@ -100,37 +124,37 @@ namespace HMS.Controllers
                         };
 
                         var password = Password.Generate(12, 1);
-                        var result = await _userManager.CreateAsync(user, password);
+                        var result = await userManager.CreateAsync(user, password);
                         if (result.Succeeded)
                         {
-                            await _userManager.AddToRoleAsync(user, "Patient");
+                            await userManager.AddToRoleAsync(user, "Patient");
                         }
 
-                        _notyf.Success("Created Successfully.", 10);
+                        notyf.Success("Created Successfully.", 10);
 
                         try
                         {
                             // Emailing reset password link
-                            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+                            var code = await userManager.GeneratePasswordResetTokenAsync(user);
                             var callbackUrl = Url.Action(
                                 "ResetPassword",
                                 "Account",
                                 new { email = patients.Email, code },
                                 Request.Scheme);
 
-                            await _emailSender.SendEmailAsync(
+                            await emailSender.SendEmailAsync(
                                 patients.Email,
                                 "Account Created",
                                 $"Your account has been created on the HMS system. Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a> if you wish. <br>This link would expire in 3 hours. <br> Your username is: " + patient.PatientId + " and your default password is " + password);
                         }
                         catch (Exception e)
                         {
-                            _notyf.Error(e.ToString());
+                            notyf.Error(e.ToString());
                         }
                     }
                     catch (Exception e)
                     {
-                        _notyf.Error(e.ToString());
+                        notyf.Error(e.ToString());
                     }
 
                     return RedirectToAction("Index");
@@ -144,7 +168,16 @@ namespace HMS.Controllers
             return View(patients);
         }
 
-        // GET: PatientController/Edit/5
+        /// GET: PatientController/Edit/5
+        /// <summary>
+        /// The edit.
+        /// </summary>
+        /// <param name="id">
+        /// THe patient id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public IActionResult Edit(int? id)
         {
             var patientVm = new PatientVm
@@ -157,7 +190,7 @@ namespace HMS.Controllers
                 return NotFound();
             }
 
-            patientVm.Patients = _db.Patients.Find(id);
+            patientVm.Patients = db.Patients.Find(id);
             if (patientVm.Patients is null)
             {
                 return NotFound();
@@ -166,7 +199,16 @@ namespace HMS.Controllers
             return View(patientVm);
         }
 
-        // POST: PatientController/Edit/5
+        /// POST: PatientController/Edit/5
+        /// <summary>
+        /// The edit.
+        /// </summary>
+        /// <param name="obj">
+        /// THe patient view model.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(PatientVm obj)
@@ -175,9 +217,9 @@ namespace HMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _notyf.Success("Edited Successfully.", 10);
-                    _db.Patients.Update(obj.Patients);
-                    _db.SaveChanges();
+                    notyf.Success("Edited Successfully.", 10);
+                    db.Patients.Update(obj.Patients);
+                    db.SaveChanges();
                     return RedirectToAction("Index");
                 }
 
@@ -189,7 +231,16 @@ namespace HMS.Controllers
             }
         }
 
-        // GET: PatientController/Delete/5
+        /// GET: PatientController/Delete/5
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="id">
+        /// THe patients id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         public IActionResult Delete(int? id)
         {
             if (id is null or 0)
@@ -197,7 +248,7 @@ namespace HMS.Controllers
                 return NotFound();
             }
 
-            var obj = _db.Patients.Find(id);
+            var obj = db.Patients.Find(id);
             if (obj == null)
             {
                 return NotFound();
@@ -206,20 +257,29 @@ namespace HMS.Controllers
             return View(obj);
         }
 
-        // POST: PatientController/Delete/5
+        /// POST: PatientController/Delete/5
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="id">
+        /// THe patients id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ActionResult"/>.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.Patients.Find(id);
+            var obj = db.Patients.Find(id);
             if (obj is null)
             {
                 return NotFound();
             }
 
-            _notyf.Success("Deleted Successfully.", 10);
-            _db.Patients.Remove(obj);
-            _db.SaveChanges();
+            notyf.Success("Deleted Successfully.", 10);
+            db.Patients.Remove(obj);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

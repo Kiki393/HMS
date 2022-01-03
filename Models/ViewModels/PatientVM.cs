@@ -19,20 +19,35 @@ namespace HMS.Models.ViewModels
         /// </summary>
         public int? Id { get; set; }
 
-        public string PatientId { get; init; }
+        /// <summary>
+        /// Gets or sets the patient id.
+        /// </summary>
+        public string PatientId { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
-        public string Dob { get; init; }
+        /// <summary>
+        /// Gets or sets the date of birth.
+        /// </summary>
+        public string Dob { get; set; }
 
-        public int Age { get; init; }
+        /// <summary>
+        /// Gets or sets the age.
+        /// </summary>
+        public int Age { get; set; }
 
-        public string Contact { get; init; }
+        /// <summary>
+        /// Gets or sets the contact.
+        /// </summary>
+        public string Contact { get; set; }
 
-        public string Address { get; init; }
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        public string Address { get; set; }
 
         /// <summary>
         /// Gets or sets the patients.

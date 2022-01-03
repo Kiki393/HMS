@@ -11,3 +11,6 @@ dotnet_diagnostic.SA1101.severity = none
 
 # SA1413: Use trailing comma in multi-line initializers
 dotnet_diagnostic.SA1413.severity = suggestion
+
+# SA1404: Code analysis suppression should have justification
+dotnet_diagnostic.SA1404.severity = suggestion

@@ -56,7 +56,7 @@ namespace HMS.Controllers
         {
             _db = db;
             _notifyService = notifyService;
-            this._appointmentService = appointmentService;
+            _appointmentService = appointmentService;
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace HMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    this._db.AssignDoctors.Add(doctor);
-                    this._db.SaveChanges();
+                    _db.AssignDoctors.Add(doctor);
+                    _db.SaveChanges();
                 }
             }
             catch (Exception e)

@@ -57,10 +57,10 @@ namespace HMS.Controllers
         /// </param>
         public ProfileController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, INotyfService notyf, ApplicationDbContext db)
         {
-            this._userManager = userManager;
-            this._signInManager = signInManager;
-            this._notyf = notyf;
-            this._db = db;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _notyf = notyf;
+            _db = db;
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace HMS.Controllers
 
             if (!ModelState.IsValid)
             {
-                return this.View(profile);
+                return View(profile);
             }
 
             if (user == null)
@@ -127,7 +127,7 @@ namespace HMS.Controllers
                 var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, profile.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    this._notyf.Error("Unexpected error when trying to set phone number.");
+                    _notyf.Error("Unexpected error when trying to set phone number.");
                     return View();
                 }
             }
@@ -145,9 +145,9 @@ namespace HMS.Controllers
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            this._notyf.Success("Your profile has been updated");
+            _notyf.Success("Your profile has been updated");
 
-            return this.View(profile);
+            return View(profile);
         }
     }
 }
