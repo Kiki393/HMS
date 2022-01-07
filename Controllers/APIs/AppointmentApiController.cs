@@ -56,15 +56,15 @@ namespace HMS.Controllers.APIs
                 commonResponse.Status = appointmentService.AddUpdate(data).Result;
                 commonResponse.Message = commonResponse.Status switch
                 {
-                    1 => NotificationMessages.appointmentUpdated,
-                    2 => NotificationMessages.appointmentAdded,
+                    1 => NotificationMessages.AppointmentUpdated,
+                    2 => NotificationMessages.AppointmentAdded,
                     _ => commonResponse.Message
                 };
             }
             catch (Exception e)
             {
                 commonResponse.Message = e.Message;
-                commonResponse.Status = NotificationMessages.failureCode;
+                commonResponse.Status = NotificationMessages.FailureCode;
             }
 
             return Ok(commonResponse);
@@ -88,24 +88,24 @@ namespace HMS.Controllers.APIs
                 {
                     case UserRoles.Patient:
                         commonResponse.Dataenum = appointmentService.PatientsEventsById(loggedInUserId);
-                        commonResponse.Status = NotificationMessages.successCode;
+                        commonResponse.Status = NotificationMessages.SuccessCode;
                         break;
 
                     case UserRoles.Doctor:
                         commonResponse.Dataenum = appointmentService.DoctorsEventsById(loggedInUserId);
-                        commonResponse.Status = NotificationMessages.successCode;
+                        commonResponse.Status = NotificationMessages.SuccessCode;
                         break;
 
                     default:
                         commonResponse.Dataenum = appointmentService.DoctorsEventsById(doctorId);
-                        commonResponse.Status = NotificationMessages.successCode;
+                        commonResponse.Status = NotificationMessages.SuccessCode;
                         break;
                 }
             }
             catch (Exception e)
             {
                 commonResponse.Message = e.Message;
-                commonResponse.Status = NotificationMessages.failureCode;
+                commonResponse.Status = NotificationMessages.FailureCode;
             }
 
             return Ok(commonResponse);
@@ -126,12 +126,12 @@ namespace HMS.Controllers.APIs
             try
             {
                 commonResponse.Dataenum = appointmentService.GetById(id);
-                commonResponse.Status = NotificationMessages.successCode;
+                commonResponse.Status = NotificationMessages.SuccessCode;
             }
             catch (Exception e)
             {
                 commonResponse.Message = e.Message;
-                commonResponse.Status = NotificationMessages.failureCode;
+                commonResponse.Status = NotificationMessages.FailureCode;
             }
 
             return Ok(commonResponse);
@@ -153,13 +153,13 @@ namespace HMS.Controllers.APIs
             {
                 commonResponse.Status = await appointmentService.Delete(id);
                 commonResponse.Message = commonResponse.Status == 1
-                    ? NotificationMessages.appointmentDeleted
-                    : NotificationMessages.somethingWentWrong;
+                    ? NotificationMessages.AppointmentDeleted
+                    : NotificationMessages.SomethingWentWrong;
             }
             catch (Exception e)
             {
                 commonResponse.Message = e.Message;
-                commonResponse.Status = NotificationMessages.failureCode;
+                commonResponse.Status = NotificationMessages.FailureCode;
             }
 
             return Ok(commonResponse);
@@ -182,19 +182,19 @@ namespace HMS.Controllers.APIs
                 var result = appointmentService.ConfirmEvent(id).Result;
                 if (result > 0)
                 {
-                    commonResponse.Status = NotificationMessages.successCode;
-                    commonResponse.Message = NotificationMessages.appointmentConfirm;
+                    commonResponse.Status = NotificationMessages.SuccessCode;
+                    commonResponse.Message = NotificationMessages.AppointmentConfirm;
                 }
                 else
                 {
-                    commonResponse.Status = NotificationMessages.failureCode;
-                    commonResponse.Message = NotificationMessages.appointmentConfirmError;
+                    commonResponse.Status = NotificationMessages.FailureCode;
+                    commonResponse.Message = NotificationMessages.AppointmentConfirmError;
                 }
             }
             catch (Exception e)
             {
                 commonResponse.Message = e.Message;
-                commonResponse.Status = NotificationMessages.failureCode;
+                commonResponse.Status = NotificationMessages.FailureCode;
             }
 
             return Ok(commonResponse);

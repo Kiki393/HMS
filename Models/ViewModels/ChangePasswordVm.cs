@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ChangePasswordVm.cs" company="VVU">
-//
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the ChangePasswordVm type.

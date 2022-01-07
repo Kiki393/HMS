@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="RandomNumber.cs" company="">
-//   Copyright (c) VVU. All rights reserved.
+// <copyright file="RandomNumber.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
 //   Defines the RandomNumber type.
@@ -14,7 +14,7 @@ namespace HMS.Random_Number_Generator
     /// <summary>
     /// The random number.
     /// </summary>
-    public class RandomNumber
+    public static class RandomNumber
     {
         /// <summary>
         /// The _random.

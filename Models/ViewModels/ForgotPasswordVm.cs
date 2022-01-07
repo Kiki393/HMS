@@ -1,8 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ForgotPasswordVm.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
-//   The forgot password view model.
+//   Defines the RandomNumber type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 

@@ -17,61 +17,61 @@ namespace HMS.Utilities
         /// <summary>
         /// The appointment added.
         /// </summary>
-        public static string appointmentAdded = "Appointment added successfully.";
+        public const string AppointmentAdded = "Appointment added successfully.";
 
         /// <summary>
         /// The appointment updated.
         /// </summary>
-        public static string appointmentUpdated = "Appointment updated successfully.";
+        public const string AppointmentUpdated = "Appointment updated successfully.";
 
         /// <summary>
         /// The appointment deleted.
         /// </summary>
-        public static string appointmentDeleted = "Appointment deleted successfully.";
+        public const string AppointmentDeleted = "Appointment deleted successfully.";
 
         /// <summary>
         /// The appointment exists.
         /// </summary>
-        public static string appointmentExists = "Appointment for selected date and time already exists.";
+        public const string AppointmentExists = "Appointment for selected date and time already exists.";
 
         /// <summary>
         /// The appointment not exists.
         /// </summary>
-        public static string appointmentNotExists = "Appointment does not exist.";
+        public const string AppointmentNotExists = "Appointment does not exist.";
 
         /// <summary>
         /// The appointment confirm.
         /// </summary>
-        public static string appointmentConfirm = "Appointment confirmed.";
+        public const string AppointmentConfirm = "Appointment confirmed.";
 
         /// <summary>
         /// The appointment confirm error.
         /// </summary>
-        public static string appointmentConfirmError = "Something went wrong, appointment not confirmed. Please try again.";
+        public const string AppointmentConfirmError = "Something went wrong, appointment not confirmed. Please try again.";
 
         /// <summary>
         /// The appointment add error.
         /// </summary>
-        public static string appointmentAddError = "Something went wrong. Please try again.";
+        public const string AppointmentAddError = "Something went wrong. Please try again.";
 
         /// <summary>
         /// The appointment update error.
         /// </summary>
-        public static string appointmentUpdateError = "Something went wrong. Please try again.";
+        public const string AppointmentUpdateError = "Something went wrong. Please try again.";
 
         /// <summary>
         /// The something went wrong.
         /// </summary>
-        public static string somethingWentWrong = "Something went wrong. Please try again.";
+        public const string SomethingWentWrong = "Something went wrong. Please try again.";
 
         /// <summary>
         /// The success code.
         /// </summary>
-        public static int successCode = 1;
+        public const int SuccessCode = 1;
 
         /// <summary>
         /// The failure code.
         /// </summary>
-        public static int failureCode = 0;
+        public const int FailureCode = 0;
     }
 }

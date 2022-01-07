@@ -7,6 +7,11 @@
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
     <!-- Sweet Alert -->
     <link type="text/css" href="~/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 
@@ -15,14 +20,13 @@
 
     <!-- Volt CSS -->
     <link type="text/css" href="~/css/volt.css" rel="stylesheet">
-    
+
     <style>
-        body
-        {
-            background-image:url('/assets/img/illustrations/signin.svg');
+        body {
+            background-image: url('/assets/img/illustrations/signin.svg');
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: center; 
+            background-position: center;
             background-size: 60% 60%
         }
     </style>
@@ -30,11 +34,11 @@
 <body>
     <header>
     </header>
-   
-        <main >
-            @RenderBody()
-        </main>
-   
+
+    <main>
+        @RenderBody()
+    </main>
+
     <!-- Core -->
     <script src="~/vendor/popperjs/core/dist/umd/popper.min.js"></script>
     <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -51,7 +55,7 @@
     <!-- Volt JS -->
     <script src="~/assets/js/volt.js"></script>
 
-    @await Component.InvokeAsync("Notyf")
+@await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
