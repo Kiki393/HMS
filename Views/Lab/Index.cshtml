@@ -7,8 +7,73 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Classification</title>
 </head>
 <body>
+    <main>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Image Classification</li>
+            </ol>
+
+            <!-- Body -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Pneumonia Prediction</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group ">
+                        <form asp-action="Index" method="post" id="classification" class="mt-4 row g-2" enctype="multipart/form-data">
+                            <div class="row">
+                                @*<div class="col-md-6">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                    <div class="form-group form-floating mb-3">
+                                    <input asp-for="" class="form-control" placeholder="Username" disabled="disabled" />
+                                    <label asp-for=""></label>
+                                    <span asp-validation-for="" class="text-danger"></span>
+                                    </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                    <label asp-for="" style="width: 100%;"></label>
+                                    @if (Model.ProfilePicture == null)
+                                    {
+                                    <img id="profilePicture" style="width: 350px; height: 350px; object-fit: cover" src="">
+                                    }
+                                    else
+                                    {
+                                    <img id="profilePicture" style="width: 350px; height: 350px; object-fit: cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+                                    }
+                                    <input type="file"
+                                    accept=".png,.jpg,.jpeg,.gif,.tif"
+                                    asp-for=""
+                                    class="form-control"
+                                    style="border: 0px !important; padding: 0px; padding-top: 10px; padding-bottom: 30px;"
+                                    onchange="document.getElementById('profilePicture').src = window.URL.createObjectURL(this.files[0])" />
+                                    <span asp-validation-for="" class="text-danger"></span>
+                                    </div>
+                                    </div>*@
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+        </div>
+    </main>
 </body>
 </html>
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}

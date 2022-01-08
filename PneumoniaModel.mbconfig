@@ -17,12 +17,12 @@
       {
         "Version": 0,
         "Type": "Trial",
-        "TrainerName": "ImageClassification",
-        "Score": 0.9694,
-        "RuntimeInSeconds": 9062.1
+        "TrainerName": "ImageClassificationMulti",
+        "Score": 0.97316636851520577,
+        "RuntimeInSeconds": 869.7139892578125
       }
     ],
-    "Pipeline": "[{\"EstimatorType\":\"MapValueToKey\",\"Inputs\":[\"Label\"],\"Outputs\":[\"Label\"]},{\"OutputColumnName\":\"ImageSource_featurized\",\"ImageFolder\":\"\",\"InputColumnName\":\"ImageSource\",\"EstimatorType\":\"LoadRawImageBytes\",\"Inputs\":[\"ImageSource\"],\"Outputs\":[\"ImageSource_featurized\"]},{\"EstimatorType\":\"CopyColumns\",\"Inputs\":[\"ImageSource_featurized\"],\"Outputs\":[\"Features\"]},{\"LabelColumnName\":\"Label\",\"EstimatorType\":\"ImageClassificationMulti\",\"Inputs\":[\"Features\"],\"Outputs\":[\"Score\"]},{\"EstimatorType\":\"MapKeyToValue\",\"Inputs\":[\"PredictedLabel\"],\"Outputs\":[\"PredictedLabel\"]}]",
+    "Pipeline": "{\"parameter\":{\r\n  \"0\": {\r\n    \"OutputColumnName\": \"Label\",\r\n    \"InputColumnName\": \"Label\"\r\n  },\r\n  \"1\": {\r\n    \"LabelColumnName\": \"Label\",\r\n    \"ScoreColumnName\": \"Score\",\r\n    \"FeatureColumnName\": \"ImageSource\"\r\n  },\r\n  \"2\": {\r\n    \"OutputColumnName\": \"PredictedLabel\",\r\n    \"InputColumnName\": \"PredictedLabel\"\r\n  }\r\n},\"estimators\":[\"MapValueToKey\",\"ImageClassificationMulti\",\"MapKeyToValue\"]}",
     "MetricName": "MicroAccuracy"
   },
   "Type": "TrainingConfig",

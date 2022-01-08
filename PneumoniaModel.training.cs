@@ -28,11 +28,9 @@ namespace HMS
         public static IEstimator<ITransformer> BuildPipeline(MLContext mlContext)
         {
             // Data process configuration with pipeline data transformations
-            var pipeline = mlContext.Transforms.Conversion.MapValueToKey(@"Label", @"Label")      
-                                    .Append(mlContext.Transforms.LoadRawImageBytes(outputColumnName:@"ImageSource_featurized",imageFolder:@"",inputColumnName:@"ImageSource"))      
-                                    .Append(mlContext.Transforms.CopyColumns(@"Features", @"ImageSource_featurized"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.ImageClassification(labelColumnName:@"Label"))      
-                                    .Append(mlContext.Transforms.Conversion.MapKeyToValue(@"PredictedLabel", @"PredictedLabel"));
+            var pipeline = mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"Label",inputColumnName:@"Label")      
+                                    .Append(mlContext.MulticlassClassification.Trainers.ImageClassification(labelColumnName:@"Label",scoreColumnName:@"Score",featureColumnName:@"ImageSource"))      
+                                    .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;
         }

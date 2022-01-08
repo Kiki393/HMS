@@ -19,7 +19,7 @@ namespace HMS
             public string Label { get; set; }
 
             [ColumnName(@"ImageSource")]
-            public string ImageSource { get; set; }
+            public byte[] ImageSource { get; set; }
 
         }
 
@@ -31,10 +31,18 @@ namespace HMS
         #region model output class
         public class ModelOutput
         {
-            [ColumnName("PredictedLabel")]
-            public string Prediction { get; set; }
+            [ColumnName(@"Label")]
+            public uint Label { get; set; }
 
+            [ColumnName(@"ImageSource")]
+            public byte[] ImageSource { get; set; }
+
+            [ColumnName(@"PredictedLabel")]
+            public string PredictedLabel { get; set; }
+
+            [ColumnName(@"Score")]
             public float[] Score { get; set; }
+
         }
 
         #endregion
