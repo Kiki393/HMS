@@ -134,10 +134,14 @@ namespace HMS.Controllers
 
             if (Request.Form.Files.Count > 0)
             {
-                IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
+                var file = Request.Form.Files.FirstOrDefault();
+                await using (var dataStream = new MemoryStream())
                 {
-                    await file.CopyToAsync(dataStream);
+                    if (file != null)
+                    {
+                        await file.CopyToAsync(dataStream);
+                    }
+
                     user.ProfilePicture = dataStream.ToArray();
                 }
 

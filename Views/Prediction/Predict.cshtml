@@ -1,0 +1,58 @@
+﻿@model PneumoniaModel.ModelInput
+@{
+    ViewData["Title"] = "Predict";
+    Layout = "_AdminLayout";
+}
+
+<h1>Predict</h1>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Predict" method="post" enctype="multipart/form-data" id="predict">
+            <div class="row">
+                <div class="col-md-6">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ImageSource" style="width: 100%;"></label>
+                        @*@if (Model.ImageSource == null)
+                            {
+                            <img id="imageSource" style="width: 350px; height: 350px; object-fit: cover" src="">
+                            }
+                            else
+                            {
+                            <img id="imageSource" style="width: 350px; height: 350px; object-fit: cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ImageSource))">
+                            }*@
+                        <input type="file"
+                               accept=".png,.jpg,.jpeg,.gif,.tif"
+                               asp-for="ImageSource"
+                               class="form-control"
+                               style="border: 0px !important; padding: 0px; padding-top: 10px; padding-bottom: 30px;"
+                               onchange="document.getElementById('imageSource').src = window.URL.createObjectURL(this.files[0])" />
+                        <span asp-validation-for="ImageSource" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Label" class="control-label">Prediction: </label>
+                    @if (TempData != null)
+                    {
+                        <h1>@TempData["Label"]</h1>
+                        <h3>@TempData["Score"]</h3>
+
+                        <h3>@TempData["Normal"]</h3>
+                        <h3>@TempData["Pneumonia"]</h3>
+                    }
+                    @*<input asp-for="Label" class="form-control" value="@TempData["Result"]" />*@
+                </div>
+
+            </div>
+            <div class="form-group col-md-4 text-left">
+                <label class="control-label"></label>
+                <input type="submit" value="Predict" class="btn btn-primary" />
+            </div>
+        </form>
+        <hr />
+    </div>
+
+</div>
+
