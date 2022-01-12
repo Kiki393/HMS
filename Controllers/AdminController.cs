@@ -54,8 +54,12 @@ namespace HMS.Controllers
                 ConfirmedAppointments = _db.Appointments.Where(x => x.IsDoctorApproved == true).ToList(),
                 PendingAppointments = _db.Appointments.Where(x => x.IsDoctorApproved == false).ToList(),
                 Medicines = _db.Medicines.ToList(),
-
-                // ApplicationUsers = (IEnumerable<ApplicationUser>)_db.UserRoles.Where(x => x.RoleId == "905afffd-5a73-4b46-8c82-90f375b47993").ToList(),
+                UsersD = this._db.Users.Where(x => x.Role == "Doctor").ToList(),
+                UsersN = this._db.Users.Where(x => x.Role == "Nurse").ToList(),
+                UsersC = this._db.Users.Where(x => x.Role == "Cashier").ToList(),
+                UsersL = this._db.Users.Where(x => x.Role == "Lab Technician").ToList(),
+                UsersP = this._db.Users.Where(x => x.Role == "Pharmacist").ToList(),
+                UsersR = this._db.Users.Where(x => x.Role == "Receptionist").ToList(),
             };
 
             return View(obj);

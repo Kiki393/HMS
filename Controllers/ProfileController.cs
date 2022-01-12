@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// <copyright file="ProfileController.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
+// </copyright>
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
@@ -71,15 +75,15 @@ namespace HMS.Controllers
         /// </returns>
         public async Task<IActionResult> Index()
         {
-            var username = User.Identity.Name;
+            var username = User.Identity?.Name;
 
             // Fetch the user profile
             var user = _db.Users.FirstOrDefault(u => u.UserName.Equals(username));
 
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var name = user.Name;
-            var profilePicture = user.ProfilePicture;
+            var name = user?.Name;
+            var profilePicture = user?.ProfilePicture;
 
             var profile = new ProfileVm()
             {

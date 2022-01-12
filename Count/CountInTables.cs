@@ -45,6 +45,31 @@ namespace HMS.Count
         /// <summary>
         /// Gets or sets the application users.
         /// </summary>
-        public IEnumerable<ApplicationUser> ApplicationUsers { get; set; }
+        public IEnumerable<ApplicationUser> UsersD { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application users.
+        /// </summary>
+        public IEnumerable<ApplicationUser> UsersN { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application users.
+        /// </summary>
+        public IEnumerable<ApplicationUser> UsersP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application users.
+        /// </summary>
+        public IEnumerable<ApplicationUser> UsersL { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application users.
+        /// </summary>
+        public IEnumerable<ApplicationUser> UsersR { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application users.
+        /// </summary>
+        public IEnumerable<ApplicationUser> UsersC { get; set; }
     }
 }

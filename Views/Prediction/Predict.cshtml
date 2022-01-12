@@ -1,58 +1,77 @@
-﻿@model PneumoniaModel.ModelInput
+﻿@using Microsoft.AspNetCore.Components.Forms
+@model PneumoniaModel.ModelInput
 @{
     ViewData["Title"] = "Predict";
     Layout = "_AdminLayout";
+
 }
+<style type="text/css">
+    .control-label {
+    }
+</style>
 
-<h1>Predict</h1>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Pneumonia Detection</li>
+    </ol>
 
+    <!-- Body -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Machine Learning</h6>
+        </div>
+        <div class="card-body">
+            <div class="form-group ">
+                <form asp-action="Predict" method="post" enctype="multipart/form-data" id="predictForm">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="Predict" method="post" enctype="multipart/form-data" id="predict">
-            <div class="row">
-                <div class="col-md-6">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="ImageSource" style="width: 100%;"></label>
-                        @*@if (Model.ImageSource == null)
+                            @*Image Preview*@
+                            <img id="imageSource" style="width: 350px; height: 350px; object-fit: cover" src="data:image/*;base64" alt="">
+
+                            <div class="form-group">
+                                <label asp-for="ImageSource" style="width: 100%;"></label>
+                                <input type="file"
+                                       id="imageFile"
+                                       name="imageFile"
+                                       accept=".png,.jpg,.jpeg,.gif,.tif"
+                                       asp-for="ImageSource"
+                                       class="form-control"
+                                       style="border: 0px !important; padding: 0px; padding-top: 10px; padding-bottom: 30px;"
+                                       onchange="document.getElementById('imageSource').src = window.URL.createObjectURL(this.files[0])"/>
+                                <span asp-validation-for="ImageSource" class="text-danger"></span>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <input type="submit" value="Detect" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Label" class="control-label">Detection: </label>
+                            @if (TempData != null)
                             {
-                            <img id="imageSource" style="width: 350px; height: 350px; object-fit: cover" src="">
+                                <div class="form-floating mb-3">
+                                    <input disabled class="form-control" value="@TempData["Label"]" placeholder="Predicted Label" id="predict" />
+                                    <label for="predict">Predicted Label</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input disabled class="form-control" value="@TempData["Normal"]" placeholder="Normal Accuracy" id="nAccuracy" />
+                                    <label for="nAccuracy">Normal Accuracy</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input disabled class="form-control" value="@TempData["Pneumonia"]" placeholder="Pneumonia Accuracy" id="pAccuracy" />
+                                    <label for="pAccuracy">Pneumonia Accuracy</label>
+                                </div>
                             }
-                            else
-                            {
-                            <img id="imageSource" style="width: 350px; height: 350px; object-fit: cover" src="data:image/*;base64,@(Convert.ToBase64String(Model.ImageSource))">
-                            }*@
-                        <input type="file"
-                               accept=".png,.jpg,.jpeg,.gif,.tif"
-                               asp-for="ImageSource"
-                               class="form-control"
-                               style="border: 0px !important; padding: 0px; padding-top: 10px; padding-bottom: 30px;"
-                               onchange="document.getElementById('imageSource').src = window.URL.createObjectURL(this.files[0])" />
-                        <span asp-validation-for="ImageSource" class="text-danger"></span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group col-md-4">
-                    <label asp-for="Label" class="control-label">Prediction: </label>
-                    @if (TempData != null)
-                    {
-                        <h1>@TempData["Label"]</h1>
-                        <h3>@TempData["Score"]</h3>
-
-                        <h3>@TempData["Normal"]</h3>
-                        <h3>@TempData["Pneumonia"]</h3>
-                    }
-                    @*<input asp-for="Label" class="form-control" value="@TempData["Result"]" />*@
-                </div>
-
+                </form>
             </div>
-            <div class="form-group col-md-4 text-left">
-                <label class="control-label"></label>
-                <input type="submit" value="Predict" class="btn btn-primary" />
-            </div>
-        </form>
-        <hr />
+        </div>
     </div>
 
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 </div>
-

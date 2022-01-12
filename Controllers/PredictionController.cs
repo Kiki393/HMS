@@ -86,13 +86,13 @@ namespace HMS.Controllers
 
             try
             {
-                var sampleData = new PneumoniaModel.ModelInput()
+                var data = new PneumoniaModel.ModelInput()
                 {
                     ImageSource = input.ImageSource,
                 };
 
                 // Load model and predict output
-                var result = PneumoniaModel.Predict(sampleData);
+                var result = PneumoniaModel.Predict(data);
                 var normAccuracy = result.Score[0] * 100;
                 var pneumoniaAccuracy = result.Score[1] * 100;
                 TempData["Label"] = result.PredictedLabel;

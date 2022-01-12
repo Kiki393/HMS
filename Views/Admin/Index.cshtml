@@ -21,17 +21,17 @@
     </div>
 
     @*<!-- Content Row -->
-    <div>
+        <div>
         @if (TempData.ContainsKey("newAdminSignUp"))
         {
-            <div class="container">
-                <div class="alert alert-success alert-dismissible">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
-                    <strong>Account created for @TempData["newAdminSignUp"].ToString()</strong>
-                </div>
-            </div>
+        <div class="container">
+        <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+        <strong>Account created for @TempData["newAdminSignUp"].ToString()</strong>
+        </div>
+        </div>
         }
-    </div>*@
+        </div>*@
 
     <div class="row">
         <!-- Total Number of Patients Card -->
@@ -65,7 +65,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ConfirmedAppointments.Count()</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="far fa-calendar-check fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
 
         @*Total Number of Pending Appointments*@
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -84,7 +84,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.PendingAppointments.Count()</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            <i class="far fa-calendar-check fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
 
         <!-- Total number of drugs -->
         <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card border-left-info shadow h-100 py-2">
+            <div class="card border-left-danger shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -103,7 +103,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Medicines.Count()</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            <i class="fas fa-pills fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
@@ -112,24 +112,113 @@
     </div>
 
     <div class="row">
-        <!-- Pending Requests Card Example -->
-        @*<div class="col-xl-3 col-md-6 mb-4">
+        <!-- Total Doctors -->
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Pending Requests
+                                Total Number of Doctors
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ApplicationUsers.Count()</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsersD.Count()</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            <i class="fas fa-user-md fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>*@
+        </div> <!-- Total Number of Nurses -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-dark shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Number of Nurses
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsersN.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-nurse fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Total Number of Pharmacists -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Number of Pharmacists
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsersP.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-prescription-bottle-alt fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Total Number of Lab Techs -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Number of Lab Technicians
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsersL.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-vials fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Total Number of Receptionists -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-secondary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Number of Receptionists
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsersR.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-desktop fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- Total Number of Cashiers -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Total Number of Cashiers
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.UsersC.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="far fa-credit-card fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
