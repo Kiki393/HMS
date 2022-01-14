@@ -40,6 +40,11 @@ namespace HMS.Models.ViewModels
         public int Age { get; set; }
 
         /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        public string Gender { get; set; }
+
+        /// <summary>
         /// Gets or sets the contact.
         /// </summary>
         public string Contact { get; set; }
@@ -48,6 +53,16 @@ namespace HMS.Models.ViewModels
         /// Gets or sets the address.
         /// </summary>
         public string Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the NHIS id.
+        /// </summary>
+        public string Nhis { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the patients.

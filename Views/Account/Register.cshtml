@@ -38,22 +38,31 @@
 
                                 <!-- Form -->
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Username" class="form-control" placeholder="Username"/>
+                                    <input asp-for="Username" class="form-control" placeholder="Username" />
                                     <span asp-validation-for="Username" class="text-danger"></span>
                                     <label asp-for="Username"></label>
                                 </div>
                                 <div class="form-group">
                                     <!-- Form -->
                                     <div class="form-group form-floating mb-3">
-                                        <input asp-for="Name" class="form-control" placeholder="Full Name"/>
+                                        <input asp-for="Name" class="form-control" placeholder="Full Name" />
                                         <span asp-validation-for="Name" class="text-danger"></span>
                                         <label asp-for="Name"></label>
                                     </div>
                                     <!-- Form -->
                                     <div class="form-group form-floating mb-3">
-                                        <input asp-for="Email" class="form-control" placeholder="example@example.com"/>
+                                        <input asp-for="Email" class="form-control" placeholder="example@example.com" />
                                         <span asp-validation-for="Email" class="text-danger"></span>
                                         <label class="col-md-2" asp-for="Email"></label>
+                                    </div>
+                                    <div class="form-group form-floating mb-3">
+                                        <div>
+                                            <select asp-for="Gender"
+                                                    asp-items="@DropDowns.GetGenderDropDown()" class="form-select" aria-label="Select Gender">
+                                                <option selected>Select Gender</option>
+                                            </select>
+                                            <span asp-validation-for="Gender" class="text-danger"></span>
+                                        </div>
                                     </div>
                                     <div class="form-group form-floating mb-3">
                                         <div>

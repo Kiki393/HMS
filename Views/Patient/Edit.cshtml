@@ -1,4 +1,5 @@
-﻿@model HMS.Models.ViewModels.PatientVm
+﻿@using HMS.Utilities
+@model HMS.Models.ViewModels.PatientVm
 
 @{
     ViewData["Title"] = "Edit";
@@ -43,9 +44,9 @@
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="Patients.NHIS" class="form-control" placeholder="NHIS Id" />
-                                    <label asp-for="Patients.NHIS"></label>
-                                    <span asp-validation-for="Patients.NHIS" class="text-danger"></span>
+                                    <input asp-for="Patients.Nhis" class="form-control" placeholder="NHIS Id" />
+                                    <label asp-for="Patients.Nhis"></label>
+                                    <span asp-validation-for="Patients.Nhis" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
@@ -67,9 +68,25 @@
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
+                                    <div>
+                                        <select asp-for="Patients.Gender"
+                                                asp-items="@DropDowns.GetGenderDropDown()" class="form-select" aria-label="Select Gender">
+                                            <option selected>Select Gender</option>
+                                        </select>
+                                        <span asp-validation-for="Patients.Gender" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group form-floating mb-3">
                                     <input asp-for="Patients.Contact" class="form-control" placeholder="Contact" />
                                     <label asp-for="Patients.Contact"></label>
                                     <span asp-validation-for="Patients.Contact" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group form-floating mb-3">
+                                    <input asp-for="Patients.Email" class="form-control" placeholder="Contact" />
+                                    <label asp-for="Patients.Email"></label>
+                                    <span asp-validation-for="Patients.Email" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">

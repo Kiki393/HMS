@@ -46,6 +46,11 @@ namespace HMS.Models
         public int Age { get; set; }
 
         /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        public string Gender { get; set; }
+
+        /// <summary>
         /// Gets or sets the contact.
         /// </summary>
         [DisplayName("Phone Number")]
@@ -68,6 +73,6 @@ namespace HMS.Models
         /// Gets or sets the NHIS id.
         /// </summary>
         [DisplayName("NHIS ID")]
-        public string NHIS { get; set; }
+        public string Nhis { get; set; }
     }
 }

@@ -69,5 +69,21 @@ namespace HMS.Utilities
 
             return duration;
         }
+
+        /// <summary>
+        /// The get gender drop down.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<SelectListItem> GetGenderDropDown()
+        {
+            return new List<SelectListItem>
+                       {
+                           new () { Value = "Male", Text = "Male" },
+                           new () { Value = "Female", Text = "Female" },
+                           new () { Value = "Other", Text = "Other" },
+                       };
+        }
     }
 }

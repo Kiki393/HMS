@@ -231,6 +231,7 @@ namespace HMS.Controllers
                     Name = model.Name,
                     Role = model.RoleName,
                     StaffId = "STFID" + RandomNumber.RandomNum(1000, 9000),
+                    Gender = model.Gender,
                 };
 
                 var password = Password.Generate(12, 1);

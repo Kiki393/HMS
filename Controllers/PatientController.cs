@@ -110,7 +110,8 @@ namespace HMS.Controllers
                             Contact = patients.Contact,
                             Dob = patients.Dob,
                             Email = patients.Email,
-                            NHIS = patients.NHIS
+                            Nhis = patients.Nhis,
+                            Gender = patients.Gender
                         };
                         db.Patients.Add(patient);
                         await db.SaveChangesAsync();
@@ -121,6 +122,7 @@ namespace HMS.Controllers
                             Email = patients.Email,
                             Name = patients.Name,
                             Role = "Patient",
+                            Gender = patients.Gender
                         };
 
                         var password = Password.Generate(12, 1);
@@ -217,17 +219,19 @@ namespace HMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    notyf.Success("Edited Successfully.", 10);
                     db.Patients.Update(obj.Patients);
                     db.SaveChanges();
+                    notyf.Success("Record updated.");
                     return RedirectToAction("Index");
                 }
 
+                notyf.Error("Sorry, something went wrong.");
                 return View(obj);
             }
-            catch
+            catch (Exception e)
             {
-                return View("Error");
+                notyf.Error(e.ToString());
+                return View(obj);
             }
         }
 

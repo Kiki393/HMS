@@ -39,5 +39,10 @@ namespace HMS.Areas.Identity.Data
         /// Gets or sets the profile picture.
         /// </summary>
         public byte[] ProfilePicture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        public string Gender { get; set; }
     }
 }

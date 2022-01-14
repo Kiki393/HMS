@@ -42,5 +42,10 @@ namespace HMS.Models.ViewModels
         [Required]
         [DisplayName("Role")]
         public string RoleName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        public string Gender { get; set; }
     }
 }

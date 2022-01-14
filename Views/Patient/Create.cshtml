@@ -1,4 +1,5 @@
-﻿@model Patients
+﻿@using HMS.Utilities
+@model Patients
 
 @{
     ViewData["Title"] = "Add New Patient";
@@ -36,9 +37,9 @@
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                                 <div class="form-group form-floating mb-3">
-                                    <input asp-for="NHIS" class="form-control" placeholder="NHIS Id" />
-                                    <label asp-for="NHIS"></label>
-                                    <span asp-validation-for="NHIS" class="text-danger"></span>
+                                    <input asp-for="Nhis" class="form-control" placeholder="NHIS Id" />
+                                    <label asp-for="Nhis"></label>
+                                    <span asp-validation-for="Nhis" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
@@ -53,10 +54,20 @@
                                     <span asp-validation-for="Dob" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-floating mb-3">
+                                <div class="form-group form-floating mb-3">
                                     <input asp-for="Age" class="form-control" placeholder="Age" />
                                     <label asp-for="Age"></label>
                                     <span asp-validation-for="Age" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group form-floating mb-3">
+                                    <div>
+                                        <select asp-for="Gender"
+                                                asp-items="@DropDowns.GetGenderDropDown()" class="form-select" aria-label="Select Gender">
+                                            <option selected>Select Gender</option>
+                                        </select>
+                                        <span asp-validation-for="Gender" class="text-danger"></span>
+                                    </div>
                                 </div>
 
                                 <div class="form-group form-floating mb-3">
