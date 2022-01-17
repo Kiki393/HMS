@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Messages>
+@{
+    ViewData["Title"] = "ListOfMessages";
+    Layout = "_AdminLayout";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">All Messages</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">All Messages</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">
+                                    ID
+                                </th>
+                                <th>
+                                    Message
+                                </th>
+                                <th>
+                                    Reply
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td style="display:none;" width="15%">@item.Id</td>
+                                    <td width="15%">@item.Message</td>
+                                    <td width="15%">
+                                        @if (item.Reply != null)
+                                        {
+                                            @item.Reply
+                                        }
+                                        else
+                                        {
+                                            @("No Reply")
+                                        }
+                                    </td>
+                                    <td width="15%">@item.Date</td>
+                                    <td width="1%">
+                                        @if (item.Reply != null)
+                                        {
+                                            <div>
+                                                <a asp-controller="Patient" asp-action="EditMessage" asp-route-Id="@item.Id" style="pointer-events: none"><i class="far fa-edit"  style="color: lightgrey"></i></a>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <a asp-controller="Patient" asp-action="EditMessage" asp-route-Id="@item.Id"><i class="far fa-edit"></i></a>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td width="1%">
+                                        <div>
+                                            <a asp-controller="Patient" asp-action="DeleteMessage" asp-route-Id="@item.Id"><i class="far fa-trash-alt" style="color: red"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No message sent.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+

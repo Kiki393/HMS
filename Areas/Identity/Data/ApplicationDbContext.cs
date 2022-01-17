@@ -55,6 +55,16 @@ namespace HMS.Areas.Identity.Data
         public DbSet<AssignDoctor> AssignDoctors { get; set; }
 
         /// <summary>
+        /// Gets or sets the announcements.
+        /// </summary>
+        public DbSet<Announcements> Announcements { get; set; }
+
+        /// <summary>
+        /// Gets or sets the messages.
+        /// </summary>
+        public DbSet<Messages> Messages { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">

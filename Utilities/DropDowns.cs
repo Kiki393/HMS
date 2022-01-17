@@ -85,5 +85,20 @@ namespace HMS.Utilities
                            new () { Value = "Other", Text = "Other" },
                        };
         }
+
+        /// <summary>
+        /// The get announcement for drop down.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<SelectListItem> GetAnnouncementForDropDown()
+        {
+            return new List<SelectListItem>
+                       {
+                           new () { Value = "Staff", Text = "Staff" },
+                           new () { Value = "Patients", Text = "Patients" },
+                       };
+        }
     }
 }

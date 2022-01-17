@@ -21,6 +21,8 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace HMS.Controllers
 {
+    using System.Linq;
+
     /// <summary>
     /// The patient controller.
     /// </summary>
@@ -285,6 +287,65 @@ namespace HMS.Controllers
             db.Patients.Remove(obj);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult AddMessage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddMessage(Messages model)
+        {
+            var messages = new Messages { Message = model.Message, Date = DateTime.Now.Date };
+            db.Messages.Add(messages);
+            db.SaveChanges();
+            return RedirectToAction("ListOfMessages");
+        }
+
+        public IActionResult ListOfMessages()
+        {
+            var messages = db.Messages.ToList();
+            return View(messages);
+        }
+
+        public IActionResult EditMessage(int id)
+        {
+            var messages = db.Messages.Find(id);
+            return View(messages);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditMessage(int id, Messages model)
+        {
+            var messages = db.Messages.Find(id);
+            messages.Message = model.Message;
+            db.SaveChanges();
+            this.notyf.Success("Message Edited.");
+            return RedirectToAction("ListOfMessages");
+        }
+
+        public IActionResult DeleteMessage()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteMessage(int id)
+        {
+            var messages = db.Messages.Find(id);
+            if (messages is null)
+            {
+                return this.NotFound();
+            }
+
+            db.Messages.Remove(messages);
+            db.SaveChanges();
+            this.notyf.Success("Message Deleted.");
+            return RedirectToAction("ListOfMessages");
         }
     }
 }

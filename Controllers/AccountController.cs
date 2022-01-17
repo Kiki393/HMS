@@ -129,7 +129,6 @@ namespace HMS.Controllers
                         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                         if (result.Succeeded)
                         {
-                            _notyf.Success("Log in Successful.");
                             var user = await _userManager.FindByNameAsync(model.Email);
                             HttpContext.Session.SetString("ssuserName", user.Name);
                             var roles = await _userManager.GetRolesAsync(user);

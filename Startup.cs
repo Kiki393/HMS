@@ -23,6 +23,7 @@ using Microsoft.Extensions.ML;
 
 namespace HMS
 {
+    using HMS.Count;
     using HMS.Models.ViewModels;
 
     using Microsoft.AspNetCore.Authorization;
@@ -63,6 +64,8 @@ namespace HMS
             services.AddRazorPages();
 
             services.AddTransient<IAppointmentService, AppointmentService>();
+
+            services.AddTransient<MessagesAndAnnouncements>();
 
             services.AddHttpContextAccessor();
 

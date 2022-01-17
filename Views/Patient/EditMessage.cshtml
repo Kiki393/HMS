@@ -1,0 +1,55 @@
+﻿@model Messages
+@{
+    ViewData["Title"] = "Edit Message";
+    Layout = "_AdminLayout";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="ListOfMessages">All Messages</a></li>
+        <li class="breadcrumb-item active">Edit Message</li>
+    </ol>
+
+    <!-- Body -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Edit Message</h6>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group">
+                <div class="col-md-8">
+                    <form asp-action="EditMessage" method="post" id="patient" class="mt-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group form-floating mb-3">
+                            <textarea asp-for="Message" class="form-control" placeholder="Message" style="height: 100px"></textarea>
+                            <label asp-for="Message"></label>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}
