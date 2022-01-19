@@ -2,7 +2,7 @@
 });
 
 function onCloseModal() {
-    window.$("#vitalsModal")[0].reset;
+    window.$("#vitalsModal")[0].reset();
     window.$("#id").val("");
     window.$("#patientId").val("");
     window.$("#temp").val("");

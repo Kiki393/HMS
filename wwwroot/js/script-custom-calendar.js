@@ -14,7 +14,7 @@ var calendar;
 
 function InitializeCalendar() {
     try {
-        var calendarEl = document.getElementById("calendar");
+        const calendarEl = document.getElementById("calendar");
         if (calendarEl != null) {
             calendar = new window.FullCalendar.Calendar(calendarEl, {
                 initialView: "dayGridMonth",
@@ -100,8 +100,8 @@ function onShowModal(obj, isEventDetail) {
     window.$("#appointmentInput").modal("show");
 }
 
-function onCloseModal() {
-    $("#appointmentForm")[0].reset();
+function onCloseModalA() {
+    window.$("#appointmentForm")[0].reset();
     window.$("#id").val(0);
     window.$("#title").val("");
     window.$("#description").val("");
@@ -112,7 +112,7 @@ function onCloseModal() {
 
 function onSubmitForm() {
     if (checkValidation()) {
-        var requestData = {
+        const requestData = {
             Id: parseInt(window.$("#id").val()),
             Title: window.$("#title").val(),
             Description: window.$("#description").val(),
@@ -173,7 +173,7 @@ function getEventDetailsByEventId(info) {
             if (response.status === 1 && response.dataenum !== undefined) {
                 onShowModal(response.dataenum, true);
             }
-            successCallback(events);
+            window.successCallback(events);
         },
         error: function (xhr) {
             window.$.notify("Error", "error");
@@ -186,7 +186,7 @@ function onDoctorChange() {
 }
 
 function onDeleteAppointment() {
-    var id = window.parseInt(window.$("#id").val());
+    const id = window.parseInt(window.$("#id").val());
     window.$.ajax({
         url: routeURL + "/api/Appointment/DeleteAppointment/" + id,
         type: "GET",
@@ -199,7 +199,7 @@ function onDeleteAppointment() {
             } else {
                 window.$.notify(response.message, "error");
             }
-            successCallback(events);
+            window.successCallback(events);
         },
         error: function (xhr) {
             window.$.notify("Error", "error");
@@ -208,7 +208,7 @@ function onDeleteAppointment() {
 }
 
 function onConfirm() {
-    var id = window.parseInt(window.$("#id").val());
+    const id = window.parseInt(window.$("#id").val());
     window.$.ajax({
         url: routeURL + "/api/Appointment/ConfirmEvent/" + id,
         type: "GET",
@@ -221,7 +221,7 @@ function onConfirm() {
             } else {
                 window.$.notify(response.message, "error");
             }
-            successCallback(events);
+            window.successCallback(events);
         },
         error: function (xhr) {
             window.$.notify("Error", "error");

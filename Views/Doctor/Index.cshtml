@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<AssignDoctor>
+@{
     Layout = "_AdminLayout";
 }
 
@@ -10,5 +11,9 @@
     <title>Index</title>
 </head>
 <body>
+    @foreach (var item in Model)
+    {
+        @item.PId
+    }
 </body>
 </html>

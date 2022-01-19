@@ -4,18 +4,21 @@
     const cell2 = window.$(currentTds).eq(2).text();
     const cell4 = window.$(currentTds).eq(4).text();
     const cell5 = window.$(currentTds).eq(5).text();
+    const cell6 = window.$(currentTds).eq(6).text();
     window.$("#pId").val(cell1);
     window.$("#name").val(cell2);
     window.$("#age").val(cell4);
-    window.$("#phone").val(cell5);
+    window.$("#gender").val(cell5);
+    window.$("#phone").val(cell6);
     window.$("#patientModal").modal("show");
 });
 
-function onCloseModal() {
-    window.$("#patientModal")[0].reset;
+function onCloseModalP() {
+    window.$("#patientDetails")[0].reset();
     window.$("#pId").val("");
     window.$("#name").val("");
     window.$("#age").val("");
+    window.$("#gender").val("");
     window.$("#phone").val("");
     window.$("#id").val("");
     window.$("#patientModal").modal("hide");
@@ -53,4 +56,3 @@ function onBtnSend() {
         window.toastNotifyError(e);
     }
 }
-

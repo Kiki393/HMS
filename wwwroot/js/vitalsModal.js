@@ -28,8 +28,8 @@ function getData() {
     });
 }
 
-function onCloseModal() {
-    window.$("#vitalsModal")[0].reset;
+function onCloseModalV() {
+    window.$("#patientVitals")[0].reset();
     window.$("#id").val("");
     window.$("#patientId").val("");
     window.$("#temp").val("");
@@ -90,9 +90,9 @@ function assignDocModal() {
 }
 
 function assignDoc() {
-    var select = document.getElementById("doclist");
-    var option = select.options[select.selectedIndex].value;
-    var data = {
+    const select = document.getElementById("doclist");
+    const option = select.options[select.selectedIndex].value;
+    const data = {
         DocId: option,
         PId: v.PatientId
     };

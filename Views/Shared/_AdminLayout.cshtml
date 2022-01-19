@@ -212,7 +212,7 @@
                 Interface
             </div>
 
-            @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Receptionist))
+            @if (User.IsInRole(UserRoles.Receptionist))
             {
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
@@ -226,7 +226,6 @@
                             <h6 class="collapse-header">Available Modules:</h6>
                             <a class="collapse-item" asp-controller="Patient" asp-action="Index">Patients</a>
                             <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Appointments</a>
-                            <a class="collapse-item" asp-controller="Prediction" asp-action="Predict">ML</a>
                         </div>
                     </div>
                 </li>
@@ -251,6 +250,23 @@
 
             @if (User.IsInRole(UserRoles.Admin))
             {
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                       aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>Modules</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Available Modules:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="Index">Patients</a>
+                            <a class="collapse-item" asp-controller="Appointment" asp-action="Index">Appointments</a>
+                            <a class="collapse-item" asp-controller="Prediction" asp-action="Predict">ML</a>
+                        </div>
+                    </div>
+                </li>
+
                 <!-- Nav Item - Utilities Collapse Menu -->
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
