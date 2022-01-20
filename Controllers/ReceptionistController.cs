@@ -70,13 +70,13 @@ namespace HMS.Controllers
         /// The <see cref="IActionResult"/>.
         /// </returns>
         [HttpPost]
-        public IActionResult SendResult([FromBody] PatientVitals patientData)
+        public IActionResult SendResult([FromBody] VitalsWaiting patientData)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _db.Vitals.Add(patientData);
+                    _db.Waiting.Add(patientData);
                     _db.SaveChanges();
                 }
             }

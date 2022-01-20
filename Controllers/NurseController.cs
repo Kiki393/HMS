@@ -17,6 +17,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using System.Linq;
+
     using HMS.Services;
 
     /// <summary>
@@ -68,8 +70,10 @@ namespace HMS.Controllers
         public IActionResult Index()
         {
             ViewBag.DocList = _appointmentService.GetDoctorList();
-            IEnumerable<PatientVitals> vitals = _db.Vitals;
-            return View(vitals);
+            var waiting = (from patientId in _db.Waiting
+                           join pId in _db.Patients on patientId.PatientId equals pId.PatientId
+                           select new VitalsWaiting { PatientId = patientId.PatientId, Name = pId.Name }).ToList();
+            return View(waiting);
         }
 
         /// <summary>
@@ -88,7 +92,7 @@ namespace HMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _db.Vitals.Update(vitals);
+                    _db.Vitals.Add(vitals);
                     _db.SaveChanges();
                 }
             }
@@ -126,6 +130,18 @@ namespace HMS.Controllers
             }
 
             return Json(doctor);
+        }
+
+        /// <summary>
+        /// The vitals.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult Vitals()
+        {
+            IEnumerable<PatientVitals> vitals = _db.Vitals;
+            return View(vitals);
         }
     }
 }

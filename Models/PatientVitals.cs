@@ -24,6 +24,11 @@ namespace HMS.Models
         public string PatientId { get; set; }
 
         /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the temperature.
         /// </summary>
         public double Temperature { get; set; }

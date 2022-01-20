@@ -18,8 +18,10 @@ namespace HMS.Controllers
 
     using HMS.Areas.Identity.Data;
     using HMS.Models;
+    using HMS.Models.ViewModels;
 
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc.Rendering;
 
     /// <summary>
     /// The doctor controller.
@@ -60,23 +62,26 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            var list = new List<AssignDoctor>();
-            foreach (var item in this._db.AssignDoctors.Where(x => x.DocId == this.loggedInUserId))
-            {
-                list.Add(item);
-            }
+            var waiting = (from patients in _db.AssignDoctors
+                           join paId in _db.Patients on patients.PId equals paId.PatientId
+                           where patients.DocId == loggedInUserId
+                           select new AttendVm() { PatientId = patients.PId, Name = paId.Name }).ToList();
 
-            //var patient = (from patients in this._db.Vitals
-            //               select new PatientVitals
-            //               {
-            //                   PatientId = patients.PatientId,
-            //                   Bp = patients.Bp,
-            //                   Date = patients.Date,
-            //                   Temperature = patients.Temperature,
-            //                   Weight = patients.Weight
-            //               }).ToList();
+            return View(waiting);
+        }
 
-            return View(list);
+        /// <summary>
+        /// The patient details.
+        /// </summary>
+        /// <param name="patientId">
+        /// The patient id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult PatientDetails(string? patientId)
+        {
+            return this.View();
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssignDoctor.cs" company="VVU">
-//   Copyright (c) VVU. All rights reserved.
+// <copyright file="VitalsWaiting.cs" company="VVU">
+// Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
+//   The vitals waiting.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace HMS.Models
 {
-    using System.ComponentModel;
-
     /// <summary>
-    /// The assign doctor.
+    /// The vitals waiting.
     /// </summary>
-    public class AssignDoctor
+    public class VitalsWaiting
     {
         /// <summary>
         /// Gets or sets the id.
@@ -21,13 +20,13 @@ namespace HMS.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the doc id.
+        /// Gets or sets the patient id.
         /// </summary>
-        public string DocId { get; set; }
+        public string PatientId { get; set; }
 
         /// <summary>
-        /// Gets or sets the p id.
+        /// Gets or sets the name.
         /// </summary>
-        public string PId { get; set; }
+        public string Name { get; set; }
     }
 }

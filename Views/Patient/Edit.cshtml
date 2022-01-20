@@ -19,7 +19,14 @@
         <div class="container-fluid">
             <!-- Page Heading -->
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                @if (User.IsInRole(UserRoles.Receptionist))
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Receptionist" asp-action="Index">Dashboard</a></li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                }
                 <li class="breadcrumb-item"><a asp-controller="Patient" asp-action="Index">Patients</a></li>
                 <li class="breadcrumb-item active">Edit Patient Details</li>
             </ol>

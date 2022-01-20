@@ -1,11 +1,8 @@
-﻿@model IEnumerable<PatientVitals>
-
+﻿@model IEnumerable<VitalsWaiting>
 @{
     ViewData["Title"] = "Nurse";
     Layout = "_AdminLayout";
 }
-
-<!DOCTYPE html>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -33,16 +30,7 @@
                                     Patient ID
                                 </th>
                                 <th>
-                                    Temperature
-                                </th>
-                                <th>
-                                    Blood Pressure
-                                </th>
-                                <th>
-                                    Weight
-                                </th>
-                                <th>
-                                    Date
+                                    Name
                                 </th>
                                 <th>
                                     Select
@@ -55,11 +43,8 @@
                                 <tr>
                                     <td style="display:none;" width="15%">@item.Id</td>
                                     <td width="15%">@item.PatientId</td>
-                                    <td width="15%">@item.Temperature</td>
-                                    <td width="15%">@item.Bp</td>
-                                    <td width="15%">@item.Weight</td>
-                                    <td width="15%">@item.Date</td>
-                                    <td width="15%">
+                                    <td width="15%">@item.Name</td>
+                                    <td width="5%">
                                         <div class="w-100 btn-group" role="group">
                                             <button onclick="getData()" class="select btn btn-primary mx-1">Select</button>
                                         </div>
@@ -71,7 +56,7 @@
                 }
                 else
                 {
-                    <p>No patients added.</p>
+                    <p>No patients waiting.</p>
                 }
             </div>
         </div>

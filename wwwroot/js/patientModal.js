@@ -26,7 +26,7 @@ function onCloseModalP() {
 
 function onBtnSend() {
     var patientData = {
-        PatientId: window.$("#pId").val()
+        PatientId: window.$("#pId").val(),
     };
 
     try {
@@ -39,7 +39,7 @@ function onBtnSend() {
             success: function (response) {
                 if (response != null) {
                     window.toastNotifySuccess("Sent");
-                    onCloseModal();
+                    onCloseModalP();
                 }
                 else {
                     window.toastNotifyError("Something went wrong");

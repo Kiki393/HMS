@@ -65,6 +65,11 @@ namespace HMS.Areas.Identity.Data
         public DbSet<Messages> Messages { get; set; }
 
         /// <summary>
+        /// Gets or sets the waiting.
+        /// </summary>
+        public DbSet<VitalsWaiting> Waiting { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">

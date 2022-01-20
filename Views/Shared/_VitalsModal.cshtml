@@ -12,6 +12,10 @@
                         <input type="text" maxlength="100" class="form-control" disabled id="patientId" />
                     </div>
                     <div class="form-group">
+                        <label for="name">Patient ID</label>
+                        <input type="text" maxlength="100" class="form-control" disabled id="name" />
+                    </div>
+                    <div class="form-group">
                         <label for="temp">Temperature</label>
                         <input type="number" maxlength="100" class="form-control" id="temp" />
                     </div>
@@ -24,8 +28,8 @@
                         <input type="number" maxlength="100" class="form-control" id="weight" />
                     </div>
                     <div class="form-group">
-                        <label for="date">Reporting Date</label>
-                        <input class="form-control" disabled id="date" />
+                        <label for="date" hidden>Reporting Date</label>
+                        <input class="form-control" disabled id="date" hidden />
                     </div>
                     <input type="hidden" id="id" />
                     <div class="modal-footer">
