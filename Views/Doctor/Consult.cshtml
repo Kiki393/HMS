@@ -1,0 +1,189 @@
+﻿@model Consultations
+@{
+    ViewData["Title"] = "Consult";
+    Layout = "_AdminLayout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://cdn.tiny.cloud/1/j3gns5rncj0jus0s1zwc9yqx8mx1fjkfwd4urg3s5foh3gze/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: '#symptomstextarea'
+        });
+        tinymce.init({
+            selector: '#diagnosistextarea'
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a asp-controller="Doctor" asp-action="Index">Dashboard</a></li>
+            <li class="breadcrumb-item active">Consult</li>
+        </ol>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Symptoms & Diagnosis</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <form method="post" asp-action="Consult">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="m-0 font-weight-bold text-primary">Symptoms</h6>
+                                <textarea asp-for="Symptoms" id="symptomstextarea"></textarea>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6 class="m-0 font-weight-bold text-primary">Diagnosis</h6>
+                                <textarea asp-for="Diagnosis" id="diagnosistextarea"></textarea>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <input type="submit" value="Save" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Patient Vitals</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        @if (true)
+                        {
+                            <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Patient ID
+                                        </th>
+                                        <th>
+                                            NHIS ID
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Date of birth
+                                        </th>
+                                        <th>
+                                            Age
+                                        </th>
+                                        <th>
+                                            Gender
+                                        </th>
+                                        <th>
+                                            Phone Number
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>No information available.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Patient Prescriptions</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        @if (true)
+                        {
+                            <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable2">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Patient ID
+                                        </th>
+                                        <th>
+                                            NHIS ID
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Date of birth
+                                        </th>
+                                        <th>
+                                            Age
+                                        </th>
+                                        <th>
+                                            Gender
+                                        </th>
+                                        <th>
+                                            Phone Number
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Address
+                                        </th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>No information available.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+    </div>
+</body>
+</html>
+

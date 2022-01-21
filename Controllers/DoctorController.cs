@@ -79,7 +79,23 @@ namespace HMS.Controllers
         /// <returns>
         /// The <see cref="IActionResult"/>.
         /// </returns>
-        public IActionResult PatientDetails(string? patientId)
+        public IActionResult Consult(string patientId)
+        {
+            return this.View();
+        }
+
+        /// <summary>
+        /// The consult.
+        /// </summary>
+        /// <param name="patient">
+        /// The patient.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Consult(Consultations patient)
         {
             return this.View();
         }

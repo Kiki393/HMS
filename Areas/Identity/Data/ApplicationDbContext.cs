@@ -70,6 +70,11 @@ namespace HMS.Areas.Identity.Data
         public DbSet<VitalsWaiting> Waiting { get; set; }
 
         /// <summary>
+        /// Gets or sets the consultations.
+        /// </summary>
+        public DbSet<Consultations> Consultations { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">
