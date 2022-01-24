@@ -1,0 +1,24 @@
+﻿<!-- Forward to lab -->
+<div class="modal fade" id="forwardLabModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2 class="modal-title">Confirm Forward To Lab</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-floating mb-3">
+                    <div>
+                        <h5>Are you sure you want to forward patient @TempData["id"] to the lab?</h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button> &nbsp;
+                    <button type="button" id="btnSend" class="btn btn-primary" onclick="onForwardLab()">Yes</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

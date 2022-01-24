@@ -26,7 +26,7 @@ function onCloseModalP() {
 
 function onBtnSend() {
     var patientData = {
-        PatientId: window.$("#pId").val(),
+        PatientId: window.$("#pId").val()
     };
 
     try {

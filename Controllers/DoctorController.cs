@@ -12,9 +12,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
+
+    using AspNetCoreHero.ToastNotification.Abstractions;
 
     using HMS.Areas.Identity.Data;
     using HMS.Models;
@@ -40,6 +43,11 @@ namespace HMS.Controllers
         private readonly string loggedInUserId;
 
         /// <summary>
+        /// The notification.
+        /// </summary>
+        private readonly INotyfService _notyf;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DoctorController"/> class.
         /// </summary>
         /// <param name="db">
@@ -48,9 +56,13 @@ namespace HMS.Controllers
         /// <param name="httpContextAccessor">
         /// The http context accessor.
         /// </param>
-        public DoctorController(ApplicationDbContext db, IHttpContextAccessor httpContextAccessor)
+        /// <param name="notyf">
+        /// The notification.
+        /// </param>
+        public DoctorController(ApplicationDbContext db, IHttpContextAccessor httpContextAccessor, INotyfService notyf)
         {
             this._db = db;
+            this._notyf = notyf;
             this.loggedInUserId = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
         }
 
@@ -81,6 +93,23 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Consult(string patientId)
         {
+            TempData["id"] = patientId;
+
+            var details = (from pId in this._db.Waiting
+                           join vitals in this._db.Vitals on pId.PatientId equals vitals.PatientId
+                           join prescription in this._db.Prescriptions on pId.PatientId equals prescription.PatientId
+                           where pId.PatientId == patientId
+                           select new ConsultingVm
+                           {
+                               Bp = vitals.Bp,
+                               Date = vitals.Date,
+                               Weight = vitals.Weight,
+                               DateP = prescription.Date,
+                               Temperature = vitals.Temperature,
+                               DoctorId = prescription.DoctorId,
+                               Prescription = prescription.Prescription,
+                           }).ToList();
+
             return this.View();
         }
 
@@ -94,10 +123,61 @@ namespace HMS.Controllers
         /// The <see cref="IActionResult"/>.
         /// </returns>
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Consult(Consultations patient)
         {
-            return this.View();
+            if (!ModelState.IsValid)
+            {
+                this._notyf.Error("Something went wrong.");
+            }
+
+            try
+            {
+                var consult = new Consultations
+                {
+                    PatientId = patient.PatientId,
+                    Symptoms = patient.Symptoms,
+                    Diagnosis = patient.Diagnosis,
+                    Date = System.DateTime.Now,
+                };
+
+                this._db.Consultations.Add(consult);
+                this._db.SaveChanges();
+                this._notyf.Success("Consultation saved.");
+            }
+            catch (Exception e)
+            {
+                this._notyf.Error(e.ToString());
+            }
+
+            return this.RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// The forward to lab.
+        /// </summary>
+        /// <param name="patient">
+        /// The patient.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        public IActionResult ForwardToLab([FromBody] LabWaiting patient)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _db.LabWaiting.Add(patient);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                _notyf.Error(e.ToString());
+            }
+
+            return Json(patient);
         }
     }
 }
