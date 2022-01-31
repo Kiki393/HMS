@@ -1,42 +1,35 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Prescriptions.cs" company="VVU">
+// <copyright file="LabResultVm.cs" company="VVU">
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
-//   The prescriptions.
+//   The lab result vm.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace HMS.Models
+namespace HMS.Models.ViewModels
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// The prescriptions.
+    /// The lab result view model.
     /// </summary>
-    public class Prescriptions
+    public class LabResultVm
     {
         /// <summary>
-        /// Gets or sets the id.
+        /// Gets or sets the predicted label.
         /// </summary>
-        public int Id { get; set; }
+        public string PredictedLabel { get; set; }
 
         /// <summary>
-        /// Gets or sets the patient id.
+        /// Gets or sets the normal accuracy.
         /// </summary>
-        public string PatientId { get; set; }
+        public string NormalAccuracy { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the pneumonia accuracy.
         /// </summary>
-        public string DoctorId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the temperature.
-        /// </summary>
-        [Required]
-        public string Prescription { get; set; }
+        public string PneumoniaAccuracy { get; set; }
 
         /// <summary>
         /// Gets or sets the date.

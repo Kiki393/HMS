@@ -18,6 +18,9 @@ namespace HMS.Controllers
     using System.Threading.Tasks;
     using AspNetCoreHero.ToastNotification.Abstractions;
 
+    using HMS.Areas.Identity.Data;
+    using HMS.Models;
+
     using Microsoft.Extensions.ML;
 
     /// <summary>
@@ -30,25 +33,36 @@ namespace HMS.Controllers
         /// </summary>
         private readonly INotyfService _notyf;
 
+        private readonly ApplicationDbContext _db;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PredictionController"/> class.
         /// </summary>
         /// <param name="notyf">
         /// The notification service.
         /// </param>
-        public PredictionController(INotyfService notyf)
+        /// <param name="db">
+        /// The database
+        /// </param>
+        public PredictionController(INotyfService notyf, ApplicationDbContext db)
         {
             this._notyf = notyf;
+            this._db = db;
         }
 
         /// <summary>
         /// The predict.
         /// </summary>
+        /// <param name="patientId">
+        /// The patient Id.
+        /// </param>
         /// <returns>
         /// The <see cref="IActionResult"/>.
         /// </returns>
-        public IActionResult Predict()
+        public IActionResult Predict(string patientId)
         {
+            TempData["id"] = patientId;
+            TempData.Keep();
             var array = new byte[64];
             var image = new PneumoniaModel.ModelInput() { ImageSource = array };
             return this.View(image);
@@ -98,6 +112,28 @@ namespace HMS.Controllers
                 TempData["Label"] = result.PredictedLabel;
                 TempData["Normal"] = normAccuracy.ToString(CultureInfo.CurrentCulture);
                 TempData["Pneumonia"] = pneumoniaAccuracy.ToString(CultureInfo.CurrentCulture);
+
+                try
+                {
+                    this.TempData["id"] ??= "0000";
+
+                    var testResult = new LabResult
+                    {
+                        PatientId = TempData.Peek("id").ToString(),
+                        Date = System.DateTime.Now,
+                        PredictedLabel = TempData["Label"].ToString(),
+                        NormalAccuracy = TempData["Normal"].ToString(),
+                        PneumoniaAccuracy = TempData["Pneumonia"].ToString()
+                    };
+
+                    await this._db.LabResults.AddAsync(testResult);
+                    await this._db.SaveChangesAsync();
+                    this._notyf.Success("Results saved.");
+                }
+                catch (Exception e)
+                {
+                    this._notyf.Error(e.ToString());
+                }
             }
             catch (Exception e)
             {

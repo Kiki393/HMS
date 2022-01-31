@@ -72,6 +72,7 @@ namespace HMS.Controllers
             ViewBag.DocList = _appointmentService.GetDoctorList();
             var waiting = (from patientId in _db.Waiting
                            join pId in _db.Patients on patientId.PatientId equals pId.PatientId
+                           orderby DateTime.Now descending
                            select new VitalsWaiting { PatientId = patientId.PatientId, Name = pId.Name }).ToList();
             return View(waiting);
         }

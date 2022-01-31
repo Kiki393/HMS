@@ -1,0 +1,23 @@
+﻿<div class="modal fade" id="prescriptionModal" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form id="prescriptionForm" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                    <h2 class="modal-title">Add Prescription</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="prescription">Medication</label>
+                        <input type="text" maxlength="1000" class="form-control" id="prescription" />
+                    </div>
+                    <input type="hidden" id="id" value="@TempData["id"]" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="onCloseModalP()">Close</button> &nbsp;
+                        <button type="button" class="btn btn-primary" onclick="onBtnSave()">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

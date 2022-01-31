@@ -1,8 +1,13 @@
-﻿@model Consultations
+﻿@using HMS.Models.ViewModels
+@model Consultations
 
 @{
     ViewData["Title"] = "Consult";
     Layout = "_AdminLayout";
+
+    List<VitalsVm> vitals = (List<VitalsVm>)ViewData["vitals"];
+    List<PrescriptionVm> prescription = (List<PrescriptionVm>)ViewData["prescription"];
+    List<LabResultVm> labResult = (List<LabResultVm>)ViewData["labResults"];
 }
 
 <!DOCTYPE html>
@@ -21,6 +26,13 @@
             selector: '#diagnosistextarea'
         });
     </script>
+
+    <style>
+        textarea {
+            width: 300px;
+            height: 350px;
+        }
+    </style>
 </head>
 
 <body>
@@ -42,6 +54,7 @@
                     <form method="post" asp-action="Consult" id="consultation">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" value="@TempData["id"]" asp-for="PatientId" id="patientId" />
+
                         <div class="row">
                             <div class="col-md-6">
                                 <h6 class="m-0 font-weight-bold text-primary">Symptoms</h6>
@@ -54,25 +67,17 @@
                                 <textarea asp-for="Diagnosis" id="diagnosistextarea"></textarea>
                                 <span asp-validation-for="Diagnosis" class="text-danger"></span>
                             </div>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 20px">
                                 <button asp-action="Consult" asp-controller="Doctor" type="submit" class="select btn btn-primary mx-1">Save</button>
                             </div>
                         </div>
                     </form>
-                    <br/>
-                    <div class="row">
+
+                    <div class="row" style="margin-top: 20px">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button onclick="confirmForward()" class="select btn btn-primary mx-1">Forward Patient to Lab</button>
+                            <a asp-controller="Doctor" asp-action="CompleteConsult" class="select btn btn-success mx-1">Complete Consultation</a>
                         </div>
                     </div>
                 </div>
@@ -86,7 +91,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="table-responsive">
-                        @if (true)
+                        @if (vitals != null)
                         {
                             <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
                                 <thead>
@@ -106,15 +111,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @*@foreach (var item in Model)
-                                        {
+                                    @foreach (var item in vitals)
+                                    {
                                         <tr>
-                                        <td width="15%">@item.Bp</td>
-                                        <td width="15%">@item.Temperature</td>
-                                        <td width="15%">@item.Weight</td>
-                                        <td width="15%">@item.Date</td>
+                                            <td width="15%">@item.Bp</td>
+                                            <td width="15%">@item.Temperature</td>
+                                            <td width="15%">@item.Weight</td>
+                                            <td width="15%">@item.Date</td>
                                         </tr>
-                                        }*@
+                                    }
                                 </tbody>
                             </table>
                         }
@@ -131,10 +136,15 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Patient Prescriptions</h6>
             </div>
+            <div class="row" style="margin-top: 5px">
+                <div class="position-absolute start-50">
+                    <button onclick="getPrescriptionModal()" class="select btn btn-primary mx-1">Add Prescription</button>
+                </div>
+            </div>
             <div class="card-body">
                 <div class="row">
                     <div class="table-responsive">
-                        @if (true)
+                        @if (prescription != null)
                         {
                             <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable2">
                                 <thead>
@@ -151,14 +161,62 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @*@foreach (var item in Model)
-                                        {
+                                    @foreach (var item in prescription)
+                                    {
                                         <tr>
-                                        <td width="15%">@item.DoctorId</td>
-                                        <td width="15%">@item.Prescription</td>
-                                        <td width="15%">@item.DateP</td>
+                                            <td width="15%">@item.DoctorId</td>
+                                            <td width="15%">@item.Prescription</td>
+                                            <td width="15%">@item.Date</td>
                                         </tr>
-                                        }*@
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>No information available.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Lab Results</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        @if (labResult != null)
+                        {
+                            <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable3">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Detection Result
+                                        </th>
+                                        <th>
+                                            Normal Accuracy
+                                        </th>
+                                        <th>
+                                            Pneumonia Accuracy
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in labResult)
+                                    {
+                                        <tr>
+                                            <td width="15%">@item.PredictedLabel</td>
+                                            <td width="15%">@item.NormalAccuracy</td>
+                                            <td width="15%">@item.PneumoniaAccuracy</td>
+                                            <td width="15%">@item.Date</td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         }
@@ -183,4 +241,5 @@
 <partial name="_ValidationScriptsPartial" />
 }
 
-<partial name="_ConfirmForwardToLab"/>
+<partial name="_ConfirmForwardToLab" />
+<partial name="_PrescriptionModal" />

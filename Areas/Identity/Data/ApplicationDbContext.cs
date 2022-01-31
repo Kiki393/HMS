@@ -85,6 +85,21 @@ namespace HMS.Areas.Identity.Data
         public DbSet<LabWaiting> LabWaiting { get; set; }
 
         /// <summary>
+        /// Gets or sets the lab results.
+        /// </summary>
+        public DbSet<LabResult> LabResults { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pay waiting.
+        /// </summary>
+        public DbSet<PayWaiting> PayWaiting { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pharmacy waiting.
+        /// </summary>
+        public DbSet<PharmWaiting> PharmacyWaiting { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">

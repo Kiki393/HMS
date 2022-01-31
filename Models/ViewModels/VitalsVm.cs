@@ -12,7 +12,7 @@ namespace HMS.Models.ViewModels
     /// <summary>
     /// The consulting view model.
     /// </summary>
-    public class ConsultingVm
+    public class VitalsVm
     {
         /// <summary>
         /// Gets or sets the temperature.
@@ -33,20 +33,5 @@ namespace HMS.Models.ViewModels
         /// Gets or sets the date.
         /// </summary>
         public string Date { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name.
-        /// </summary>
-        public string DoctorId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the temperature.
-        /// </summary>
-        public double Prescription { get; set; }
-
-        /// <summary>
-        /// Gets or sets the date.
-        /// </summary>
-        public string DateP { get; set; }
     }
 }

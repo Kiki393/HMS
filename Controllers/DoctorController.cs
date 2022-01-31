@@ -14,6 +14,7 @@ namespace HMS.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Security.Claims;
 
@@ -94,22 +95,39 @@ namespace HMS.Controllers
         public IActionResult Consult(string patientId)
         {
             TempData["id"] = patientId;
+            TempData.Keep();
+            ViewData["vitals"] = (from patient in this._db.AssignDoctors
+                                  join vitals in this._db.Vitals on patient.PId equals vitals.PatientId
+                                  where patient.PId == patientId
+                                  select new VitalsVm
+                                  {
+                                      Bp = vitals.Bp,
+                                      Date = vitals.Date,
+                                      Weight = vitals.Weight,
+                                      Temperature = vitals.Temperature,
+                                  }).ToList();
 
-            var details = (from pId in this._db.Waiting
-                           join vitals in this._db.Vitals on pId.PatientId equals vitals.PatientId
-                           join prescription in this._db.Prescriptions on pId.PatientId equals prescription.PatientId
-                           where pId.PatientId == patientId
-                           select new ConsultingVm
-                           {
-                               Bp = vitals.Bp,
-                               Date = vitals.Date,
-                               Weight = vitals.Weight,
-                               DateP = prescription.Date,
-                               Temperature = vitals.Temperature,
-                               DoctorId = prescription.DoctorId,
-                               Prescription = prescription.Prescription,
-                           }).ToList();
+            ViewData["prescription"] = (from patient in this._db.AssignDoctors
+                                        join prescription in this._db.Prescriptions on patient.PId equals prescription.PatientId
+                                        join docName in this._db.Users on patient.DocId equals docName.Id
+                                        where patient.PId == patientId
+                                        select new PrescriptionVm
+                                        {
+                                            Date = prescription.Date.ToString(CultureInfo.CurrentCulture),
+                                            DoctorId = docName.Name,
+                                            Prescription = prescription.Prescription,
+                                        }).ToList();
 
+            ViewData["labResults"] = (from patient in this._db.AssignDoctors
+                                      join result in this._db.LabResults on patient.PId equals result.PatientId
+                                      where patient.PId == patientId
+                                      select new LabResultVm()
+                                      {
+                                          Date = result.Date,
+                                          NormalAccuracy = result.NormalAccuracy,
+                                          PneumoniaAccuracy = result.PneumoniaAccuracy,
+                                          PredictedLabel = result.PredictedLabel,
+                                      }).ToList();
             return this.View();
         }
 
@@ -149,6 +167,33 @@ namespace HMS.Controllers
                 this._notyf.Error(e.ToString());
             }
 
+            return this.RedirectToAction("Consult", new { patientId = TempData["id"] });
+        }
+
+        /// <summary>
+        /// The complete consult.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult CompleteConsult()
+        {
+            try
+            {
+                var pharmacy = new PharmWaiting
+                {
+                    PatientId = TempData["id"].ToString()
+                };
+
+                this._db.PharmacyWaiting.Add(pharmacy);
+                this._db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                this._notyf.Error(e.ToString());
+                return this.RedirectToAction("Consult", new { patientId = TempData["id"] });
+            }
+
             return this.RedirectToAction("Index");
         }
 
@@ -178,6 +223,42 @@ namespace HMS.Controllers
             }
 
             return Json(patient);
+        }
+
+        /// <summary>
+        /// The save prescription.
+        /// </summary>
+        /// <param name="prescription">
+        /// The prescription.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        public IActionResult SavePrescription([FromBody] Prescriptions prescription)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var med = new Prescriptions
+                    {
+                        PatientId = prescription.PatientId,
+                        Date = System.DateTime.Now,
+                        DoctorId = this.loggedInUserId,
+                        Prescription = prescription.Prescription
+                    };
+
+                    _db.Prescriptions.Add(med);
+                    _db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                _notyf.Error(e.ToString());
+            }
+
+            return Json(prescription);
         }
     }
 }

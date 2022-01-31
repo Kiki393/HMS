@@ -1,32 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Prescriptions.cs" company="VVU">
+// <copyright file="PrescriptionVm.cs" company="VVU">
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
-//   The prescriptions.
+//   The prescription vm.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace HMS.Models
+namespace HMS.Models.ViewModels
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
-
     /// <summary>
-    /// The prescriptions.
+    /// The prescription view model.
     /// </summary>
-    public class Prescriptions
+    public class PrescriptionVm
     {
-        /// <summary>
-        /// Gets or sets the id.
-        /// </summary>
-        public int Id { get; set; }
-
-        /// <summary>
-        /// Gets or sets the patient id.
-        /// </summary>
-        public string PatientId { get; set; }
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -35,12 +22,11 @@ namespace HMS.Models
         /// <summary>
         /// Gets or sets the temperature.
         /// </summary>
-        [Required]
         public string Prescription { get; set; }
 
         /// <summary>
         /// Gets or sets the date.
         /// </summary>
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
     }
 }

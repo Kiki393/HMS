@@ -1,21 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Prescriptions.cs" company="VVU">
+// <copyright file="LabResult.cs" company="VVU">
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
-//   The prescriptions.
+//   The lab result.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace HMS.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
-    /// The prescriptions.
+    /// The lab result.
     /// </summary>
-    public class Prescriptions
+    public class LabResult
     {
         /// <summary>
         /// Gets or sets the id.
@@ -28,15 +27,19 @@ namespace HMS.Models
         public string PatientId { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the predicted label.
         /// </summary>
-        public string DoctorId { get; set; }
+        public string PredictedLabel { get; set; }
 
         /// <summary>
-        /// Gets or sets the temperature.
+        /// Gets or sets the normal accuracy.
         /// </summary>
-        [Required]
-        public string Prescription { get; set; }
+        public string NormalAccuracy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pneumonia accuracy.
+        /// </summary>
+        public string PneumoniaAccuracy { get; set; }
 
         /// <summary>
         /// Gets or sets the date.

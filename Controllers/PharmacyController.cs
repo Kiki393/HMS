@@ -17,6 +17,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using System.Globalization;
+    using System.Linq;
+
     using AspNetCoreHero.ToastNotification.Abstractions;
 
     /// <summary>
@@ -53,7 +56,60 @@ namespace HMS.Controllers
         /// </returns>
         public IActionResult Index()
         {
-            return View();
+            var waiting = (from patientId in _db.PharmacyWaiting
+                           join pId in _db.Patients on patientId.PatientId equals pId.PatientId
+                           orderby DateTime.Now descending
+                           select new AttendVm() { PatientId = patientId.PatientId, Name = pId.Name }).ToList();
+            return View(waiting);
+        }
+
+        /// <summary>
+        /// The patient details.
+        /// </summary>
+        /// <param name="patientId">
+        /// The patient id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult Dispense(string patientId)
+        {
+            TempData["id"] = patientId;
+            TempData.Keep();
+            var details = (from patient in this._db.PharmacyWaiting
+                           join prescription in this._db.Prescriptions on patient.PatientId equals prescription.PatientId
+                           where patient.PatientId == patientId && prescription.Date.Date == DateTime.Today.Date
+                           select new PrescriptionVm
+                           {
+                               Prescription = prescription.Prescription,
+                           }).ToList();
+            return this.View(details);
+        }
+
+        /// <summary>
+        /// The complete dispense.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult CompleteDispense()
+        {
+            try
+            {
+                var pay = new PayWaiting
+                {
+                    PatientId = TempData["id"].ToString()
+                };
+
+                this._db.PayWaiting.Add(pay);
+                this._db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                this._notyf.Error(e.ToString());
+            }
+
+            return this.RedirectToAction("Index");
         }
 
         /// GET: PharmacyController/
