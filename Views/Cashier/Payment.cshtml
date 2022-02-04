@@ -1,0 +1,110 @@
+﻿@using HMS.Models.ViewModels
+@using HMS.Utilities
+@model Transactions
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "_AdminLayout";
+
+    List<TransactionsVm> details = (List<TransactionsVm>)TempData["details"];
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Pharmacy" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Payment</li>
+    </ol>
+
+    <!-- Body -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Payment Due</h6>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <div class="col-md-6">
+                        @if (details != null)
+                        {
+                            @foreach (var item in details)
+                            {
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group form-floating mb-3">
+                                            <input asp-for="@item.Id" id="id" class="form-control" placeholder="Transaction Id" disabled />
+                                            <label>Transaction Id</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group form-floating mb-3">
+                                            <input type="number" asp-for="@item.Total" class="form-control" placeholder="Total" id="total" disabled />
+                                            <label asp-for="@item.Total"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Payment</h6>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <div class="col-md-6">
+                    <form asp-action="Payment" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group form-floating mb-3">
+                            <input asp-for="PatientId" value="@TempData["id"]" class="form-control" placeholder="Patient Id" />
+                            <label asp-for="PatientId"></label>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <input type="number" asp-for="Id" class="form-control" placeholder="Transaction Id" />
+                            <label>Transaction Id</label>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <input asp-for="Total" class="form-control" placeholder="Patient Id" />
+                            <label asp-for="Total"></label>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <div>
+                                <select asp-for="Method"
+                                        asp-items="@DropDowns.GetPaymentMethodForDropDown()" class="form-select" aria-label="Select Payment Method">
+                                    <option selected>Select Payment Method</option>
+                                </select>
+                                <span asp-validation-for="Method" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" value="Done" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}

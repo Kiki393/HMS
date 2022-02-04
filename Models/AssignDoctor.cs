@@ -8,8 +8,6 @@
 
 namespace HMS.Models
 {
-    using System.ComponentModel;
-
     /// <summary>
     /// The assign doctor.
     /// </summary>

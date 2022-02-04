@@ -100,6 +100,11 @@ namespace HMS.Areas.Identity.Data
         public DbSet<PharmWaiting> PharmacyWaiting { get; set; }
 
         /// <summary>
+        /// Gets or sets the transactions.
+        /// </summary>
+        public DbSet<Transactions> Transactions { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">

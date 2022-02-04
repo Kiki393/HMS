@@ -47,6 +47,6 @@ namespace HMS.Models
         /// </summary>
         [Required]
         [DisplayName("NHIS (Yes or No)")]
-        public bool NHIS { get; set; }
+        public string NHIS { get; set; }
     }
 }

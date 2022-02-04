@@ -7,7 +7,6 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System.Collections.Generic;
 using System.Linq;
 using HMS.Areas.Identity.Data;
 using HMS.Count;

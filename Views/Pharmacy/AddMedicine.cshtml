@@ -34,21 +34,15 @@
                             <form asp-action="AddMedicine" method="post" id="medicine" class="mt-4">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                                @*<div class="form-group">
-                                    <label asp-for="PatientId"></label>
-                                    <input asp-for="PatientId" class="form-control" />
-                                    <span asp-validation-for="PatientId" class="text-danger"></span>
-                                    </div>*@
-
                                 <div class="form-floating mb-3">
+                                    <input asp-for="Name" class="form-control" placeholder="Name"/>
                                     <label asp-for="Name"></label>
-                                    <input asp-for="Name" class="form-control" />
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-floating mb-3">
+                                    <input type="number" asp-for="Cost" class="form-control" placeholder="Cost"/>
                                     <label asp-for="Cost"></label>
-                                    <input type="number" asp-for="Cost" class="form-control" />
                                     <span asp-validation-for="Cost" class="text-danger"></span>
                                 </div>
 
@@ -59,14 +53,14 @@
                                 </div>
 
                                 <div class="form-floating mb-3">
+                                    <input type="number" asp-for="Quantity" class="form-control" placeholder="Quantity"/>
                                     <label asp-for="Quantity"></label>
-                                    <input type="number" asp-for="Quantity" class="form-control" />
                                     <span asp-validation-for="Quantity" class="text-danger"></span>
                                 </div>
 
                                 <div class="form-floating mb-3">
+                                    <input asp-for="NHIS" class="form-control" placeholder="NHIS (Yes or No)"/>
                                     <label asp-for="NHIS"></label>
-                                    <input asp-for="NHIS" class="form-control" />
                                     <span asp-validation-for="NHIS" class="text-danger"></span>
                                 </div>
 
@@ -78,7 +72,7 @@
                     </div>
 
                     <div>
-                        <a asp-action="Index">Back to List</a>
+                        <a asp-action="Medicines">Back to List</a>
                     </div>
                 </div>
             </div>

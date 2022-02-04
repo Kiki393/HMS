@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
-    using System.Globalization;
     using System.Linq;
 
     using AspNetCoreHero.ToastNotification.Abstractions;
@@ -76,14 +75,14 @@ namespace HMS.Controllers
         {
             TempData["id"] = patientId;
             TempData.Keep();
-            var details = (from patient in this._db.PharmacyWaiting
-                           join prescription in this._db.Prescriptions on patient.PatientId equals prescription.PatientId
-                           where patient.PatientId == patientId && prescription.Date.Date == DateTime.Today.Date
-                           select new PrescriptionVm
-                           {
-                               Prescription = prescription.Prescription,
-                           }).ToList();
-            return this.View(details);
+            ViewData["details"] = (from patient in this._db.PharmacyWaiting
+                                   join prescription in this._db.Prescriptions on patient.PatientId equals prescription.PatientId
+                                   where patient.PatientId == patientId && prescription.Date.Date == DateTime.Today.Date
+                                   select new PrescriptionVm
+                                   {
+                                       Prescription = prescription.Prescription,
+                                   }).ToList();
+            return this.View();
         }
 
         /// <summary>
@@ -92,14 +91,39 @@ namespace HMS.Controllers
         /// <returns>
         /// The <see cref="IActionResult"/>.
         /// </returns>
-        public IActionResult CompleteDispense()
+        public IActionResult CompleteDispense(Transactions transaction)
         {
+            try
+            {
+                var payment = new Transactions
+                {
+                    PatientId = TempData["id"].ToString(),
+                    Total = transaction.Total,
+                    Date = System.DateTime.Now,
+                };
+
+                this._db.Transactions.Add(payment);
+                this._db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                this._notyf.Error(e.ToString());
+            }
+
             try
             {
                 var pay = new PayWaiting
                 {
                     PatientId = TempData["id"].ToString()
                 };
+
+                var obj = _db.PharmacyWaiting.First(e => e.PatientId == pay.PatientId);
+                if (obj is null)
+                {
+                    return NotFound();
+                }
+
+                _db.PharmacyWaiting.Remove(obj);
 
                 this._db.PayWaiting.Add(pay);
                 this._db.SaveChanges();

@@ -1,27 +1,27 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AttendVm.cs" company="VVU">
+// <copyright file="TransactionsVm.cs" company="VVU">
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
-//   The attend vm.
+//   The transactions vm.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace HMS.Models.ViewModels
 {
     /// <summary>
-    /// The attend view model.
+    /// The transactions view model.
     /// </summary>
-    public class AttendVm
+    public class TransactionsVm
     {
         /// <summary>
-        /// Gets or sets the patient id.
+        /// Gets or sets the id.
         /// </summary>
-        public string PatientId { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the total.
         /// </summary>
-        public string Name { get; set; }
+        public double Total { get; set; }
     }
 }

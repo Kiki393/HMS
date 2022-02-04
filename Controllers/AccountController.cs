@@ -8,13 +8,11 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using System.Web;
+
 using AspNetCoreHero.ToastNotification.Abstractions;
 using HMS.Areas.Identity.Data;
-using HMS.Models;
 using HMS.Models.ViewModels;
 using HMS.Password_Generator;
 using HMS.Utilities;
@@ -23,7 +21,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace HMS.Controllers
 {

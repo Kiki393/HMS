@@ -1,42 +1,44 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AppUsersVm.cs" company="VVU">
+// <copyright file="Transactions.cs" company="VVU">
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 // <summary>
-//   The app users view model.
+//   The transactions.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace HMS.Models.ViewModels
+namespace HMS.Models
 {
+    using System;
+
     /// <summary>
-    /// The app users view model.
+    /// The transactions.
     /// </summary>
-    public class AppUsersVm
+    public class Transactions
     {
         /// <summary>
-        /// Gets or sets the user id.
+        /// Gets or sets the id.
         /// </summary>
-        public string UserId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Gets or sets the patient id.
         /// </summary>
-        public string Name { get; set; }
+        public string PatientId { get; set; }
 
         /// <summary>
-        /// Gets or sets the user name.
+        /// Gets or sets the total.
         /// </summary>
-        public string UserName { get; set; }
+        public double Total { get; set; }
 
         /// <summary>
-        /// Gets or sets the email.
+        /// Gets or sets the method.
         /// </summary>
-        public string Email { get; set; }
+        public string Method { get; set; }
 
         /// <summary>
-        /// Gets or sets the roles.
+        /// Gets or sets the date.
         /// </summary>
-        public string Roles { get; set; }
+        public DateTime Date { get; set; }
     }
 }

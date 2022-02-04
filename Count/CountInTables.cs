@@ -7,13 +7,10 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using HMS.Areas.Identity.Data;
 using HMS.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace HMS.Count
 {

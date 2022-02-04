@@ -2,9 +2,7 @@
 // Copyright (c) VVU. All rights reserved.
 // </copyright>
 
-using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HMS.Models
 {

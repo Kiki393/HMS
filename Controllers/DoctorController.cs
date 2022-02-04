@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace HMS.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Security.Claims;
@@ -25,7 +24,6 @@ namespace HMS.Controllers
     using HMS.Models.ViewModels;
 
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc.Rendering;
 
     /// <summary>
     /// The doctor controller.
@@ -184,6 +182,14 @@ namespace HMS.Controllers
                 {
                     PatientId = TempData["id"].ToString()
                 };
+
+                var obj = _db.AssignDoctors.First(e => e.PId == pharmacy.PatientId);
+                if (obj is null)
+                {
+                    return NotFound();
+                }
+
+                _db.AssignDoctors.Remove(obj);
 
                 this._db.PharmacyWaiting.Add(pharmacy);
                 this._db.SaveChanges();

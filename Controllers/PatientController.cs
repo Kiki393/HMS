@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification.Abstractions;
@@ -17,7 +16,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace HMS.Controllers
 {

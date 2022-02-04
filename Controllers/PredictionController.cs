@@ -20,8 +20,7 @@ namespace HMS.Controllers
 
     using HMS.Areas.Identity.Data;
     using HMS.Models;
-
-    using Microsoft.Extensions.ML;
+    using HMS.Random_Number_Generator;
 
     /// <summary>
     /// The prediction controller.
@@ -115,7 +114,7 @@ namespace HMS.Controllers
 
                 try
                 {
-                    this.TempData["id"] ??= "0000";
+                    this.TempData["id"] ??= "0000" + RandomNumber.RandomNum(1000, 9000);
 
                     var testResult = new LabResult
                     {
@@ -126,6 +125,14 @@ namespace HMS.Controllers
                         PneumoniaAccuracy = TempData["Pneumonia"].ToString()
                     };
 
+                    var obj = _db.LabWaiting.First(e => e.PatientId == testResult.PatientId);
+                    if (obj is null)
+                    {
+                        return NotFound();
+                    }
+
+                    _db.LabWaiting.Remove(obj);
+
                     await this._db.LabResults.AddAsync(testResult);
                     await this._db.SaveChangesAsync();
                     this._notyf.Success("Results saved.");
@@ -134,6 +141,8 @@ namespace HMS.Controllers
                 {
                     this._notyf.Error(e.ToString());
                 }
+
+                return this.RedirectToAction("Index", "Lab");
             }
             catch (Exception e)
             {

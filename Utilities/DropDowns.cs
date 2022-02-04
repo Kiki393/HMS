@@ -100,5 +100,22 @@ namespace HMS.Utilities
                            new () { Value = "Patients", Text = "Patients" },
                        };
         }
+
+        /// <summary>
+        /// The get payment method for drop down.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<SelectListItem> GetPaymentMethodForDropDown()
+        {
+            return new List<SelectListItem>
+                       {
+                           new () { Value = "Cash", Text = "Cash" },
+                           new () { Value = "Mobile Money", Text = "Mobile Money" },
+                           new () { Value = "Insurance", Text = "Insurance" },
+                           new () { Value = "Credit/Debit Card", Text = "Credit/Debit Card" },
+                       };
+        }
     }
 }

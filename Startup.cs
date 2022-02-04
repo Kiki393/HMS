@@ -19,12 +19,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.ML;
 
 namespace HMS
 {
     using HMS.Count;
-    using HMS.Models.ViewModels;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc.Authorization;

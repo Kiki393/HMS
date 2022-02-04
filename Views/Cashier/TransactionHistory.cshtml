@@ -1,6 +1,6 @@
-﻿@model IEnumerable<HMS.Models.ViewModels.AttendVm>
+﻿@model List<HMS.Models.ViewModels.TransactionsListVm>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "TransactionHistory";
     Layout = "_AdminLayout";
 }
 
@@ -8,13 +8,14 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item"><a asp-controller="Cashier" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Transaction History</li>
     </ol>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Patients Waiting</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Transaction History</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -24,13 +25,19 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Patient ID
+                                    Patient Id
                                 </th>
                                 <th>
                                     Name
                                 </th>
                                 <th>
-                                    Select
+                                    Total
+                                </th>
+                                <th>
+                                    Payment Method
+                                </th>
+                                <th>
+                                    Date
                                 </th>
                             </tr>
                         </thead>
@@ -38,13 +45,11 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td width="15%">@item.PatientId</td>
-                                    <td width="15%">@item.Name</td>
-                                    <td width="5%">
-                                        <div class="w-100 btn-group" role="group">
-                                            <a asp-action="Payment" asp-controller="Cashier" asp-route-patientId="@item.PatientId" class="select btn btn-primary mx-1">Attend</a>
-                                        </div>
-                                    </td>
+                                    <td width="20%">@item.PatientId</td>
+                                    <td width="20%">@item.Name</td>
+                                    <td width="20%">@item.Total</td>
+                                    <td width="20%">@item.Method</td>
+                                    <td width="20%">@item.Date</td>
                                 </tr>
                             }
                         </tbody>
@@ -52,12 +57,14 @@
                 }
                 else
                 {
-                    <p>No patients waiting.</p>
+                    <p>No history available.</p>
                 }
             </div>
         </div>
     </div>
+
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 </div>
+

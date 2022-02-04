@@ -1,6 +1,6 @@
-﻿@model IEnumerable<HMS.Models.ViewModels.AttendVm>
+﻿@model IEnumerable<LabResult>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lab History";
     Layout = "_AdminLayout";
 }
 
@@ -8,13 +8,14 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Dashboard</li>
+        <li class="breadcrumb-item"><a asp-controller="Lab" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Lab History</li>
     </ol>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Patients Waiting</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Lab History</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -27,10 +28,16 @@
                                     Patient ID
                                 </th>
                                 <th>
-                                    Name
+                                    Date
                                 </th>
                                 <th>
-                                    Select
+                                    Predicted Label
+                                </th>
+                                <th>
+                                    Normal Accuracy
+                                </th>
+                                <th>
+                                    Pneumonia Accuracy
                                 </th>
                             </tr>
                         </thead>
@@ -39,12 +46,10 @@
                             {
                                 <tr>
                                     <td width="15%">@item.PatientId</td>
-                                    <td width="15%">@item.Name</td>
-                                    <td width="5%">
-                                        <div class="w-100 btn-group" role="group">
-                                            <a asp-action="Payment" asp-controller="Cashier" asp-route-patientId="@item.PatientId" class="select btn btn-primary mx-1">Attend</a>
-                                        </div>
-                                    </td>
+                                    <td width="15%">@item.Date</td>
+                                    <td width="15%">@item.PredictedLabel</td>
+                                    <td width="15%">@item.NormalAccuracy</td>
+                                    <td width="15%">@item.PneumoniaAccuracy</td>
                                 </tr>
                             }
                         </tbody>
@@ -52,7 +57,7 @@
                 }
                 else
                 {
-                    <p>No patients waiting.</p>
+                    <p>No patients vitals available.</p>
                 }
             </div>
         </div>
@@ -61,3 +66,4 @@
         <i class="fas fa-angle-up"></i>
     </a>
 </div>
+

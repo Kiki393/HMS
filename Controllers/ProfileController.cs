@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
-    using System.Collections.Specialized;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -16,7 +15,6 @@ namespace HMS.Controllers
     using HMS.Areas.Identity.Data;
     using HMS.Models.ViewModels;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
 
     /// <summary>

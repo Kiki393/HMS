@@ -121,6 +121,14 @@ namespace HMS.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var obj = _db.Waiting.First(e => e.PatientId == doctor.PId);
+                    if (obj is null)
+                    {
+                        return NotFound();
+                    }
+
+                    _db.Waiting.Remove(obj);
+
                     _db.AssignDoctors.Add(doctor);
                     _db.SaveChanges();
                 }

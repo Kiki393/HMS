@@ -1,8 +1,10 @@
-﻿@model IEnumerable<HMS.Models.ViewModels.PrescriptionVm>
-
+﻿@using HMS.Models.ViewModels
+@model Transactions
 @{
     ViewData["Title"] = "Dispense";
     Layout = "_AdminLayout";
+
+    List<PrescriptionVm> details = (List<PrescriptionVm>)ViewData["details"];
 }
 
 <!-- Begin Page Content -->
@@ -23,19 +25,30 @@
             <div class="form-group">
                 <div class="col-md-8">
                     <div class="form-group form-floating mb-3">
-                        <input value="@TempData["id"]" class="form-control" placeholder="Reply" style="height: 100px" disabled />
+                        <input value="@TempData["id"]" class="form-control" placeholder="Patient Id" disabled />
                         <label>Patient Id</label>
                     </div>
-                    @foreach (var item in Model)
+
+                    @if (details != null)
                     {
-                        <div class="form-group form-floating mb-3">
-                            <textarea asp-for="@item.Prescription" class="form-control" placeholder="Message" style="height: 100px" disabled></textarea>
-                            <label asp-for="@item.Prescription"></label>
-                        </div>
+                        @foreach (var item in details)
+                        {
+                            <div class="form-group form-floating mb-3">
+                                <textarea asp-for="@item.Prescription" class="form-control" placeholder="Message" disabled></textarea>
+                                <label asp-for="@item.Prescription"></label>
+                            </div>
+                        }
                     }
-                </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a asp-controller="Pharmacy" asp-action="CompleteDispense" class="select btn btn-success mx-1">Done</a>
+
+                    <form method="post" asp-action="CompleteDispense">
+                        <div class="form-group form-floating mb-3">
+                            <input asp-for="Total" class="form-control" placeholder="Total" />
+                            <label asp-for="Total"></label>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" value="Done" class="btn btn-success" />
+                        </div>
+                    </form>
                 </div>
             </div>
 

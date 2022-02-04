@@ -21,7 +21,6 @@ namespace HMS.Controllers
     using HMS.Models.ViewModels;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// The manage controller.

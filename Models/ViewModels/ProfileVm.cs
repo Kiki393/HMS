@@ -10,7 +10,6 @@
 namespace HMS.Models.ViewModels
 {
     using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// The profile view model.

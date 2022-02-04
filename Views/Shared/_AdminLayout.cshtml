@@ -333,6 +333,7 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Available Modules:</h6>
                             <a class="collapse-item" asp-controller="Prediction" asp-action="Predict">Machine Learning</a>
+                            <a class="collapse-item" asp-controller="Lab" asp-action="LabHistory">Lab History</a>
                         </div>
                     </div>
                 </li>
@@ -370,6 +371,24 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Tasks:</h6>
                             <a class="collapse-item" asp-controller="Nurse" asp-action="Vitals">Vitals History</a>
+                        </div>
+                    </div>
+                </li>
+            }
+
+            @if (User.IsInRole(UserRoles.Cashier))
+            {
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-money-check-alt"></i>
+                        <span>Transactions</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Tasks:</h6>
+                            <a class="collapse-item" asp-controller="Cashier" asp-action="TransactionHistory">Transaction History</a>
                         </div>
                     </div>
                 </li>

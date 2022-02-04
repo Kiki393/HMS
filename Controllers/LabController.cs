@@ -12,11 +12,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using AspNetCoreHero.ToastNotification.Abstractions;
 
     using HMS.Areas.Identity.Data;
+    using HMS.Models;
     using HMS.Models.ViewModels;
 
     /// <summary>
@@ -63,6 +65,18 @@ namespace HMS.Controllers
                            select new AttendVm() { PatientId = patientId.PatientId, Name = pId.Name }).ToList();
 
             return View(waiting);
+        }
+
+        /// <summary>
+        /// The lab history.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult LabHistory()
+        {
+            IEnumerable<LabResult> obj = _db.LabResults;
+            return this.View(obj);
         }
     }
 }
