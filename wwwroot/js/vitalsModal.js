@@ -33,7 +33,7 @@ function onCloseModalV() {
     window.$("#vitalsModal").modal("hide");
 }
 
-function onBtnSave() {
+function onBtnSaveV() {
     const vitals = {
         PatientId: window.$("#patientId").val(),
         Name: window.$("#name").val(),
@@ -54,7 +54,6 @@ function onBtnSave() {
                 if (response != null) {
                     window.toastNotifySuccess("Saved");
                     sendVitalsModal();
-                    /*window.location.reload();*/
                 }
                 else {
                     window.toastNotifyError("Something went wrong");

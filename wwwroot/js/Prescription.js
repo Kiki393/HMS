@@ -8,7 +8,7 @@ function onCloseModalP() {
     window.$("#prescriptionModal").modal("hide");
 }
 
-function onBtnSave() {
+function onBtnSaveP() {
     const medication = {
         Prescription: window.$("#prescription").val(),
         PatientId: window.$("#id").val()
