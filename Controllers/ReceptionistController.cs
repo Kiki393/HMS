@@ -31,7 +31,7 @@ namespace HMS.Controllers
         /// <summary>
         /// The _notify service.
         /// </summary>
-        private readonly INotyfService _notifyService;
+        private readonly INotyfService _notyf;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ReceptionistController"/> class.
@@ -39,13 +39,13 @@ namespace HMS.Controllers
         /// <param name="db">
         /// The database.
         /// </param>
-        /// <param name="notifyService">
+        /// <param name="notyf">
         /// The notification service.
         /// </param>
-        public ReceptionistController(ApplicationDbContext db, INotyfService notifyService)
+        public ReceptionistController(ApplicationDbContext db, INotyfService notyf)
         {
             _db = db;
-            _notifyService = notifyService;
+            this._notyf = notyf;
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace HMS.Controllers
             }
             catch (Exception e)
             {
-                _notifyService.Error(e.ToString());
+                this._notyf.Error(e.ToString());
             }
 
             return Json(patientData);

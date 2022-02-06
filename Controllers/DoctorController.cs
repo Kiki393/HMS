@@ -126,6 +126,16 @@ namespace HMS.Controllers
                                           PneumoniaAccuracy = result.PneumoniaAccuracy,
                                           PredictedLabel = result.PredictedLabel,
                                       }).ToList();
+
+            ViewData["consultations"] = (from patient in this._db.AssignDoctors
+                                         join consult in this._db.Consultations on patient.PId equals consult.PatientId
+                                         where patient.PId == patientId
+                                         select new ConsultationsVm()
+                                         {
+                                             Date = consult.Date,
+                                             Diagnosis = consult.Diagnosis,
+                                             Symptoms = consult.Symptoms,
+                                         }).ToList();
             return this.View();
         }
 

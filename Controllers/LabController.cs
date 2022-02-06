@@ -15,8 +15,6 @@ namespace HMS.Controllers
     using System.Collections.Generic;
     using System.Linq;
 
-    using AspNetCoreHero.ToastNotification.Abstractions;
-
     using HMS.Areas.Identity.Data;
     using HMS.Models;
     using HMS.Models.ViewModels;
@@ -33,23 +31,14 @@ namespace HMS.Controllers
         private readonly ApplicationDbContext _db;
 
         /// <summary>
-        /// The notification.
-        /// </summary>
-        private readonly INotyfService _notyf;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="LabController"/> class.
         /// </summary>
         /// <param name="db">
         /// The db.
         /// </param>
-        /// <param name="notyf">
-        /// The notification.
-        /// </param>
-        public LabController(ApplicationDbContext db, INotyfService notyf)
+        public LabController(ApplicationDbContext db)
         {
             this._db = db;
-            this._notyf = notyf;
         }
 
         /// <summary>

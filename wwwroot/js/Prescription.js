@@ -2,7 +2,7 @@
     window.$("#prescriptionModal").modal("show");
 }
 
-function onCloseModalP() {
+function onCloseModalPres() {
     window.$("#prescriptionForm")[0].reset();
     window.$("#prescription").val("");
     window.$("#prescriptionModal").modal("hide");

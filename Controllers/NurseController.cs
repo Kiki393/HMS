@@ -40,7 +40,7 @@ namespace HMS.Controllers
         /// <summary>
         /// The _notify service.
         /// </summary>
-        private readonly INotyfService _notifyService;
+        private readonly INotyfService _notyf;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NurseController"/> class.
@@ -48,16 +48,16 @@ namespace HMS.Controllers
         /// <param name="db">
         /// The database.
         /// </param>
-        /// <param name="notifyService">
+        /// <param name="notyf">
         /// The notification service.
         /// </param>
         /// <param name="appointmentService">
         /// The appointment Service.
         /// </param>
-        public NurseController(ApplicationDbContext db, INotyfService notifyService, IAppointmentService appointmentService)
+        public NurseController(ApplicationDbContext db, INotyfService notyf, IAppointmentService appointmentService)
         {
             _db = db;
-            _notifyService = notifyService;
+            this._notyf = notyf;
             _appointmentService = appointmentService;
         }
 
@@ -99,7 +99,7 @@ namespace HMS.Controllers
             }
             catch (Exception e)
             {
-                _notifyService.Error(e.ToString());
+                this._notyf.Error(e.ToString());
             }
 
             return Json(vitals);
@@ -135,7 +135,7 @@ namespace HMS.Controllers
             }
             catch (Exception e)
             {
-                _notifyService.Error(e.ToString());
+                this._notyf.Error(e.ToString());
             }
 
             return Json(doctor);

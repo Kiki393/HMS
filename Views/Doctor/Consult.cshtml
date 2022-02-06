@@ -8,6 +8,7 @@
     List<VitalsVm> vitals = (List<VitalsVm>)ViewData["vitals"];
     List<PrescriptionVm> prescription = (List<PrescriptionVm>)ViewData["prescription"];
     List<LabResultVm> labResult = (List<LabResultVm>)ViewData["labResults"];
+    List<ConsultationsVm> consult = (List<ConsultationsVm>)ViewData["consultations"];
 }
 
 <!DOCTYPE html>
@@ -117,6 +118,50 @@
                                             <td width="15%">@item.Bp</td>
                                             <td width="15%">@item.Temperature</td>
                                             <td width="15%">@item.Weight</td>
+                                            <td width="15%">@item.Date</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p>No information available.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Patient Consultations</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="table-responsive">
+                        @if (vitals != null)
+                        {
+                            <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable4">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Symptoms
+                                        </th>
+                                        <th>
+                                            Diagnosis
+                                        </th>
+                                        <th>
+                                            Date
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in consult)
+                                    {
+                                        <tr>
+                                            <td width="15%">@item.Symptoms</td>
+                                            <td width="15%">@item.Diagnosis</td>
                                             <td width="15%">@item.Date</td>
                                         </tr>
                                     }
