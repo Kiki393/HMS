@@ -77,6 +77,7 @@ function onShowModal(obj, isEventDetail) {
         window.$("#patientId").val(obj.patientId);
         window.$("#duration").val(obj.duration);
         window.$("#id").val(obj.id);
+        window.$("#comments").val(obj.comments);
 
         window.$("#lblPatientName").html(obj.patientName);
         window.$("#lblDoctorName").html(obj.doctorName);
@@ -106,6 +107,7 @@ function onCloseModalA() {
     window.$("#title").val("");
     window.$("#description").val("");
     window.$("#appointmentDate").val("");
+    window.$("#comments").val("");
 
     window.$("#appointmentInput").modal("hide");
 }
@@ -119,7 +121,37 @@ function onSubmitForm() {
             StartDate: window.$("#appointmentDate").val(),
             DoctorId: window.$("#doctorId").val(),
             Duration: window.$("#duration").val(),
-            PatientId: window.$("#patientId").val()
+            PatientId: window.$("#patientId").val(),
+            Comments: window.$("#comments").val()
+        };
+
+        window.$.ajax({
+            url: routeURL + "/api/Appointment/SaveCalendarData",
+            type: "POST",
+            data: JSON.stringify(requestData),
+            contentType: "application/json",
+            success: function (response) {
+                if (response.status === 1 || response.status === 2) {
+                    calendar.refetchEvents();
+                    window.$.notify(response.message, "success");
+                    onCloseModal();
+                } else {
+                    window.$.notify(response.message, "error");
+                }
+            },
+            error: function (xhr) {
+                window.$.notify("Error", "error");
+            }
+        });
+    } else {
+        window.$.notify("One or more fields is empty.", "error");
+    }
+}
+
+function onSaveComment() {
+    if (checkValidation()) {
+        const requestData = {
+            Comments: window.$("#comments").val()
         };
 
         window.$.ajax({

@@ -17,6 +17,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using System.Linq;
+
+    using HMS.Models.ViewModels;
+
     /// <summary>
     /// The receptionist controller.
     /// </summary>
@@ -86,6 +90,34 @@ namespace HMS.Controllers
             }
 
             return Json(patientData);
+        }
+
+        /// <summary>
+        /// The referrals history.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult ReferralsHistory()
+        {
+            var referrals = (from refer in _db.Referrals
+                             join patients in _db.Patients on refer.PatientId equals patients.PatientId
+                             join docName in this._db.Users on refer.DoctorId equals docName.Id
+                             where patients.PatientId == refer.PatientId
+                             select new ReferralsVm()
+                             {
+                                 Hospital = refer.Hospital,
+                                 Severity = refer.Severity,
+                                 Comments = refer.Comments,
+                                 Condition = refer.Condition,
+                                 Date = refer.Date,
+                                 Gender = patients.Gender,
+                                 PatientId = refer.PatientId,
+                                 PatientName = patients.Name,
+                                 DoctorName = docName.Name,
+                             }).ToList();
+
+            return this.View(referrals);
         }
     }
 }

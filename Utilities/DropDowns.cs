@@ -117,5 +117,22 @@ namespace HMS.Utilities
                            new () { Value = "Credit/Debit Card", Text = "Credit/Debit Card" },
                        };
         }
+
+        /// <summary>
+        /// The get severity for drop down.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<SelectListItem> GetSeverityForDropDown()
+        {
+            return new List<SelectListItem>
+                       {
+                           new () { Value = "Critical", Text = "Critical" },
+                           new () { Value = "Urgent", Text = "Urgent" },
+                           new () { Value = "Minor", Text = "Minor" },
+                           new () { Value = "Low", Text = "Low" },
+                       };
+        }
     }
 }

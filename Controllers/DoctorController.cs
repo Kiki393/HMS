@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HMS.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using System.Security.Claims;
@@ -275,6 +276,86 @@ namespace HMS.Controllers
             }
 
             return Json(prescription);
+        }
+
+        /// <summary>
+        /// The referrals.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult Referrals()
+        {
+            return this.View();
+        }
+
+        /// <summary>
+        /// The referrals.
+        /// </summary>
+        /// <param name="refer">
+        /// The refer.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Referrals(Referrals refer)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var details = new Referrals
+                    {
+                        PatientId = refer.PatientId,
+                        Comments = refer.Comments,
+                        Condition = refer.Condition,
+                        Date = System.DateTime.Now,
+                        DoctorId = this.loggedInUserId,
+                        Hospital = refer.Hospital,
+                        Severity = refer.Severity,
+                    };
+
+                    this._db.Referrals.Add(details);
+                    this._db.SaveChanges();
+                    this._notyf.Success("Patient Referral Created.");
+
+                    return this.View();
+                }
+                catch (Exception e)
+                {
+                    _notyf.Error(e.ToString());
+                }
+            }
+
+            return this.View();
+        }
+
+        /// <summary>
+        /// The referrals history.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="IActionResult"/>.
+        /// </returns>
+        public IActionResult ReferralsHistory()
+        {
+            var referrals = (from refer in _db.Referrals
+                             join patients in _db.Patients on refer.PatientId equals patients.PatientId
+                             where refer.DoctorId == loggedInUserId
+                             select new DoctorReferralsVm()
+                             {
+                                 Hospital = refer.Hospital,
+                                 Severity = refer.Severity,
+                                 Comments = refer.Comments,
+                                 Condition = refer.Condition,
+                                 Date = refer.Date,
+                                 Gender = patients.Gender,
+                                 PatientId = refer.PatientId,
+                                 PatientName = patients.Name,
+                             }).ToList();
+
+            return this.View(referrals);
         }
     }
 }

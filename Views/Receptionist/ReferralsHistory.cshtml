@@ -1,0 +1,86 @@
+﻿@model IEnumerable<HMS.Models.ViewModels.ReferralsVm>
+@{
+    ViewData["Title"] = "ReferralsHistory";
+    Layout = "_AdminLayout";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Receptionist" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Referrals History</li>
+    </ol>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Referrals History</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @if (Model.Any())
+                {
+                    <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Doctor Name
+                                </th>
+                                <th>
+                                    Patient ID
+                                </th>
+                                <th>
+                                    Patient Name
+                                </th>
+                                <th>
+                                    Gender
+                                </th>
+                                <th>
+                                    Condition
+                                </th>
+                                <th>
+                                    Comments
+                                </th>
+                                <th>
+                                    To Hospital
+                                </th>
+                                <th>
+                                    Severity
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.DoctorName</td>
+                                    <td>@item.PatientId</td>
+                                    <td>@item.PatientName</td>
+                                    <td>@item.Gender</td>
+                                    <td>@item.Condition</td>
+                                    <td>@item.Comments</td>
+                                    <td>@item.Hospital</td>
+                                    <td>@item.Severity</td>
+                                    <td>@item.Date</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>No referral information available.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+
+

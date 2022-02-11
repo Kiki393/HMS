@@ -105,6 +105,11 @@ namespace HMS.Areas.Identity.Data
         public DbSet<Transactions> Transactions { get; set; }
 
         /// <summary>
+        /// Gets or sets the referrals.
+        /// </summary>
+        public DbSet<Referrals> Referrals { get; set; }
+
+        /// <summary>
         /// The on model creating.
         /// </summary>
         /// <param name="builder">

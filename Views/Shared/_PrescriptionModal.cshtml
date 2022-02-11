@@ -9,11 +9,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="prescription">Medication</label>
-                        <input type="text" maxlength="1000" class="form-control" id="prescription" />
+                        <textarea type="text" maxlength="1000" class="form-control" id="prescription" style="height: 100px"></textarea>
                     </div>
                     <input type="hidden" id="id" value="@TempData["id"]" />
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" onclick="onCloseModalPres">Close</button> &nbsp;
+                        <button type="button" class="btn btn-secondary" onclick="onCloseModalPres()">Close</button> &nbsp;
                         <button type="button" class="btn btn-primary" onclick="onBtnSaveP()">Save</button>
                     </div>
                 </div>

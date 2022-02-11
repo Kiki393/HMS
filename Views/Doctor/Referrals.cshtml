@@ -1,0 +1,84 @@
+﻿@using HMS.Utilities
+@model Referrals
+@{
+    ViewData["Title"] = "Referrals";
+    Layout = "_AdminLayout";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Doctor" asp-action="Index">Dashboard</a></li>
+        <li class="breadcrumb-item active">Refer Patient</li>
+    </ol>
+
+    <!-- Body -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Refer Patient</h6>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group" style="align-content: center">
+                <div class="col-md-8">
+                    <form asp-action="Referrals" method="post" id="patient" class="mt-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group form-floating mb-3">
+                            <input asp-for="PatientId" class="form-control" placeholder="NHIS Id" />
+                            <label asp-for="PatientId"></label>
+                            <span asp-validation-for="PatientId" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <input asp-for="Hospital" class="form-control" placeholder="Full Name" />
+                            <label asp-for="Hospital"></label>
+                            <span asp-validation-for="Hospital" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <input asp-for="Condition" class="form-control" placeholder="Full Name" />
+                            <label asp-for="Condition"></label>
+                            <span asp-validation-for="Condition" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <textarea asp-for="Comments" class="form-control" placeholder="Age" style="height: 200px"></textarea>
+                            <label asp-for="Comments"></label>
+                            <span asp-validation-for="Comments" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group form-floating mb-3">
+                            <div>
+                                <select asp-for="Severity"
+                                        asp-items="@DropDowns.GetSeverityForDropDown()" class="form-select" aria-label="Select Gender">
+                                    <option selected>Select Severity</option>
+                                </select>
+                                <span asp-validation-for="Severity" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <input type="submit" value="Add" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+</div>
+
+@section Scripts
+{
+<partial name="_ValidationScriptsPartial" />
+}
+

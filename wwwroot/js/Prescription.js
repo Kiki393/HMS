@@ -23,7 +23,7 @@ function onBtnSaveP() {
             dataType: "json",
             success: function (response) {
                 if (response != null) {
-                    onCloseModalP();
+                    onCloseModalPres();
                     window.location.reload();
                     window.toastNotifySuccess("Saved");
                 }

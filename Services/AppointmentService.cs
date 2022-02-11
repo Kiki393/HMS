@@ -82,6 +82,7 @@ namespace HMS.Services
                     appointment.PatientId = model.PatientId;
                     appointment.IsDoctorApproved = false;
                     appointment.AdminId = model.AdminId;
+                    appointment.Comments = model.Comments;
                 }
 
                 await _db.SaveChangesAsync();
@@ -189,6 +190,7 @@ namespace HMS.Services
                 Title = c.Title,
                 Duration = c.Duration,
                 IsDoctorApproved = c.IsDoctorApproved,
+                Comments = c.Comments,
             }).ToList();
         }
 
@@ -222,6 +224,7 @@ namespace HMS.Services
                 DoctorId = c.DoctorId,
                 PatientName = _db.Users.Where(x => x.Id == c.PatientId).Select(x => x.Name).FirstOrDefault(),
                 DoctorName = _db.Users.Where(x => x.Id == c.DoctorId).Select(x => x.Name).FirstOrDefault(),
+                Comments = c.Comments,
             }).SingleOrDefault();
         }
 
