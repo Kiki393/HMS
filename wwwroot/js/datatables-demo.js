@@ -14,3 +14,9 @@ $(document).ready(function () {
 $(document).ready(function () {
     window.$("#dataTable4").DataTable();
 });
+
+$(document).ready(function () {
+    window.$("#referralsTable").DataTable({
+        "scrollX": true
+    });
+});

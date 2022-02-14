@@ -24,6 +24,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HMS.Controllers
 {
+    using System.Linq;
+
     using HMS.Random_Number_Generator;
 
     /// <summary>
@@ -101,6 +103,11 @@ namespace HMS.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
+            var date = DateTime.Now.Date;
+            _db.Announcements.Where(c => c.End < date)
+                .ToList().ForEach(p => _db.Announcements.Remove(p));
+            _db.SaveChanges();
+
             return View();
         }
 

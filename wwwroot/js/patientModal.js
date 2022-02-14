@@ -1,4 +1,4 @@
-﻿$(".btn").click(function () {
+﻿$(".mx-1").click(function () {
     const currentTds = window.$(this).closest("tr").find("td"); // find all td of selected row
     const cell1 = window.$(currentTds).eq(1).text(); // eq= cell , text = inner text
     const cell2 = window.$(currentTds).eq(2).text();

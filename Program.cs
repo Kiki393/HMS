@@ -7,6 +7,8 @@ using Microsoft.Extensions.Hosting;
 
 namespace HMS
 {
+    using HMS.Utilities;
+
     /// <summary>
     /// The program.
     /// </summary>

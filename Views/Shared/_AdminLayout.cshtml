@@ -243,6 +243,20 @@
                         </div>
                     </div>
                 </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Message/Complaint</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
+                        </div>
+                    </div>
+                </li>
             }
             @if (User.IsInRole(UserRoles.Doctor))
             {
@@ -272,6 +286,20 @@
                             <h6 class="collapse-header">Tasks:</h6>
                             <a class="collapse-item" asp-controller="Doctor" asp-action="Referrals">Add Referral</a>
                             <a class="collapse-item" asp-controller="Doctor" asp-action="ReferralsHistory">Referrals History</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Message/Complaint</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
                         </div>
                     </div>
                 </li>
@@ -347,6 +375,20 @@
                         </div>
                     </div>
                 </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Message/Complaint</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
+                        </div>
+                    </div>
+                </li>
             }
 
             @if (User.IsInRole(UserRoles.Lab))
@@ -356,13 +398,27 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-vial"></i>
-                        <span>Modules</span>
+                        <span>Lab Test</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Available Modules:</h6>
+                            <h6 class="collapse-header">Available Options:</h6>
                             <a class="collapse-item" asp-controller="Prediction" asp-action="Predict">Machine Learning</a>
                             <a class="collapse-item" asp-controller="Lab" asp-action="LabHistory">Lab History</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Message/Complaint</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
                         </div>
                     </div>
                 </li>
@@ -375,13 +431,27 @@
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-comments"></i>
-                        <span>Send Us a Message</span>
+                        <span>Send Us a Message/Complaint</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Tasks:</h6>
-                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message</a>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
                             <a class="collapse-item" asp-controller="Patient" asp-action="ListOfMessages">All Messages</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Send a Message</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message</a>
                         </div>
                     </div>
                 </li>
@@ -398,8 +468,22 @@
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Tasks:</h6>
+                            <h6 class="collapse-header">Available Options:</h6>
                             <a class="collapse-item" asp-controller="Nurse" asp-action="Vitals">Vitals History</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Message/Complaint</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
                         </div>
                     </div>
                 </li>
@@ -416,8 +500,22 @@
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <h6 class="collapse-header">Tasks:</h6>
+                            <h6 class="collapse-header">Available Options:</h6>
                             <a class="collapse-item" asp-controller="Cashier" asp-action="TransactionHistory">Transaction History</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#message"
+                   aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-comments"></i>
+                        <span>Message/Complaint</span>
+                    </a>
+                    <div id="message" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Options:</h6>
+                            <a class="collapse-item" asp-controller="Patient" asp-action="AddMessage">Send Message/Complaint</a>
                         </div>
                     </div>
                 </li>
@@ -568,6 +666,7 @@
         <script src="~/js/vitalsModal.js"></script>
         <script src="~/js/labTest.js"></script>
         <script src="~/js/Prescription.js"></script>
+        <script src="~/js/consultationHistory.js"></script>
 
         @await Component.InvokeAsync("Notyf")
         @await RenderSectionAsync("scripts", required: false)

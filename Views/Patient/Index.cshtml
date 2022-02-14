@@ -1,9 +1,12 @@
 ﻿@using HMS.Utilities
+@using HMS.Models.ViewModels
 @model IEnumerable<Patients>
 
 @{
     ViewData["Title"] = "Patients";
     Layout = "_AdminLayout";
+
+    List<AnnouncementsVm> announcements = (List<AnnouncementsVm>)ViewData["announcements"];
 }
 
 <!-- Begin Page Content -->
@@ -12,6 +15,25 @@
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">Dashboard</li>
     </ol>
+    
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <span class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="float: end">
+                Announcements <i class="fa-solid fa-caret-down"></i>
+            </span>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card-body">
+                @foreach (var announcement in announcements)
+                {
+                    @if (announcement.For == "Patient")
+                    {
+                        <h5><i class="fa-solid fa-bullhorn"></i> @announcement.Announcement</h5>
+                    }
+                }
+            </div>
+        </div>
+    </div>
 
     <!-- DataTale -->
     @if (User.IsInRole(UserRoles.Admin) || User.IsInRole(UserRoles.Receptionist))

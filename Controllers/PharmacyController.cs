@@ -59,6 +59,14 @@ namespace HMS.Controllers
                            join pId in _db.Patients on patientId.PatientId equals pId.PatientId
                            orderby DateTime.Now descending
                            select new AttendVm() { PatientId = patientId.PatientId, Name = pId.Name }).ToList();
+
+            ViewData["announcements"] = (from announcement in this._db.Announcements
+                                         select new AnnouncementsVm()
+                                         {
+                                             Announcement = announcement.Announcement,
+                                             For = announcement.For,
+                                         }).ToList();
+
             return View(waiting);
         }
 
@@ -182,7 +190,7 @@ namespace HMS.Controllers
                     _db.Medicines.Add(medicine);
                     _db.SaveChanges();
                     _notyf.Success("Medicine Added");
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Medicines");
                 }
             }
             catch (Exception e)
@@ -278,7 +286,7 @@ namespace HMS.Controllers
                 return NotFound();
             }
 
-            return View();
+            return View(obj);
         }
 
         /// POST: PharmacyController/Delete
@@ -305,7 +313,7 @@ namespace HMS.Controllers
             _db.SaveChanges();
             _notyf.Success("Medicine Deleted");
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Medicines");
         }
     }
 }

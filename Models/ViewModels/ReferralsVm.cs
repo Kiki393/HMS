@@ -60,5 +60,10 @@ namespace HMS.Models.ViewModels
         /// Gets or sets the date.
         /// </summary>
         public DateTime Date { get; set; }
+
+        /// <summary>
+        /// Gets or sets the contact.
+        /// </summary>
+        public string Contact { get; set; }
     }
 }

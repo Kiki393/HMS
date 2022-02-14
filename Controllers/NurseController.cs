@@ -19,6 +19,7 @@ namespace HMS.Controllers
 {
     using System.Linq;
 
+    using HMS.Models.ViewModels;
     using HMS.Services;
 
     /// <summary>
@@ -74,6 +75,14 @@ namespace HMS.Controllers
                            join pId in _db.Patients on patientId.PatientId equals pId.PatientId
                            orderby DateTime.Now descending
                            select new VitalsWaiting { PatientId = patientId.PatientId, Name = pId.Name }).ToList();
+
+            ViewData["announcements"] = (from announcement in this._db.Announcements
+                                         select new AnnouncementsVm()
+                                         {
+                                             Announcement = announcement.Announcement,
+                                             For = announcement.For,
+                                         }).ToList();
+
             return View(waiting);
         }
 

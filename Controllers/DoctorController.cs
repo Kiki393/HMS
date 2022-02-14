@@ -79,6 +79,13 @@ namespace HMS.Controllers
                            where patients.DocId == loggedInUserId
                            select new AttendVm() { PatientId = patients.PId, Name = paId.Name }).ToList();
 
+            ViewData["announcements"] = (from announcement in this._db.Announcements
+                                         select new AnnouncementsVm()
+                                         {
+                                             Announcement = announcement.Announcement,
+                                             For = announcement.For,
+                                         }).ToList();
+
             return View(waiting);
         }
 

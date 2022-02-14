@@ -21,7 +21,7 @@
             <div class="table-responsive">
                 @if (Model.Any())
                 {
-                    <table class="table table-bordered table-hover align-middle" style="width: 100%" id="dataTable">
+                    <table class="table table-bordered table-hover align-middle" style="width: 100%" id="referralsTable">
                         <thead>
                             <tr>
                                 <th>
@@ -35,6 +35,9 @@
                                 </th>
                                 <th>
                                     Gender
+                                </th>
+                                <th>
+                                    Contact
                                 </th>
                                 <th>
                                     Condition
@@ -61,6 +64,7 @@
                                     <td>@item.PatientId</td>
                                     <td>@item.PatientName</td>
                                     <td>@item.Gender</td>
+                                    <td>@item.Contact</td>
                                     <td>@item.Condition</td>
                                     <td>@item.Comments</td>
                                     <td>@item.Hospital</td>

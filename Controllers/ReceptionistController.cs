@@ -61,6 +61,14 @@ namespace HMS.Controllers
         public IActionResult Index()
         {
             IEnumerable<Patients> obj = _db.Patients;
+
+            ViewData["announcements"] = (from announcement in this._db.Announcements
+                                         select new AnnouncementsVm()
+                                         {
+                                             Announcement = announcement.Announcement,
+                                             For = announcement.For,
+                                         }).ToList();
+
             return View(obj);
         }
 
@@ -115,6 +123,7 @@ namespace HMS.Controllers
                                  PatientId = refer.PatientId,
                                  PatientName = patients.Name,
                                  DoctorName = docName.Name,
+                                 Contact = patients.Contact,
                              }).ToList();
 
             return this.View(referrals);

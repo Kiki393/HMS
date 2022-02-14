@@ -65,10 +65,5 @@ namespace HMS.Models
         /// Gets or sets the admin id.
         /// </summary>
         public string AdminId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the comments.
-        /// </summary>
-        public string Comments { get; set; }
     }
 }

@@ -66,6 +66,13 @@ namespace HMS.Controllers
         {
             IEnumerable<Patients> objLisItems = db.Patients;
 
+            ViewData["announcements"] = (from announcement in this.db.Announcements
+                                         select new AnnouncementsVm()
+                                         {
+                                             Announcement = announcement.Announcement,
+                                             For = announcement.For,
+                                         }).ToList();
+
             return View(objLisItems);
         }
 
@@ -296,7 +303,7 @@ namespace HMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddMessage(Messages model)
         {
-            var messages = new Messages { Message = model.Message, Date = DateTime.Now.Date };
+            var messages = new Messages { Message = model.Message, Date = DateTime.Now };
             db.Messages.Add(messages);
             db.SaveChanges();
             return RedirectToAction("ListOfMessages");

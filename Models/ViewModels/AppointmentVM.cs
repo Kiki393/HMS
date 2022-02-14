@@ -73,10 +73,5 @@ namespace HMS.Models.ViewModels
         /// Gets or sets the patient name.
         /// </summary>
         public string PatientName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the comments.
-        /// </summary>
-        public string Comments { get; set; }
     }
 }
