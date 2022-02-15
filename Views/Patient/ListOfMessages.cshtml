@@ -36,8 +36,12 @@
                                 <th>
                                     Date
                                 </th>
-                                <th></th>
-                                <th></th>
+                                <th>
+                                    Edit
+                                </th>
+                                <th>
+                                    Delete
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +65,7 @@
                                         @if (item.Reply != null)
                                         {
                                             <div>
-                                                <a asp-controller="Patient" asp-action="EditMessage" asp-route-Id="@item.Id" style="pointer-events: none"><i class="far fa-edit"  style="color: lightgrey"></i></a>
+                                                <a asp-controller="Patient" asp-action="EditMessage" asp-route-Id="@item.Id" style="pointer-events: none"><i class="far fa-edit" style="color: lightgrey"></i></a>
                                             </div>
                                         }
                                         else
