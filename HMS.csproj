@@ -40,16 +40,4 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\" />
   </ItemGroup>
-  <ItemGroup Label="PneumoniaModel">
-    <None Include="PneumoniaModel.consumption.cs">
-      <DependentUpon>PneumoniaModel.mbconfig</DependentUpon>
-    </None>
-    <None Include="PneumoniaModel.training.cs">
-      <DependentUpon>PneumoniaModel.mbconfig</DependentUpon>
-    </None>
-    <None Include="PneumoniaModel.zip">
-      <DependentUpon>PneumoniaModel.mbconfig</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>
